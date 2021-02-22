@@ -55,6 +55,10 @@ typedef	struct	s_params
 #  define BUFFER_SIZE 5
 # endif
 
+# define LINK1 "link1"
+# define LINK2 "link2"
+# define LINK3 "link3"
+# define LINK4 "link4"
 
 // PROTOTYPES
 
@@ -69,6 +73,13 @@ char	*read_line(char *str, int fd, int *r);
 char	*get_line(char *str, char **line, int r);
 void    ft_error_r(int error);
 void    ft_error_c(int error);
+int     ft_rgb(int nb);
+void    ft_error_wind(int error, char *wind);
+int     ft_wind(char *str);
+int     ft_verify_we(t_params *params);
+int     ft_verify_no(t_params *params);
+int     ft_verify_so(t_params *params);
+int     ft_verify_ea(t_params *params);
 
 
 #endif

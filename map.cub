@@ -1,2 +1,10 @@
 R 500 550
-C 120,215,155
+
+C 210,215,155
+
+
+NO link1
+SO link1
+E link2
+
+WE link1

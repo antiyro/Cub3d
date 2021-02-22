@@ -23,8 +23,6 @@ void    ft_fill_params(char *str, t_params *params)
         params->f = ft_strdup(str);
     else if (str[i] == 'C')
         params->c = ft_strdup(str);
-    else if (str[i] == 'S')
-        params->s = ft_strdup(str);
     else if (str[i] == 'N')
         params->no = ft_strdup(str);
     else if (str[i] == 'S')
@@ -33,7 +31,8 @@ void    ft_fill_params(char *str, t_params *params)
         params->ea = ft_strdup(str);
     else if (str[i] == 'W')
         params->we = ft_strdup(str);
-    
+    else if (str[i] == 'S' && !params->s)
+        params->s = ft_strdup(str);
 }
 
 void    ft_parsing(t_params *params)

@@ -1,10 +1,8 @@
-R 500 550
-
+R 500 500
+F 145,54,5
 C 210,215,155
-
-
 NO link1
 SO link1
-E link2
-
+EA link2
 WE link1
+S obj1

@@ -45,8 +45,25 @@ void    ft_error_c(int error)
     if (error == 1)
     {
         printf("Error\n");
-        printf("- Too few color indicators in ciling\n");
+        printf("- Too few color indicators for the ciling\n");
         printf("- Please write with the following format : C r,g,b\n");
+    }
+    else if (error == 2)
+    {
+        printf("Error\n");
+        printf("- Bad colors values entered\n");
+        printf("- Please enter the indicators as a positive int value ");
+        printf("between 0 and 255\n");
+    }
+}
+
+void    ft_error_f(int error)
+{
+    if (error == 1)
+    {
+        printf("Error\n");
+        printf("- Too few color indicators for the floor\n");
+        printf("- Please write with the following format : F r,g,b\n");
     }
     else if (error == 2)
     {
@@ -80,5 +97,40 @@ void    ft_error_wind(int error, char *wind)
         printf("Error\n");
         printf("- Bad values entered\n");
         printf("- Please enter : NO (north), SO (south), EA (east), WE (west)\n");
+    }
+}
+
+void    ft_error_s(int error)
+{
+    if (error == 1)
+    {
+        printf("Error\n");
+        printf("- Bad values entered\n");
+        printf("- Please write with the following format : S");
+        printf(" /Users/nbouhada/Documents/cub3d/sprite/s\n");
+    }
+    else if (error == 2)
+    {
+        printf("Error\n");
+        printf("- Bad link for the object entered\n");
+        printf("- Please write with the following format : S");
+        printf(" /Users/nbouhada/Documents/cub3d/sprite/s\n");
+        printf("- Substituing link1 by one of the 2 allowed object :\n");
+        printf("- obj1\n- obj2\n");
+    }
+    else if (error == 3)
+    {
+        printf("Error\n");
+        printf("- Bad values entered\n");
+        printf("- Please enter : NO (north), SO (south), EA (east), WE (west)\n");
+    }
+}
+
+void    ft_error_all(int error, char *str)
+{
+    if (error == 1)
+    {
+        printf("Error\n");
+        printf("- Missing %s element in map.cub\n", str);
     }
 }

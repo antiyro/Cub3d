@@ -56,6 +56,13 @@ void	ft_fill_map(char *str, t_params *params)
 			i++;
 		}
 	}
+	if (ft_checkismap(str) && i > 0)
+	{
+		params->map[i] = ft_strdup(str);
+		i++;
+	}
+	if (i != ft_tablen(params->map))
+		ft_error_map(4);
 }
 
 void		ft_parsing_params(t_params *params)
@@ -123,6 +130,7 @@ void		ft_parsing_map(t_params *params, int fd)
 		i++;
 	}
 	params->map = malloc(sizeof(char *) * (i + 3));
+	params->map[i + 2] = 0;
 	ft_fill_map(str, params);
 	int j = 0;
 	while (params->map[j])

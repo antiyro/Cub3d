@@ -77,10 +77,15 @@ void	ft_fill_map(char *str, t_params *params);
 int		ft_onezero(char *str);
 int		ft_one(char *str);
 int		ft_checkismap(char *str);
+int		ft_checkisempty(char *str);
+int		ft_checkisspace(char *str);
+int 	ft_isspace(char c);
+char	**ft_tabcpy(char **tab);
 
 //parsing
 void    ft_parsing_params(t_params *params);
 void    ft_parsing_map(t_params *params, int fd);
+void	ft_parsing_map2(t_params *params, int fd, int *i, int *error, char *str);
 int		get_next_line(int fd, char **line);
 char	*read_line(char *str, int fd, int *r);
 char	*get_line(char *str, char **line, int r);
@@ -89,13 +94,16 @@ char	*get_line(char *str, char **line, int r);
 int     ft_verify_params(char *str, t_params *params);
 int     ft_verify_r(t_params *params);
 int     ft_verify_c(t_params *params);
+int     ft_verify_f(t_params *params);
 int     ft_verify_we(t_params *params);
 int     ft_verify_no(t_params *params);
 int     ft_verify_so(t_params *params);
 int     ft_verify_ea(t_params *params);
 int     ft_verify_s(t_params *params);
 int     ft_verify_all(t_params *params, int *count);
-int     ft_verify_f(t_params *params);
+int		ft_verify_map(t_params *params);
+int     ft_verify_walls(t_params *params);
+int 	ft_verify_flood(t_params *params);
 
 //errors
 void    ft_error_r(int error);

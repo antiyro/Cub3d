@@ -143,6 +143,7 @@ void	ft_error_map(int error)
 		printf("- Invalid declaration of map parameters\n");
 		printf("- Map parameters should be declared at the bottom of map.cup");
 		printf(", after others parameters declarations\n");
+		printf("- It should be the last declaration and should be declared as a matrix without empty lines or spaces\n");
 	}
 	else if (error == 2)
 	{

@@ -111,10 +111,14 @@ void		ft_parsing_map(t_params *params, int fd)
 {
 	char *str;
 	int i;
+	int error;
+	int map;
 
+	error = 0;
+	map = 1;
+	i = 0;
 	ft_putstr_fd("Parsing map matrix", 0);
 	ft_loading();
-	i = 0;
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
@@ -122,20 +126,35 @@ void		ft_parsing_map(t_params *params, int fd)
 	}
 	while (get_next_line(fd, &str) > 0)
 	{
-		if (!ft_checkismap(str))
+		if (ft_checkismap(str))
 		{
-			ft_error_map(3);
+			if (ft_one(str))
+				map -= 1;
+			i++;
+		}
+		else if ((!ft_checkismap(str) && (!map)))
+		{
+			if (ft_checkisspace(str))
+				i += 0;
+			else
+			{
+				ft_error_map(1);
+				error = 1;
+				break ;
+			}
+		}
+		else if ((!ft_checkismap(str) && (map)))
+		{
+			ft_error_map(1);
+			error = 1;
 			break ;
 		}
+	}
+	if (ft_checkismap(str))
 		i++;
-	}
-	params->map = malloc(sizeof(char *) * (i + 3));
-	params->map[i + 2] = 0;
+	params->map = malloc(sizeof(char *) * (i + 2));
+	params->map[i + 1] = 0;
 	ft_fill_map(str, params);
-	int j = 0;
-	while (params->map[j])
-	{
-		printf("%s\n", params->map[j]);
-		j++;
-	}
+	if (!error && ft_verify_map(params))
+		printf("Map parsing done with success !\n");
 }

@@ -22,6 +22,10 @@ void		ft_init_struct(t_params *params)
 	params->so = 0;
 	params->we = 0;
 	params->ea = 0;
+	params->wallup = 0;
+	params->walldown = 0;
+	params->wallleft = 0;
+	params->wallright = 0;
 }
 
 int			ft_rgb(int nb)
@@ -132,9 +136,11 @@ int		ft_checkismap(char *str)
 {
 	int i;
 	int one;
+	int space;
 
 	i = 0;
 	one = 0;
+	space = 0;
 	if (str[0] == '\0')
 		return (0);
 	while (str[i])
@@ -149,6 +155,11 @@ int		ft_checkismap(char *str)
 		if ((str[i] != '1') && (str[i] != 'N') && (str[i] != 'S') && (str[i] != 'E') &&
 			(str[i] != 'W') && (str[i] != '0') && (str[i] != '2') && (str[i] != ' '))
 			return (0);
+		if (str[i] == ' ' && space)
+			return (0);
+		if (str[i] == '1')
+			space = 1;
+
 		i++;
 	}
 	if (!one)

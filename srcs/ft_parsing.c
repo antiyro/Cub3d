@@ -40,7 +40,7 @@ void		ft_fill_params(char *str, t_params *params, int *count)
 	*count += 1;
 }
 
-void	ft_fill_map(char *str, t_params *params)
+int		ft_fill_map(char *str, t_params *params)
 {
 	int i;
 	int count;
@@ -63,6 +63,7 @@ void	ft_fill_map(char *str, t_params *params)
 	}
 	if (i != ft_tablen(params->map))
 		ft_error_map(4);
+	return (1);
 }
 
 void		ft_parsing_params(t_params *params)
@@ -154,7 +155,8 @@ void		ft_parsing_map(t_params *params, int fd)
 		i++;
 	params->map = malloc(sizeof(char *) * (i + 2));
 	params->map[i + 1] = 0;
-	ft_fill_map(str, params);
-	if (!error && ft_verify_map(params))
+	if (!error && ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
+	else
+		ft_error_map(1);
 }

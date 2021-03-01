@@ -140,21 +140,14 @@ void	ft_error_map(int error)
 {
 	if (error == 1)
 	{
-		printf("- Invalid declaration of map parameters\n");
 		printf("- Map parameters should be declared at the bottom of map.cup");
 		printf(", after others parameters declarations\n");
 		printf("- It should be the last declaration and should be declared as a matrix without empty lines or spaces\n");
 	}
 	else if (error == 2)
-	{
-		printf("- Invalid declaration of map parameters\n");
 		printf("- The map should be surrounded by walls (represented by 1's)\n");
-	}
 	else if (error == 3)
-	{
-		printf("- Invalid map declaration\n");
 		printf("- Map should be declared as a matrix without empty lines or spaces\n");
-	}
 	else if (error == 4)
 		printf("- Invalid map declaration\n");
 }

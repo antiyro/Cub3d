@@ -47,6 +47,10 @@ typedef	struct	s_params
 	int		f_g;
 	int		f_b;
 	char		**map;
+	int		wallup;
+	int		walldown;
+	int		wallleft;
+	int		wallright;
 }				t_params;
 
 // DEFINES
@@ -73,7 +77,7 @@ int     ft_rgb(int nb);
 int     ft_wind(char *str);
 int     ft_s(char *str);
 void	ft_loading(void);
-void	ft_fill_map(char *str, t_params *params);
+int	ft_fill_map(char *str, t_params *params);
 int		ft_onezero(char *str);
 int		ft_one(char *str);
 int		ft_checkismap(char *str);

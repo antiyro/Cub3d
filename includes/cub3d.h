@@ -77,7 +77,7 @@ int     ft_rgb(int nb);
 int     ft_wind(char *str);
 int     ft_s(char *str);
 void	ft_loading(void);
-int	ft_fill_map(char *str, t_params *params);
+int		ft_fill_map(char *str, t_params *params);
 int		ft_onezero(char *str);
 int		ft_one(char *str);
 int		ft_checkismap(char *str);
@@ -88,7 +88,7 @@ char	**ft_tabcpy(char **tab);
 
 //parsing
 void    ft_parsing_params(t_params *params);
-void    ft_parsing_map(t_params *params, int fd);
+void    ft_parsing_map(t_params *params, int fd, int *i);
 void	ft_parsing_map2(t_params *params, int fd, int *i, int *error, char *str);
 int		get_next_line(int fd, char **line);
 char	*read_line(char *str, int fd, int *r);

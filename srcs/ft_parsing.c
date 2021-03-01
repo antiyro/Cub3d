@@ -71,8 +71,10 @@ void		ft_parsing_params(t_params *params)
 	char	*str;
 	int		count;
 	int		fd;
+	int i;
 
 	count = 0;
+	i = 0;
 	ft_putstr_fd("Opening map.cup", 0);
 	ft_loading();
 	fd = open("/Users/nbouhada/Documents/cub3d/map.cub", O_RDONLY);
@@ -80,8 +82,10 @@ void		ft_parsing_params(t_params *params)
 	ft_loading();
 	while (get_next_line(fd, &str) > 0 && count != 8)
 		ft_fill_params(str, params, &count);
-	if (count > 1)
+	if (count < 8 && count > 0)
 		ft_fill_params(str, params, &count);
+	else if (ft_checkismap(str))
+		i++;
 	ft_putstr_fd("Checking for errors", 0);
 	ft_loading();
 	if (count > 424240)
@@ -105,19 +109,17 @@ void		ft_parsing_params(t_params *params)
 		printf("- Invalid parameter detected in map.cub\n");
 		return ;
 	}
-	ft_parsing_map(params, fd);
+	ft_parsing_map(params, fd, &i);
 }
 
-void		ft_parsing_map(t_params *params, int fd)
+void		ft_parsing_map(t_params *params, int fd, int *i)
 {
 	char *str;
-	int i;
 	int error;
 	int map;
 
 	error = 0;
 	map = 1;
-	i = 0;
 	ft_putstr_fd("Parsing map matrix", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0)
@@ -131,12 +133,12 @@ void		ft_parsing_map(t_params *params, int fd)
 		{
 			if (ft_one(str))
 				map -= 1;
-			i++;
+			*i += 1;
 		}
 		else if ((!ft_checkismap(str) && (!map)))
 		{
 			if (ft_checkisspace(str))
-				i += 0;
+				*i += 0;
 			else
 			{
 				ft_error_map(1);
@@ -152,9 +154,9 @@ void		ft_parsing_map(t_params *params, int fd)
 		}
 	}
 	if (ft_checkismap(str))
-		i++;
-	params->map = malloc(sizeof(char *) * (i + 2));
-	params->map[i + 1] = 0;
+		*i += 1;
+	params->map = malloc(sizeof(char *) * (*i + 2));
+	params->map[*i + 1] = 0;
 	if (!error && ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else

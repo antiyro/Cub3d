@@ -140,26 +140,19 @@ int		ft_checkismap(char *str)
 
 	i = 0;
 	one = 0;
-	space = 0;
 	if (str[0] == '\0')
 		return (0);
+	if (ft_one(str))
+		return (1);
 	while (str[i])
-	{
-		if (str[i] == '1')
-			one = 1;
-		i++;
-	}
-	i = 0;
-	while (str[i] && one)
 	{
 		if ((str[i] != '1') && (str[i] != 'N') && (str[i] != 'S') && (str[i] != 'E') &&
 			(str[i] != 'W') && (str[i] != '0') && (str[i] != '2') && (str[i] != ' '))
 			return (0);
-		if (str[i] == ' ' && space)
-			return (0);
 		if (str[i] == '1')
-			space = 1;
-
+			one += 1;
+		if (str[i] == ' ' && !ft_ispair(one))
+			return (0);
 		i++;
 	}
 	if (!one)
@@ -211,4 +204,11 @@ char	**ft_tabcpy(char **tab)
 	}
 	tab2[i] = 0;
 	return (tab2);
+}
+
+int		ft_ispair(int n)
+{
+	if (n % 2 != 0)
+		return (0);
+	return (1);
 }

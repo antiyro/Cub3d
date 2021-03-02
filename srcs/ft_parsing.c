@@ -62,7 +62,10 @@ int		ft_fill_map(char *str, t_params *params)
 		i++;
 	}
 	if (i != ft_tablen(params->map))
+	{
 		ft_error_map(4);
+		return (0);
+	}
 	return (1);
 }
 
@@ -112,7 +115,7 @@ void		ft_parsing_params(t_params *params)
 	ft_parsing_map(params, fd, &i);
 }
 
-void		ft_parsing_map(t_params *params, int fd, int *i)
+int		ft_parsing_map(t_params *params, int fd, int *i)
 {
 	char *str;
 	int error;
@@ -142,23 +145,33 @@ void		ft_parsing_map(t_params *params, int fd, int *i)
 			else
 			{
 				ft_error_map(1);
-				error = 1;
-				break ;
+				return (0);
 			}
 		}
 		else if ((!ft_checkismap(str) && (map)))
 		{
 			ft_error_map(1);
-			error = 1;
-			break ;
+			return (0);
 		}
 	}
 	if (ft_checkismap(str))
 		*i += 1;
-	params->map = malloc(sizeof(char *) * (*i + 2));
-	params->map[*i + 1] = 0;
+	if (*i > 0)
+	{
+		params->map = malloc(sizeof(char *) * (*i + 2));
+		params->map[*i + 1] = 0;
+	}
+	else
+	{
+		ft_error_map(5);
+		return (0);
+	}
 	if (!error && ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else
+	{
 		ft_error_map(1);
+		return (0);
+	}
+	return (1);
 }

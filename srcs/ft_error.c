@@ -138,6 +138,7 @@ void	ft_error_all(int error, char *str)
 
 void	ft_error_map(int error)
 {
+	printf("Error\n");
 	if (error == 1)
 	{
 		printf("- Map parameters should be declared at the bottom of map.cup");
@@ -150,4 +151,6 @@ void	ft_error_map(int error)
 		printf("- Map should be declared as a matrix without empty lines or spaces\n");
 	else if (error == 4)
 		printf("- Invalid map declaration\n");
+	else if (error == 5)
+		printf("- Map is missing or invalid\n");
 }

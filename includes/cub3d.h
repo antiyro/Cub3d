@@ -85,10 +85,11 @@ int		ft_checkisempty(char *str);
 int		ft_checkisspace(char *str);
 int 	ft_isspace(char c);
 char	**ft_tabcpy(char **tab);
+int		ft_ispair(int n);
 
 //parsing
 void    ft_parsing_params(t_params *params);
-void    ft_parsing_map(t_params *params, int fd, int *i);
+int     ft_parsing_map(t_params *params, int fd, int *i);
 void	ft_parsing_map2(t_params *params, int fd, int *i, int *error, char *str);
 int		get_next_line(int fd, char **line);
 char	*read_line(char *str, int fd, int *r);

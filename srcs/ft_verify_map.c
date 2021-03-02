@@ -18,7 +18,6 @@ int    ft_verify_map(t_params *params)
         return (0);
     if (!ft_verify_flood(params))
     {
-        printf("Error\n");
         ft_error_map(2);
         return (0);
     }
@@ -29,7 +28,7 @@ int    ft_verify_walls(t_params *params)
 {
     int i;
     int start;
-    int end;
+    int one;
     int map;
 
     i = 0;
@@ -44,10 +43,15 @@ int    ft_verify_walls(t_params *params)
             ft_error_map(2);
             return (0);
         }
-        if (params->map[i][ft_strlen(params->map[i]) - 1] != '1')
+        else
         {
-            ft_error_map(2);
-            return (0);
+            start++;
+            while(ft_isspace(params->map[i][start]) || params->map[i][start] == '0' || params->map[i][start] == '1')
+            {
+                if (ft_isspace(params->map[i][start]))
+                    params->map[i][start] = '1';
+                start++;
+            }
         }
         if (ft_one(params->map[i]))
             map++;
@@ -77,14 +81,16 @@ int ft_verify_flood(t_params *params)
         j = 1;
         while(j < ft_strlen(mapcpy[i]) - 1 && mapcpy[i][j])
         {
-            x = i;
-            y = j;
             params->wallup = 0;
             params->wallright = 0;
             params->wallleft = 0;
             params->walldown = 0;
-            if (ft_isspace(mapcpy[x][y]))
+            while ((ft_isspace(mapcpy[i][j]) || mapcpy[i][j] == '1') && (j < ft_strlen(mapcpy[i])))
                 j++;
+            if (!mapcpy[i][j])
+                break ;
+            x = i;
+            y = j;
             while (x >= 0 && mapcpy[x])
             {
                 if (y < ft_strlen(mapcpy[x]))
@@ -139,6 +145,15 @@ int ft_verify_flood(t_params *params)
                 return (0);
             if (mapcpy[i][j])
                 j++;
+            int k = 0;
+            if (mapcpy)
+            {
+                while(mapcpy[k])
+                {
+                    printf("%s\n", mapcpy[k]);
+                    k++;
+                }
+            }
         }
         i++;
     }

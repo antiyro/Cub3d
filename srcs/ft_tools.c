@@ -151,8 +151,6 @@ int		ft_checkismap(char *str)
 			return (0);
 		if (str[i] == '1')
 			one += 1;
-		if (str[i] == ' ' && !ft_ispair(one))
-			return (0);
 		i++;
 	}
 	if (!one)

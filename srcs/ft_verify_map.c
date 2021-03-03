@@ -21,6 +21,8 @@ int    ft_verify_map(t_params *params)
         ft_error_map(2);
         return (0);
     }
+    if (!ft_verify_spaces(params))
+        return (0);
     return (1);
 }
 
@@ -48,8 +50,8 @@ int    ft_verify_walls(t_params *params)
             start++;
             while(ft_isspace(params->map[i][start]) || params->map[i][start] == '0' || params->map[i][start] == '1')
             {
-                if (ft_isspace(params->map[i][start]))
-                    params->map[i][start] = '1';
+                /*if (ft_isspace(params->map[i][start]))
+                    params->map[i][start] = '1';*/
                 start++;
             }
         }
@@ -154,6 +156,40 @@ int ft_verify_flood(t_params *params)
                     k++;
                 }
             }
+        }
+        i++;
+    }
+    return (1);
+}
+
+int     ft_verify_spaces(t_params *params)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (params->map[i])
+    {
+        j = 0;
+        while (params->map[i][j])
+        {
+            // if (params->map[i][j] == '1')
+            // {
+            //     j++;
+            //     continue ;
+            // }
+            if (params->map[i][j] == '0')
+            {
+                if (params->map[i][j + 1] == ' ')
+                    return (0);
+                if (params->map[i][j - 1] == ' ')
+                    return (0);
+                if (params->map[i + 1][j] == ' ')
+                    return (0);
+                if (params->map[i - 1][j] == ' ')
+                    return (0);
+            }
+            j++;
         }
         i++;
     }

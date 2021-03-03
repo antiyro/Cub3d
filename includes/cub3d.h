@@ -109,6 +109,7 @@ int     ft_verify_all(t_params *params, int *count);
 int		ft_verify_map(t_params *params);
 int     ft_verify_walls(t_params *params);
 int 	ft_verify_flood(t_params *params);
+int		ft_verify_spaces(t_params *params);
 
 //errors
 void    ft_error_r(int error);

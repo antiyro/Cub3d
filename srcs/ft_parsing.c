@@ -166,7 +166,7 @@ int		ft_parsing_map(t_params *params, int fd, int *i)
 		ft_error_map(5);
 		return (0);
 	}
-	if (!error && ft_fill_map(str, params) && ft_verify_map(params))
+	if (ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else
 	{

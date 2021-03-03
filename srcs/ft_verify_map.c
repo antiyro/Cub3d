@@ -53,14 +53,7 @@ int    ft_verify_walls(t_params *params)
             while(ft_isspace(params->map[i][start]) || params->map[i][start] == '0' || params->map[i][start] == '1')
                 start++;
         }
-        if (ft_one(params->map[i]))
-            map++;
         i++;
-    }
-    if (map != 2)
-    {
-        ft_error_map(2);
-        return (0);
     }
     return (1);
 }

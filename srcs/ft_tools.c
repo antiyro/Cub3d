@@ -170,6 +170,8 @@ int		ft_checkisspace(char *str)
 	int i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')

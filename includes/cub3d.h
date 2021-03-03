@@ -51,6 +51,7 @@ typedef	struct	s_params
 	int		walldown;
 	int		wallleft;
 	int		wallright;
+	char	spawn;
 }				t_params;
 
 // DEFINES
@@ -110,6 +111,7 @@ int		ft_verify_map(t_params *params);
 int     ft_verify_walls(t_params *params);
 int 	ft_verify_flood(t_params *params);
 int		ft_verify_spaces(t_params *params);
+int		ft_verify_spawn(t_params *params);
 
 //errors
 void    ft_error_r(int error);

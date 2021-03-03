@@ -23,6 +23,8 @@ int    ft_verify_map(t_params *params)
     }
     if (!ft_verify_spaces(params))
         return (0);
+    if (!ft_verify_spawn(params))
+        return (0);
     return (1);
 }
 
@@ -49,11 +51,7 @@ int    ft_verify_walls(t_params *params)
         {
             start++;
             while(ft_isspace(params->map[i][start]) || params->map[i][start] == '0' || params->map[i][start] == '1')
-            {
-                /*if (ft_isspace(params->map[i][start]))
-                    params->map[i][start] = '1';*/
                 start++;
-            }
         }
         if (ft_one(params->map[i]))
             map++;
@@ -147,15 +145,6 @@ int ft_verify_flood(t_params *params)
                 return (0);
             if (mapcpy[i][j])
                 j++;
-            int k = 0;
-            if (mapcpy)
-            {
-                while(mapcpy[k])
-                {
-                    printf("%s\n", mapcpy[k]);
-                    k++;
-                }
-            }
         }
         i++;
     }
@@ -173,11 +162,6 @@ int     ft_verify_spaces(t_params *params)
         j = 0;
         while (params->map[i][j])
         {
-            // if (params->map[i][j] == '1')
-            // {
-            //     j++;
-            //     continue ;
-            // }
             if (params->map[i][j] == '0')
             {
                 if (params->map[i][j + 1] == ' ')
@@ -188,6 +172,36 @@ int     ft_verify_spaces(t_params *params)
                     return (0);
                 if (params->map[i - 1][j] == ' ')
                     return (0);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (1);
+}
+
+int     ft_verify_spawn(t_params *params)
+{
+    int i;
+    int j;
+    int error;
+
+    i = 0;
+    error = 0;
+    while (params->map[i])
+    {
+        j = 0;
+        while(params->map[i][j])
+        {
+            if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' || params->map[i][j] == 'W' || params->map[i][j] == 'N') && (!error))
+            {
+                params->spawn = params->map[i][j];
+                error = 1;
+            }
+            else if (error)
+            {
+                ft_error_map(6);
+                return (0);
             }
             j++;
         }

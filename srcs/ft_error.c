@@ -153,4 +153,6 @@ void	ft_error_map(int error)
 		printf("- Invalid map declaration\n");
 	else if (error == 5)
 		printf("- Map is missing or invalid\n");
+	else if (error == 5)
+		printf("- There is more than one spawn parameter\n");
 }

@@ -34,6 +34,11 @@ int    ft_verify_map(t_params *params)
         ft_error_map(6);
         return (0);
     }
+    if (!params->spawn)
+    {
+        ft_error_map(8);
+        return (0);
+    }
     if (!ft_verify_garbage(params))
     {
         ft_error_map(7);
@@ -46,7 +51,6 @@ int    ft_verify_walls(t_params *params)
 {
     int i;
     int start;
-    int one;
     int map;
 
     i = 0;
@@ -86,13 +90,13 @@ int ft_verify_flood(t_params *params)
     while(i < ft_tablen(mapcpy) - 1 && mapcpy[i])
     {
         j = 1;
-        while(j < ft_strlen(mapcpy[i]) - 1 && mapcpy[i][j])
+        while(j < (int)ft_strlen(mapcpy[i]) - 1 && mapcpy[i][j])
         {
             params->wallup = 0;
             params->wallright = 0;
             params->wallleft = 0;
             params->walldown = 0;
-            while ((ft_isspace(mapcpy[i][j]) || mapcpy[i][j] == '1') && (j < ft_strlen(mapcpy[i])))
+            while ((ft_isspace(mapcpy[i][j]) || mapcpy[i][j] == '1') && (j < (int)ft_strlen(mapcpy[i])))
                 j++;
             if (!mapcpy[i][j])
                 break ;
@@ -100,7 +104,7 @@ int ft_verify_flood(t_params *params)
             y = j;
             while (x >= 0 && mapcpy[x])
             {
-                if (y < ft_strlen(mapcpy[x]))
+                if (y < (int)ft_strlen(mapcpy[x]))
                 {
                     if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
                         params->wallup = 1;
@@ -112,7 +116,7 @@ int ft_verify_flood(t_params *params)
             x = i;
             while (mapcpy[x])
             {
-                if (y < ft_strlen(mapcpy[x]))
+                if (y < (int)ft_strlen(mapcpy[x]))
                 {
                     if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
                         params->walldown = 1;
@@ -124,7 +128,7 @@ int ft_verify_flood(t_params *params)
             x = i;
             while (mapcpy[x][y])
             {
-                if (y < ft_strlen(mapcpy[x]))
+                if (y < (int)ft_strlen(mapcpy[x]))
                 {
                     if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
                         params->wallright = 1;
@@ -137,7 +141,7 @@ int ft_verify_flood(t_params *params)
             y = j;
             while (y >= 0 && mapcpy[x][y])
             {
-                if (y < ft_strlen(mapcpy[x]))
+                if (y < (int)ft_strlen(mapcpy[x]))
                 {
                     if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
                         params->wallleft = 1;
@@ -218,10 +222,8 @@ int     ft_verify_garbage(t_params *params)
 {
     int i;
     int j;
-    int error;
 
     i = 0;
-    error = 0;
     while (params->map[i])
     {
         j = 0;

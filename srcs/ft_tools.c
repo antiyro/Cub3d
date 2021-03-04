@@ -26,6 +26,7 @@ void		ft_init_struct(t_params *params)
 	params->walldown = 0;
 	params->wallleft = 0;
 	params->wallright = 0;
+	params->spawn = 0;
 }
 
 int			ft_rgb(int nb)
@@ -122,8 +123,8 @@ int		ft_onezero(char *str)
 	int i;
 
 	i = 1;
-	if (str[0] != '1' && str[ft_strlen(str) - 1] != '1')
-	while (str[i] && (i < ft_strlen(str) - 2))
+	if (str[0] != '1' && str[(int)ft_strlen(str) - 1] != '1')
+	while (str[i] && (i < (int)ft_strlen(str) - 2))
 	{
 		if (str[i] != '0')
 			return (0);
@@ -136,7 +137,6 @@ int		ft_checkismap(char *str)
 {
 	int i;
 	int one;
-	int space;
 
 	i = 0;
 	one = 0;

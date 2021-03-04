@@ -43,11 +43,10 @@ void		ft_fill_params(char *str, t_params *params, int *count)
 int		ft_fill_map(char *str, t_params *params)
 {
 	int i;
-	int count;
 	int fd;
 
 	i = 0;
-	fd = open("/Users/nbouhada/Documents/cub3d/map.cub", O_RDONLY);
+	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
@@ -80,7 +79,7 @@ void		ft_parsing_params(t_params *params)
 	i = 0;
 	ft_putstr_fd("Opening map.cup", 0);
 	ft_loading();
-	fd = open("/Users/nbouhada/Documents/cub3d/map.cub", O_RDONLY);
+	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
 	ft_putstr_fd("Parsing map parameters", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0 && count != 8)
@@ -99,7 +98,7 @@ void		ft_parsing_params(t_params *params)
 	ft_verify_all(params, &count);
 	if (count == 8)
 	{
-		if (ft_verify_params(str, params))
+		if (ft_verify_params(params))
 			printf("Paramaters parsing done with success !\n");
 		else
 		{

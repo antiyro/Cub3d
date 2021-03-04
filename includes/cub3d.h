@@ -97,7 +97,7 @@ char	*read_line(char *str, int fd, int *r);
 char	*get_line(char *str, char **line, int r);
 
 //verify
-int     ft_verify_params(char *str, t_params *params);
+int     ft_verify_params(t_params *params);
 int     ft_verify_r(t_params *params);
 int     ft_verify_c(t_params *params);
 int     ft_verify_f(t_params *params);

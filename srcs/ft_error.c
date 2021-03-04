@@ -157,4 +157,6 @@ void	ft_error_map(int error)
 		printf("- There is more than one spawn parameter\n");
 	else if (error == 7)
 		printf("- Invalid map character detected\n");
+	else if (error == 8)
+		printf("- Missing spawn parameter\n");
 }

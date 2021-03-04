@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-int			ft_verify_params(char *str, t_params *params)
+int			ft_verify_params(t_params *params)
 {
 	if (!ft_verify_r(params))
 		return (0);

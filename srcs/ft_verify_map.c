@@ -25,9 +25,15 @@ int    ft_verify_map(t_params *params)
         return (0);
     }
     if (!ft_verify_spaces(params))
+    {
+        ft_error_map(3);
         return (0);
+    }
     if (!ft_verify_spawn(params))
+    {
+        ft_error_map(6);
         return (0);
+    }
     if (!ft_verify_garbage(params))
     {
         ft_error_map(7);
@@ -200,10 +206,7 @@ int     ft_verify_spawn(t_params *params)
                 error = 1;
             }
             else if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' || params->map[i][j] == 'W' || params->map[i][j] == 'N') && (error))
-            {
-                ft_error_map(6);
                 return (0);
-            }
             j++;
         }
         i++;

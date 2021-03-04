@@ -15,7 +15,10 @@
 int    ft_verify_map(t_params *params)
 {
     if (!ft_verify_walls(params))
+    {
+        ft_error_map(2);
         return (0);
+    }
     if (!ft_verify_flood(params))
     {
         ft_error_map(2);
@@ -25,6 +28,11 @@ int    ft_verify_map(t_params *params)
         return (0);
     if (!ft_verify_spawn(params))
         return (0);
+    if (!ft_verify_garbage(params))
+    {
+        ft_error_map(7);
+        return (0);
+    }
     return (1);
 }
 
@@ -191,11 +199,34 @@ int     ft_verify_spawn(t_params *params)
                 params->spawn = params->map[i][j];
                 error = 1;
             }
-            else if (error)
+            else if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' || params->map[i][j] == 'W' || params->map[i][j] == 'N') && (error))
             {
                 ft_error_map(6);
                 return (0);
             }
+            j++;
+        }
+        i++;
+    }
+    return (1);
+}
+
+int     ft_verify_garbage(t_params *params)
+{
+    int i;
+    int j;
+    int error;
+
+    i = 0;
+    error = 0;
+    while (params->map[i])
+    {
+        j = 0;
+        while(params->map[i][j])
+        {
+            if ((params->map[i][j] != 'S' && params->map[i][j] != 'E' && params->map[i][j] != 'W' && params->map[i][j] != 'N' &&
+                params->map[i][j] != '1' && params->map[i][j] != '0' && params->map[i][j] != '2' && params->map[i][j] != ' '))
+                return (0);
             j++;
         }
         i++;

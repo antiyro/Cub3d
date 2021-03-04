@@ -119,39 +119,45 @@ int		ft_parsing_map(t_params *params, int fd, int *i)
 {
 	char *str;
 	int error;
-	int map;
 
 	error = 0;
-	map = 0;
 	ft_putstr_fd("Parsing map matrix", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
 			break ;
+		else if (ft_checkisspace(str))
+			continue ;
+		else
+		{
+			ft_error_messages(1);
+			return (0);
+		}
 	}
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
 		{
-			if (ft_one(str))
-				map -= 1;
-			*i += 1;
-		}
-		else if ((!ft_checkismap(str) && (!map)))
-		{
-			if (ft_checkisspace(str))
-				*i += 0;
-			else
+			if (error)
 			{
 				ft_error_map(1);
 				return (0);
 			}
+			*i += 1;
 		}
-		else if ((!ft_checkismap(str) && (map)))
+		if ((!ft_checkismap(str)))
 		{
-			ft_error_map(1);
-			return (0);
+			if (ft_checkisspace(str))
+			{
+				*i += 0;
+				error = 1;
+			}
+			else if (!ft_checkisspace(str) && error)
+			{
+				ft_error_map(1);
+				return (0);
+			}
 		}
 	}
 	if (ft_checkismap(str))
@@ -169,9 +175,6 @@ int		ft_parsing_map(t_params *params, int fd, int *i)
 	if (ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else
-	{
-		ft_error_map(1);
 		return (0);
-	}
 	return (1);
 }

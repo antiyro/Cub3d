@@ -112,8 +112,10 @@ int     ft_verify_walls(t_params *params);
 int 	ft_verify_flood(t_params *params);
 int		ft_verify_spaces(t_params *params);
 int		ft_verify_spawn(t_params *params);
+int		ft_verify_garbage(t_params *params);
 
 //errors
+void	ft_error_messages(int error);
 void    ft_error_r(int error);
 void    ft_error_c(int error);
 void    ft_error_f(int error);

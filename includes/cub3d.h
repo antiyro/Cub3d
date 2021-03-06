@@ -27,7 +27,7 @@
 
 // STRUCTURES
 
-typedef	struct	s_params
+typedef	struct		s_params
 {
 	char	*r;
 	char	*f;
@@ -37,8 +37,8 @@ typedef	struct	s_params
 	char	*we;
 	char	*ea;
 	char	*so;
-	int 	menu;
-	int 	x;
+	int		menu;
+	int		x;
 	int		y;
 	int		c_r;
 	int		c_g;
@@ -46,13 +46,13 @@ typedef	struct	s_params
 	int		f_r;
 	int		f_g;
 	int		f_b;
-	char		**map;
+	char	**map;
 	int		wallup;
 	int		walldown;
 	int		wallleft;
 	int		wallright;
 	char	spawn;
-}				t_params;
+}					t_params;
 
 // DEFINES
 
@@ -72,56 +72,57 @@ typedef	struct	s_params
 // PROTOTYPES
 
 //tools
-void    ft_init_struct(t_params *params);
-void   	ft_fill_params(char *str, t_params *params, int *count);
-int     ft_rgb(int nb);
-int     ft_wind(char *str);
-int     ft_s(char *str);
-void	ft_loading(void);
-int		ft_fill_map(char *str, t_params *params);
-int		ft_onezero(char *str);
-int		ft_one(char *str);
-int		ft_checkismap(char *str);
-int		ft_checkisempty(char *str);
-int		ft_checkisspace(char *str);
-int 	ft_isspace(char c);
-char	**ft_tabcpy(char **tab);
-int		ft_ispair(int n);
+void				ft_init_struct(t_params *params);
+void				ft_fill_params(char *str, t_params *params, int *count);
+int					ft_rgb(int nb);
+int					ft_wind(char *str);
+int					ft_s(char *str);
+void				ft_loading(void);
+int					ft_fill_map(char *str, t_params *params);
+int					ft_onezero(char *str);
+int					ft_one(char *str);
+int					ft_checkismap(char *str);
+int					ft_checkisempty(char *str);
+int					ft_checkisspace(char *str);
+int					ft_isspace(char c);
+char				**ft_tabcpy(char **tab);
+int					ft_ispair(int n);
 
 //parsing
-void    ft_parsing_params(t_params *params);
-int     ft_parsing_map(t_params *params, int fd, int *i);
-void	ft_parsing_map2(t_params *params, int fd, int *i, int *error, char *str);
-int		get_next_line(int fd, char **line);
-char	*read_line(char *str, int fd, int *r);
-char	*get_line(char *str, char **line, int r);
+void				ft_parsing_params(t_params *params);
+int					ft_parsing_map(t_params *params, int fd, int *i);
+void				ft_parsing_map2(t_params
+						*params, int fd, int *i, int *error, char *str);
+int					get_next_line(int fd, char **line);
+char				*read_line(char *str, int fd, int *r);
+char				*get_line(char *str, char **line, int r);
 
 //verify
-int     ft_verify_params(t_params *params);
-int     ft_verify_r(t_params *params);
-int     ft_verify_c(t_params *params);
-int     ft_verify_f(t_params *params);
-int     ft_verify_we(t_params *params);
-int     ft_verify_no(t_params *params);
-int     ft_verify_so(t_params *params);
-int     ft_verify_ea(t_params *params);
-int     ft_verify_s(t_params *params);
-int     ft_verify_all(t_params *params, int *count);
-int		ft_verify_map(t_params *params);
-int     ft_verify_walls(t_params *params);
-int 	ft_verify_flood(t_params *params);
-int		ft_verify_spaces(t_params *params);
-int		ft_verify_spawn(t_params *params);
-int		ft_verify_garbage(t_params *params);
+int					ft_verify_params(t_params *params);
+int					ft_verify_r(t_params *params);
+int					ft_verify_c(t_params *params);
+int					ft_verify_f(t_params *params);
+int					ft_verify_we(t_params *params);
+int					ft_verify_no(t_params *params);
+int					ft_verify_so(t_params *params);
+int					ft_verify_ea(t_params *params);
+int					ft_verify_s(t_params *params);
+int					ft_verify_all(t_params *params, int *count);
+int					ft_verify_map(t_params *params);
+int					ft_verify_walls(t_params *params);
+int					ft_verify_flood(t_params *params);
+int					ft_verify_spaces(t_params *params);
+int					ft_verify_spawn(t_params *params);
+int					ft_verify_garbage(t_params *params);
 
 //errors
-void	ft_error_messages(int error);
-void    ft_error_r(int error);
-void    ft_error_c(int error);
-void    ft_error_f(int error);
-void    ft_error_wind(int error, char *wind);
-void    ft_error_s(int error);
-void    ft_error_all(int error, char *str);
-void	ft_error_map(int error);
+void				ft_error_messages(int error);
+void				gccft_error_r(int error);
+void				gccft_error_c(int error);
+void				gccft_error_f(int error);
+void				gccft_error_wind(int error, char *wind);
+void				gccft_error_s(int error);
+void				gccft_error_all(int error, char *str);
+void				ft_error_map(int error);
 
 #endif

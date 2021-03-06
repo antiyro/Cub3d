@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouhada <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/02/18 10:42:43 by nbouhada         ###   ########.fr       */
+/*   Updated: 2021/03/06 11:48:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int					ft_wind(char *str);
 int					ft_s(char *str);
 void				ft_loading(void);
 int					ft_fill_map(char *str, t_params *params);
-int					ft_onezero(char *str);
 int					ft_one(char *str);
 int					ft_checkismap(char *str);
 int					ft_checkisempty(char *str);
@@ -117,12 +116,12 @@ int					ft_verify_garbage(t_params *params);
 
 //errors
 void				ft_error_messages(int error);
-void				gccft_error_r(int error);
-void				gccft_error_c(int error);
-void				gccft_error_f(int error);
-void				gccft_error_wind(int error, char *wind);
-void				gccft_error_s(int error);
-void				gccft_error_all(int error, char *str);
+void				ft_error_r(int error);
+void				ft_error_c(int error);
+void				ft_error_f(int error);
+void				ft_error_wind(int error, char *wind);
+void				ft_error_s(int error);
+void				ft_error_all(int error, char *str);
 void				ft_error_map(int error);
 
 #endif

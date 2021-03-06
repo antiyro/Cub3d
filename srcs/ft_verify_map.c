@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:38 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 11:59:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:44:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			ft_verify_walls(t_params *params)
 	{
 		start = 0;
 		while (ft_isspace(params->map[i][start]))
-				start++;
+			start++;
 		if (params->map[i][start] != '1')
 		{
 			ft_error_map(2);
@@ -65,7 +65,8 @@ int			ft_verify_walls(t_params *params)
 		else
 		{
 			start++;
-			while (ft_isspace(params->map[i][start]) || params->map[i][start] == '0' || params->map[i][start] == '1')
+			while (ft_isspace(params->map[i][start]) ||
+				params->map[i][start] == '0' || params->map[i][start] == '1')
 				start++;
 		}
 		i++;
@@ -92,7 +93,8 @@ int			ft_verify_flood(t_params *params)
 			params->wallright = 0;
 			params->wallleft = 0;
 			params->walldown = 0;
-			while ((ft_isspace(mapcpy[i][j]) || mapcpy[i][j] == '1') && (j < (int)ft_strlen(mapcpy[i])))
+			while ((ft_isspace(mapcpy[i][j]) || mapcpy[i][j] == '1') &&
+				(j < (int)ft_strlen(mapcpy[i])))
 				j++;
 			if (!mapcpy[i][j])
 				break ;
@@ -143,7 +145,8 @@ int			ft_verify_flood(t_params *params)
 					return (0);
 				y--;
 			}
-			if (params->walldown && params->walldown && params->walldown && params->walldown)
+			if (params->walldown && params->walldown && params->walldown
+				&& params->walldown)
 				mapcpy[i][j] = 'X';
 			else
 				return (0);
@@ -197,12 +200,16 @@ int			ft_verify_spawn(t_params *params)
 		j = 0;
 		while (params->map[i][j])
 		{
-			if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' || params->map[i][j] == 'W' || params->map[i][j] == 'N') && (!error))
+			if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' ||
+				params->map[i][j] == 'W' || params->map[i][j] == 'N')
+					&& (!error))
 			{
 				params->spawn = params->map[i][j];
 				error = 1;
 			}
-			else if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' || params->map[i][j] == 'W' || params->map[i][j] == 'N') && (error))
+			else if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' ||
+				params->map[i][j] == 'W' || params->map[i][j] == 'N')
+					&& (error))
 				return (0);
 			j++;
 		}
@@ -222,8 +229,10 @@ int			ft_verify_garbage(t_params *params)
 		j = 0;
 		while (params->map[i][j])
 		{
-			if ((params->map[i][j] != 'S' && params->map[i][j] != 'E' && params->map[i][j] != 'W' && params->map[i][j] != 'N' &&
-				params->map[i][j] != '1' && params->map[i][j] != '0' && params->map[i][j] != '2' && params->map[i][j] != ' '))
+			if ((params->map[i][j] != 'S' && params->map[i][j] != 'E' &&
+				params->map[i][j] != 'W' && params->map[i][j] != 'N' &&
+				params->map[i][j] != '1' && params->map[i][j] != '0' &&
+					params->map[i][j] != '2' && params->map[i][j] != ' '))
 				return (0);
 			j++;
 		}

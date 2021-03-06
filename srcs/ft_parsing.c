@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 13:26:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:35:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		ft_parsing_params(t_params *params)
 	char	*str;
 	int		count;
 	int		fd;
-	int i;
+	int		i;
 
 	count = 0;
 	i = 0;
@@ -93,7 +93,7 @@ void		ft_parsing_params(t_params *params)
 	ft_parsing_params2(params, &count, fd, &i);
 }
 
-void	ft_parsing_params2(t_params *params, int *count, int fd, int *i)
+void		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 {
 	if (*count > 424240)
 	{
@@ -121,7 +121,7 @@ void	ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 
 int			ft_parsing_map(t_params *params, int fd, int *i)
 {
-	char 	*str;
+	char	*str;
 	int		error;
 
 	error = 0;

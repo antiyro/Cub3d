@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 13:13:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 14:27:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef	struct		s_params
 	int		wallleft;
 	int		wallright;
 	char	spawn;
+	char	*mapfile;
 }					t_params;
 
 // DEFINES

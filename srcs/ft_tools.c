@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 13:32:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 14:27:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		ft_init_struct(t_params *params)
 	params->wallleft = 0;
 	params->wallright = 0;
 	params->spawn = 0;
+	params->mapfile = 0;
 }
 
 int			ft_rgb(int nb)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouhada <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/02/18 11:35:11 by nbouhada         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:26:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void		ft_fill_params(char *str, t_params *params, int *count)
 	*count += 1;
 }
 
-int		ft_fill_map(char *str, t_params *params)
+int			ft_fill_map(char *str, t_params *params)
 {
-	int i;
-	int fd;
+	int		i;
+	int		fd;
 
 	i = 0;
 	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
@@ -82,7 +82,7 @@ void		ft_parsing_params(t_params *params)
 	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
 	ft_putstr_fd("Parsing map parameters", 0);
 	ft_loading();
-	while (get_next_line(fd, &str) > 0 && count != 8)
+	while (get_next_line(fd, &str) > 0 && count != 7)
 		ft_fill_params(str, params, &count);
 	if (count < 8 && count > 0)
 		ft_fill_params(str, params, &count);
@@ -90,13 +90,18 @@ void		ft_parsing_params(t_params *params)
 		i++;
 	ft_putstr_fd("Checking for errors", 0);
 	ft_loading();
-	if (count > 424240)
+	ft_parsing_params2(params, &count, fd, &i);
+}
+
+void	ft_parsing_params2(t_params *params, int *count, int fd, int *i)
+{
+	if (*count > 424240)
 	{
 		ft_error_map(1);
 		return ;
 	}
-	ft_verify_all(params, &count);
-	if (count == 8)
+	ft_verify_all(params, count);
+	if (*count == 8)
 	{
 		if (ft_verify_params(params))
 			printf("Paramaters parsing done with success !\n");
@@ -108,16 +113,16 @@ void		ft_parsing_params(t_params *params)
 	}
 	else
 	{
-		printf("- Invalid parameter detected in map.cub\n");
+		ft_error_messages(1);
 		return ;
 	}
-	ft_parsing_map(params, fd, &i);
+	ft_parsing_map(params, fd, i);
 }
 
-int		ft_parsing_map(t_params *params, int fd, int *i)
+int			ft_parsing_map(t_params *params, int fd, int *i)
 {
-	char *str;
-	int error;
+	char 	*str;
+	int		error;
 
 	error = 0;
 	ft_putstr_fd("Parsing map matrix", 0);

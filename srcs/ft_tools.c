@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 11:45:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 13:32:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void		ft_init_struct(t_params *params)
 	params->so = 0;
 	params->we = 0;
 	params->ea = 0;
+	params->x = 0;
+	params->y = 0;
 	params->wallup = 0;
 	params->walldown = 0;
 	params->wallleft = 0;

@@ -19,7 +19,7 @@ int		main(void)
 	ft_init_struct(&params);
 	ft_parsing_params(&params);
 
-    int k = 0;
+    /*int k = 0;
 	if (params.map)
 	{
 		while(params.map[k])
@@ -27,5 +27,5 @@ int		main(void)
 			printf("%s\n", params.map[k]);
 			k++;
 		}
-	}
+	}*/
 }

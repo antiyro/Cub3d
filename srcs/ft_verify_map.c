@@ -15,10 +15,7 @@
 int    ft_verify_map(t_params *params)
 {
     if (!ft_verify_walls(params))
-    {
-        ft_error_map(2);
         return (0);
-    }
     if (!ft_verify_flood(params))
     {
         ft_error_map(2);
@@ -85,11 +82,10 @@ int ft_verify_flood(t_params *params)
     int y;
 
     i = 1;
-    j = 1;
     mapcpy = ft_tabcpy(params->map);
-    while(i < ft_tablen(mapcpy) - 1 && mapcpy[i])
+    while(i < ft_tablen(mapcpy) && mapcpy[i])
     {
-        j = 1;
+        j = 0;
         while(j < (int)ft_strlen(mapcpy[i]) - 1 && mapcpy[i][j])
         {
             params->wallup = 0;
@@ -128,15 +124,12 @@ int ft_verify_flood(t_params *params)
             x = i;
             while (mapcpy[x][y])
             {
-                if (y < (int)ft_strlen(mapcpy[x]))
-                {
-                    if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
-                        params->wallright = 1;
-                }
-                else if (!params->wallright)
-                    return(0);
+                if (mapcpy[x][y] == '1' || mapcpy[x][y] == 'X')
+                    params->wallright = 1;
                 y++;
             }
+            if (!params->wallright)
+                return(0);
             x = i;
             y = j;
             while (y >= 0 && mapcpy[x][y])
@@ -159,6 +152,15 @@ int ft_verify_flood(t_params *params)
         }
         i++;
     }
+    int k = 0;
+	if (mapcpy)
+	{
+		while(mapcpy[k])
+		{
+			printf("%s\n", mapcpy[k]);
+			k++;
+		}
+	}
     return (1);
 }
 

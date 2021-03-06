@@ -145,14 +145,14 @@ int		ft_parsing_map(t_params *params, int fd, int *i)
 			}
 			*i += 1;
 		}
-		if ((!ft_checkismap(str)))
+		else if ((!ft_checkismap(str)))
 		{
 			if (ft_checkisspace(str))
 			{
 				*i += 0;
 				error = 1;
 			}
-			else if (!ft_checkisspace(str) && error)
+			else if (!ft_checkisspace(str))
 			{
 				ft_error_map(1);
 				return (0);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 14:35:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/06 15:19:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			ft_fill_map(char *str, t_params *params)
 	int		fd;
 
 	i = 0;
-	fd = open(params->mapfile, O_RDONLY);
+	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
@@ -79,7 +79,7 @@ void		ft_parsing_params(t_params *params)
 	i = 0;
 	ft_putstr_fd("Opening map.cup", 0);
 	ft_loading();
-	fd = open(params->mapfile, O_RDONLY);
+	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
 	ft_putstr_fd("Parsing map parameters", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0 && count != 7)

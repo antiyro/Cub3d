@@ -8,6 +8,8 @@ OBJS =		${_SRCS:.c=.o}
 
 FLAGS =		-Wall -Wextra -Werror
 
+LIBFT =		srcs/libft
+
 MLX_DIR = mlx
 MLX = libmlx.a
 
@@ -15,7 +17,7 @@ MLX = libmlx.a
 			@clang ${FLAGS} -I${./} -c $< -o ${<:.c=.o}
 
 all :
-			@make ${NAME}
+		${NAME}
 
 $(NAME): $(OBJS)
 		${CC} $(CFLAGS) -o $(NAME) $(OBJ) -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext

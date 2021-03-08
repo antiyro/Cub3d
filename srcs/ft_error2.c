@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:28:02 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 11:33:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 09:49:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,14 @@ void	ft_error_map(int error)
 		printf("- Invalid map character detected\n");
 	else if (error == 8)
 		printf("- Missing spawn parameter\n");
+}
+
+void	ft_error_system(int error)
+{
+	printf("Error\n");
+	if (error == 1)
+	{
+		printf("- Opening of the .cub file failed\n");
+		printf("- Please use the right filepath and an existing map\n");
+	}
 }

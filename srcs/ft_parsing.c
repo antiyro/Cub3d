@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 15:19:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:45:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ int			ft_fill_map(char *str, t_params *params)
 	int		fd;
 
 	i = 0;
-	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
+	fd = open(params->mapfile, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_error_system(1);
+		return (0);
+	}
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
@@ -68,7 +73,7 @@ int			ft_fill_map(char *str, t_params *params)
 	return (1);
 }
 
-void		ft_parsing_params(t_params *params)
+int		ft_parsing_params(t_params *params)
 {
 	char	*str;
 	int		count;
@@ -79,7 +84,12 @@ void		ft_parsing_params(t_params *params)
 	i = 0;
 	ft_putstr_fd("Opening map.cup", 0);
 	ft_loading();
-	fd = open("/home/user42/Documents/cub3d/map.cub", O_RDONLY);
+	fd = open(params->mapfile, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_error_system(1);
+		return (0);
+	}
 	ft_putstr_fd("Parsing map parameters", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0 && count != 7)
@@ -90,15 +100,17 @@ void		ft_parsing_params(t_params *params)
 		i++;
 	ft_putstr_fd("Checking for errors", 0);
 	ft_loading();
-	ft_parsing_params2(params, &count, fd, &i);
+	if (!ft_parsing_params2(params, &count, fd, &i))
+		return (0);
+	return (1);
 }
 
-void		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
+int		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 {
 	if (*count > 424240)
 	{
 		ft_error_map(1);
-		return ;
+		return (0);
 	}
 	ft_verify_all(params, count);
 	if (*count == 8)
@@ -108,15 +120,17 @@ void		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 		else
 		{
 			printf("- Parameters parsing returned error\n");
-			return ;
+			return (0);
 		}
 	}
 	else
 	{
 		ft_error_messages(1);
-		return ;
+		return (0);
 	}
-	ft_parsing_map(params, fd, i);
+	if (!ft_parsing_map(params, fd, i))
+		return (0);
+	return (1);
 }
 
 int			ft_parsing_map(t_params *params, int fd, int *i)
@@ -176,6 +190,8 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		ft_error_map(5);
 		return (0);
 	}
+	ft_putstr_fd("Checking for errors", 0);
+	ft_loading();
 	if (ft_fill_map(str, params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else

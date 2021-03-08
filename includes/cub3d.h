@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 14:27:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 15:14:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,17 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "../srcs/libft/libft.h"
+# include "../mlx/mlx.h"
 
 // STRUCTURES
+
+typedef	struct 	s_spawn
+{
+	int	x;
+	int y;
+	char wind;
+}				t_spawn;
+
 
 typedef	struct		s_params
 {
@@ -51,9 +60,17 @@ typedef	struct		s_params
 	int		walldown;
 	int		wallleft;
 	int		wallright;
-	char	spawn;
+	t_spawn spawn;
+	
 	char	*mapfile;
 }					t_params;
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+}				t_window;
+
 
 // DEFINES
 
@@ -87,13 +104,12 @@ int					ft_checkisspace(char *str);
 int					ft_isspace(char c);
 char				**ft_tabcpy(char **tab);
 int					ft_ispair(int n);
+int					ft_spawn(char c);
 
 //parsing
-void				ft_parsing_params(t_params *params);
-void				ft_parsing_params2(t_params *params, int *count, int fd, int *i);
+int					ft_parsing_params(t_params *params);
+int					ft_parsing_params2(t_params *params, int *count, int fd, int *i);
 int					ft_parsing_map(t_params *params, int fd, int *i);
-void				ft_parsing_map2(t_params
-						*params, int fd, int *i, int *error, char *str);
 int					get_next_line(int fd, char **line);
 char				*read_line(char *str, int fd, int *r);
 char				*get_line(char *str, char **line, int r);
@@ -116,6 +132,12 @@ int					ft_verify_spaces(t_params *params);
 int					ft_verify_spawn(t_params *params);
 int					ft_verify_garbage(t_params *params);
 
+//window
+int    				ft_init_window(t_params *params);
+void				ft_print_pixel(t_window *window, int x, int y, int color);
+void				ft_init_struct_window(t_window *window);
+int					ft_init_minimap(t_params *params, t_window *window);
+
 //errors
 void				ft_error_messages(int error);
 void				ft_error_r(int error);
@@ -125,5 +147,6 @@ void				ft_error_wind(int error, char *wind);
 void				ft_error_s(int error);
 void				ft_error_all(int error, char *str);
 void				ft_error_map(int error);
+void				ft_error_system(int error);
 
 #endif

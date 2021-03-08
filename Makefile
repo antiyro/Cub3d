@@ -1,30 +1,54 @@
-NAME =		cub3d
+NAME = cub3D
+
+MAIN = ./srcs/cub3d.c
+
+OBJ_MAIN = ${MAIN:.c=.o}
 
 SRCS =		srcs/cub3d.c srcs/ft_error.c srcs/ft_error2.c srcs/ft_parsing.c \
 	 		srcs/ft_tools.c srcs/ft_tools2.c srcs/ft_verify_map.c \
-			srcs/ft_verify_params.c srcs/ft_vrify_params2.c srcs/get_next_line.c \
+			srcs/ft_verify_params.c srcs/ft_verify_params2.c srcs/get_next_line.c \
+			srcs/ft_window.c \
 
-OBJS =		${_SRCS:.c=.o}
+PATH_SRCS = ./
 
-FLAGS =		-Wall -Wextra -Werror
+_SRCS = ${addprefix ${PATH_SRCS}, ${SRCS}}
 
-LIBFT =		srcs/libft
+OBJS = ${_SRCS:.c=.o}
 
-MLX_DIR = mlx
-MLX = libmlx.a
+LINK = ar rc
+
+CC = clang
+
+FLAGS = -Wall -Werror -Wextra
+
+RM = rm -rf
+
+PATH_HEADER = ./
 
 .c.o:
-			@clang ${FLAGS} -I${./} -c $< -o ${<:.c=.o}
+			${CC} ${FLAGS} -I${PATH_HEADER} -c $< -o ${<:.c=.o}
 
-all :
-		${NAME}
+MYLIB = mylib.a
 
-$(NAME): $(OBJS)
-		${CC} $(CFLAGS) -o $(NAME) $(OBJ) -L $(MLX_DIR) -lmlx -lm -lbsd -lX11 -lXext
+PATH_MLX_LINUX = ./mlx/
 
-fclean:		clean
-				@rm -rf ${NAME} ${MYLIB} ${MLX}
+MLX_LINUX = ./mlx/libmlx_Linux.a
 
-re:			fclean all
+all:        ${NAME}
 
-.PHONY:		all clean fclean re
+${NAME}:    ${MV} ${OBJ_MAIN} ${OBJS}
+			${LINK} ${MYLIB} ${OBJS}
+			ranlib ${MYLIB}
+			make -C ${PATH_MLX_LINUX}
+			${CC} ${FLAGS} -o3 ${OBJ_MAIN} ${MYLIB} ${MLX_LINUX} -lm -lbsd -lX11 -lXext -o ${NAME} srcs/libft/libft.a
+
+clean:
+			${RM} ${OBJ_MAIN} ${OBJS}
+			make clean -C ${PATH_MLX_LINUX}
+
+fclean:     clean
+			${RM} ${NAME} ${MYLIB} ${MLX_LINUX}
+
+re:         fclean all
+
+.PHONY:     all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 14:27:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 15:08:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,16 @@ void		ft_init_struct(t_params *params)
 	params->walldown = 0;
 	params->wallleft = 0;
 	params->wallright = 0;
-	params->spawn = 0;
+	params->spawn.wind = 0;
+	params->spawn.x = 0;
+	params->spawn.y = 0;
 	params->mapfile = 0;
+}
+
+void	ft_init_struct_window(t_window *window)
+{
+	window->mlx = 0;
+	window->mlx_win = 0;
 }
 
 int			ft_rgb(int nb)
@@ -88,4 +96,34 @@ void		ft_loading(void)
 		i++;
 	}
 	printf("\n");
+}
+
+void	ft_print_pixel(t_window *window, int x, int y, int color)
+{
+	int i;
+	int j;
+	int tmpx;
+
+	i = 0;
+	tmpx = x;
+	while (i < 10)
+	{
+		j = 0;
+		x = tmpx;
+		while (j < 10)
+		{
+			mlx_pixel_put(window->mlx, window->mlx_win, x, y, color);
+			j++;
+			x++;
+		}
+		i++;
+		y++;
+	}
+}
+
+int		ft_spawn(char c)
+{
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+		return (1);
+	return (0);
 }

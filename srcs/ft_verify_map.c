@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:38 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 13:44:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:02:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ft_verify_map(t_params *params)
 		ft_error_map(6);
 		return (0);
 	}
-	if (!params->spawn)
+	if (!params->spawn.wind)
 	{
 		ft_error_map(8);
 		return (0);
@@ -204,7 +204,10 @@ int			ft_verify_spawn(t_params *params)
 				params->map[i][j] == 'W' || params->map[i][j] == 'N')
 					&& (!error))
 			{
-				params->spawn = params->map[i][j];
+				params->spawn.wind = params->map[i][j];
+				params->spawn.x = j;
+				params->spawn.y = i;
+				params->map[i][j] = '0';
 				error = 1;
 			}
 			else if ((params->map[i][j] == 'S' || params->map[i][j] == 'E' ||

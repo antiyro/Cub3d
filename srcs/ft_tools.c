@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/08 15:08:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/13 11:11:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ void	ft_init_struct_window(t_window *window)
 {
 	window->mlx = 0;
 	window->mlx_win = 0;
+	window->mlx_img = 0;
+	window->mlx_img_data = 0;
+	window->bpp = 0;
+	window->size_line = 0;
+	window->bpp = 0;
+	window->x = 0;
+	window->y = 0;
 }
 
 int			ft_rgb(int nb)
@@ -98,27 +105,31 @@ void		ft_loading(void)
 	printf("\n");
 }
 
-void	ft_print_pixel(t_window *window, int x, int y, int color)
+void	ft_print_pixel(t_params *params, int color)
 {
 	int i;
 	int j;
 	int tmpx;
+	int tmpy;
 
 	i = 0;
-	tmpx = x;
-	while (i < 10)
+	tmpx = params->window.x;
+	tmpy = params->window.y;
+	while (i < 11)
 	{
 		j = 0;
-		x = tmpx;
-		while (j < 10)
+		params->window.x = tmpx;
+		while (j < 11)
 		{
-			mlx_pixel_put(window->mlx, window->mlx_win, x, y, color);
+			params->window.mlx_img_data[params->window.x * 4 + 4 * 800 * params->window.y] = color;
+			params->window.x++;
 			j++;
-			x++;
 		}
+		params->window.y++;
 		i++;
-		y++;
 	}
+	params->window.y = tmpy;
+	params->window.x = tmpx;
 }
 
 int		ft_spawn(char c)

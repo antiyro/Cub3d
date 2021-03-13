@@ -6,15 +6,15 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 09:53:22 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 13:40:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/13 15:17:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nbr)
+unsigned int ft_atoi(const char *nbr)
 {
-	int result;
+	unsigned int result;
 	int i;
 
 	result = 0;

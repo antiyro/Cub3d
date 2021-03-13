@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/08 15:14:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/13 13:52:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@
 # include "../mlx/mlx.h"
 
 // STRUCTURES
+
+typedef struct s_window
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*mlx_img;
+	char	*mlx_img_data;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int 	x;
+	int 	y;
+}				t_window;
 
 typedef	struct 	s_spawn
 {
@@ -61,15 +74,10 @@ typedef	struct		s_params
 	int		wallleft;
 	int		wallright;
 	t_spawn spawn;
+	t_window window;
 	
 	char	*mapfile;
 }					t_params;
-
-typedef struct s_window
-{
-	void	*mlx;
-	void	*mlx_win;
-}				t_window;
 
 
 // DEFINES
@@ -86,6 +94,15 @@ typedef struct s_window
 
 # define OBJ1 "obj1"
 # define OBJ2 "obj2"
+
+//keys
+
+# define ROT_LEFT	65361
+# define ROT_RIGHT	65363
+# define FORWARD	119
+# define BACK		115
+# define RIGHT		100
+# define LEFT		97
 
 // PROTOTYPES
 
@@ -105,6 +122,8 @@ int					ft_isspace(char c);
 char				**ft_tabcpy(char **tab);
 int					ft_ispair(int n);
 int					ft_spawn(char c);
+int         		ft_digit(int digit, t_params *params);
+int					ft_control(t_params *params);
 
 //parsing
 int					ft_parsing_params(t_params *params);
@@ -134,9 +153,9 @@ int					ft_verify_garbage(t_params *params);
 
 //window
 int    				ft_init_window(t_params *params);
-void				ft_print_pixel(t_window *window, int x, int y, int color);
-void				ft_init_struct_window(t_window *window);
-int					ft_init_minimap(t_params *params, t_window *window);
+void				ft_print_pixel(t_params *params, int color);
+//void				ft_init_struct_window(t_window *window);
+int					ft_init_minimap(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

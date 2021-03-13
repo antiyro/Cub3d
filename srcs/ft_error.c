@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/06 11:30:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/13 15:00:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	ft_error_r(int error)
 		printf("Error\n");
 		printf("- Bad resolution values entered\n");
 		printf("- Please enter a resolution positive with an int format\n");
+	}
+	else if (error == 3)
+	{
+		printf("Error\n");
+		printf("- The resolution cant be treated as an int\n");
+		printf("- Please enter a value less or equal 2147483647\n");
 	}
 }
 

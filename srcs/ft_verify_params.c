@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verify.c                                        :+:      :+:    :+:   */
+/*   ft_verify_params.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouhada <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/02/18 13:51:19 by nbouhada         ###   ########.fr       */
+/*   Updated: 2021/03/13 15:20:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ int			ft_verify_r(t_params *params)
 	}
 	if (ft_atoi(tab[1]) && ft_atoi(tab[2]))
 	{
-		params->x = ft_atoi(tab[1]);
-		params->y = ft_atoi(tab[2]);
+		if (ft_atoi(tab[1]) > 2147483647 || ft_atoi(tab[2]) > 2147483647)
+		{
+			ft_error_r(3);
+			return (0);
+		}
+		params->x = (int)ft_atoi(tab[1]);
+		params->y = (int)ft_atoi(tab[2]);
 	}
 	else
 	{
@@ -77,9 +82,9 @@ int			ft_verify_c(t_params *params)
 	c_b = ft_strtrim(tab[2], ", ");
 	if (ft_atoi(c_r) && ft_atoi(c_g) && ft_atoi(c_b))
 	{
-		params->c_r = ft_atoi(c_r);
-		params->c_g = ft_atoi(c_g);
-		params->c_b = ft_atoi(c_b);
+		params->c_r = (int)ft_atoi(c_r);
+		params->c_g = (int)ft_atoi(c_g);
+		params->c_b = (int)ft_atoi(c_b);
 		if (!ft_rgb(params->c_g) || !ft_rgb(params->c_r) ||
 			!ft_rgb(params->c_b))
 		{
@@ -116,9 +121,9 @@ int			ft_verify_f(t_params *params)
 	f_b = ft_strtrim(tab[2], ", ");
 	if (ft_atoi(f_r) && ft_atoi(f_g) && ft_atoi(f_b))
 	{
-		params->f_r = ft_atoi(f_r);
-		params->f_g = ft_atoi(f_g);
-		params->f_b = ft_atoi(f_b);
+		params->f_r = (int)ft_atoi(f_r);
+		params->f_g = (int)ft_atoi(f_g);
+		params->f_b = (int)ft_atoi(f_b);
 		if (!ft_rgb(params->f_g) || !ft_rgb(params->f_r) ||
 			!ft_rgb(params->f_b))
 		{

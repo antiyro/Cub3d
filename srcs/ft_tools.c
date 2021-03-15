@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/13 11:11:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:32:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,32 @@ void		ft_init_struct(t_params *params)
 	params->spawn.x = 0;
 	params->spawn.y = 0;
 	params->mapfile = 0;
+	params->window.mlx = 0;
+	params->window.mlx_win = 0;
+	params->window.mlx_img = 0;
+	params->window.mlx_img_data = 0;
+	params->window.bpp = 0;
+	params->window.size_line = 0;
+	params->window.endian = 0;
+	params->window.x = 0;
+	params->window.y = 0;
 }
 
-void	ft_init_struct_window(t_window *window)
+void		ft_destroy_struct(t_params *params)
 {
-	window->mlx = 0;
-	window->mlx_win = 0;
-	window->mlx_img = 0;
-	window->mlx_img_data = 0;
-	window->bpp = 0;
-	window->size_line = 0;
-	window->bpp = 0;
-	window->x = 0;
-	window->y = 0;
+	free(params->r);
+	free(params->f);
+	free(params->c);
+	free(params->s);
+	free(params->no);
+	free(params->so);
+	free(params->we);
+	free(params->ea);
+	free(params->mapfile);
+	free(params->window.mlx);
+	free(params->window.mlx_win);
+	free(params->window.mlx_img);
+	free(params->window.mlx_img_data);
 }
 
 int			ft_rgb(int nb)

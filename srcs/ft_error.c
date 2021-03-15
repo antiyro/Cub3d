@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/13 15:00:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:04:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ void	ft_error_c(int error)
 		printf("- Please enter the indicators as a positive int value ");
 		printf("between 0 and 255\n");
 	}
+	else if (error == 3)
+	{
+		printf("Error\n");
+		printf("- Colors parameters cant be treated as an int\n");
+		printf("- Please enter the indicators as a positive int value ");
+		printf("between 0 and 255\n");
+	}
 }
 
 void	ft_error_f(int error)
@@ -77,6 +84,13 @@ void	ft_error_f(int error)
 		printf("- Bad colors values entered\n");
 		printf("- Please enter the indicators as a positive int value ");
 		printf("between 0 and 255\n");
+	}
+	else if (error == 3)
+	{
+		printf("Error\n");
+		printf("- Colors parameters cant be treated as an int\n");
+		printf("- Please enter the indicators as a positive int value ");
+		printf("between 0 and 255\n");;
 	}
 }
 

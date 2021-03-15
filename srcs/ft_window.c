@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/13 14:37:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:51:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,14 @@
 
 int             ft_init_window(t_params *params)
 {
-    //ft_init_struct_window(&params);
-    params->window.mlx = mlx_init();
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
+    
     ft_control(params);
-    mlx_loop(params->window.mlx);
     return (1);
 }
 
 int         ft_control(t_params *params)
 {
-    int i;
-
-    i = 1;
     mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_digit, params);
     return (1);
 }
@@ -56,6 +51,8 @@ int         ft_digit(int key, t_params *params)
     }
     ft_init_minimap(params);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
+    if (key == ESCAPE)
+        mlx_destroy_window(params->window.mlx, params->window.mlx_win);
     return (1);
 }
 

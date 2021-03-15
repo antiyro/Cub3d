@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/13 15:20:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 12:02:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ int			ft_verify_params(t_params *params)
 int			ft_verify_r(t_params *params)
 {
 	char	**tab;
+	int		xmax;
+	int		ymax;
 
+	xmax = 0;
+	ymax = 0;
+	mlx_get_screen_size(params->window.mlx, &xmax, &ymax);
 	tab = ft_split(params->r, ' ');
 	if (ft_tablen(tab) != 3)
 	{
@@ -52,6 +57,10 @@ int			ft_verify_r(t_params *params)
 		}
 		params->x = (int)ft_atoi(tab[1]);
 		params->y = (int)ft_atoi(tab[2]);
+		if (params->x > xmax)
+			params->x = xmax;
+		if (params->y > ymax)
+			params->y = ymax;
 	}
 	else
 	{
@@ -59,6 +68,7 @@ int			ft_verify_r(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }
 
@@ -82,6 +92,11 @@ int			ft_verify_c(t_params *params)
 	c_b = ft_strtrim(tab[2], ", ");
 	if (ft_atoi(c_r) && ft_atoi(c_g) && ft_atoi(c_b))
 	{
+		if (ft_atoi(c_r) > 2147483647 || ft_atoi(c_g) > 2147483647 || ft_atoi(c_b) > 2147483647)
+		{
+			ft_error_c(3);
+			return (0);
+		}
 		params->c_r = (int)ft_atoi(c_r);
 		params->c_g = (int)ft_atoi(c_g);
 		params->c_b = (int)ft_atoi(c_b);
@@ -97,6 +112,11 @@ int			ft_verify_c(t_params *params)
 		ft_error_c(2);
 		return (0);
 	}
+	free(tab);
+	free(str);
+	free(c_r);
+	free(c_g);
+	free(c_b);
 	params->menu += 1;
 	return (1);
 }
@@ -121,6 +141,11 @@ int			ft_verify_f(t_params *params)
 	f_b = ft_strtrim(tab[2], ", ");
 	if (ft_atoi(f_r) && ft_atoi(f_g) && ft_atoi(f_b))
 	{
+		if (ft_atoi(f_r) > 2147483647 || ft_atoi(f_g) > 2147483647 || ft_atoi(f_b) > 2147483647)
+		{
+			ft_error_f(3);
+			return (0);
+		}
 		params->f_r = (int)ft_atoi(f_r);
 		params->f_g = (int)ft_atoi(f_g);
 		params->f_b = (int)ft_atoi(f_b);
@@ -136,6 +161,12 @@ int			ft_verify_f(t_params *params)
 		ft_error_f(2);
 		return (0);
 	}
+	free(tab);
+	free(str);
+	free(f_r);
+	free(f_g);
+	free(f_b);
+
 	params->menu += 1;
 	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verify2.c                                       :+:      :+:    :+:   */
+/*   ft_verify_params2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouhada <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:30 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/02/25 10:54:32 by nbouhada         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:36:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int			ft_verify_no(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }
 
@@ -61,6 +62,7 @@ int			ft_verify_we(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }
 
@@ -87,6 +89,7 @@ int			ft_verify_ea(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }
 
@@ -113,6 +116,7 @@ int			ft_verify_so(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }
 
@@ -134,5 +138,6 @@ int			ft_verify_s(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
+	free(tab);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/13 13:52:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:25:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,13 @@ typedef	struct		s_params
 # define BACK		115
 # define RIGHT		100
 # define LEFT		97
+# define ESCAPE		65307
 
 // PROTOTYPES
 
 //tools
 void				ft_init_struct(t_params *params);
+void		ft_destroy_struct(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);
 int					ft_rgb(int nb);
 int					ft_wind(char *str);
@@ -124,6 +126,7 @@ int					ft_ispair(int n);
 int					ft_spawn(char c);
 int         		ft_digit(int digit, t_params *params);
 int					ft_control(t_params *params);
+
 
 //parsing
 int					ft_parsing_params(t_params *params);

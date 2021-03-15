@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 11:51:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/15 13:29:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int         ft_digit(int key, t_params *params)
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
     params->window.mlx_img_data = mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
     ft_putnbr_fd(key, 0);
-    if (key == LEFT && params->map[params->spawn.x - 1][params->spawn.y] != '1')
+    if (key == LEFT && params->map[params->spawn.y][params->spawn.x - 1] != '1')
     {
         params->spawn.x -= 1;
     }
-    else if (key == RIGHT && params->map[params->spawn.x + 1][params->spawn.y] != '1')
+    else if (key == RIGHT && params->map[params->spawn.y][params->spawn.x + 1] != '1')
     {
         params->spawn.x += 1;
     }
-    else if (key == BACK && params->map[params->spawn.x][params->spawn.y + 1] != '1')
+    else if (key == BACK && params->map[params->spawn.y + 1][params->spawn.x] != '1')
     {
         params->spawn.y += 1;
     }
-    else if (key == FORWARD && params->map[params->spawn.x][params->spawn.y - 1] != '1')
+    else if (key == FORWARD && params->map[params->spawn.y - 1][params->spawn.x] != '1')
     {
         params->spawn.y -= 1;
     }

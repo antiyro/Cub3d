@@ -61,14 +61,15 @@ int         ft_rays(t_params *params)
     params->ray.posx = params->spawn.x;
     params->ray.posy = params->spawn.y;
     ft_set_dir(params);
-    params->ray.planx = 0;
-    params->ray.plany = 0.66;
+    ft_set_plan(params);
     i = 0;
     while (i < params->window.x)
     {
         params->ray.camerax = i * 2 / (double)params->window.x - 1;
         params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax; 
         params->ray.raydiry = params->ray.diry + params->ray.plany * params->ray.camerax;
+        params->ray.mapx = (int)params->ray.posx;
+        params->ray.mapy = (int)params->ray.posy;
         i++;
     }
     if (!ft_print_map(params))

@@ -50,15 +50,21 @@ typedef	struct 	s_spawn
 
 typedef struct	s_ray
 {
-	double posx;
-	double posy;
-	double dirx;
-	double diry;
-	double planx;
-	double plany;
-	double raydirx;
-	double raydiry;
-	double camerax;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planx;
+	double	plany;
+	double	raydirx;
+	double	raydiry;
+	double	camerax;
+	int		mapx;
+	int		mapy;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
 }				t_ray;
 
 typedef	struct		s_params
@@ -175,6 +181,7 @@ int					ft_rays(t_params *params);
 
 //rays
 void				ft_set_dir(t_params *params);
+void				ft_set_plan(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

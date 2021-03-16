@@ -175,3 +175,27 @@ void	ft_set_dir(t_params *params)
 		params->ray.diry = -1;
 	}
 }
+
+void	ft_set_plan(t_params *params)
+{
+	if (params->spawn.wind == 'N')
+	{
+		params->ray.planx = 0;
+		params->ray.plany = 0.66;
+	}
+	else if (params->spawn.wind == 'S')
+	{
+		params->ray.planx = 0;
+		params->ray.plany = -0.66;
+	}
+	else if (params->spawn.wind == 'E')
+	{
+		params->ray.planx = 0.66;
+		params->ray.plany = 0;
+	}
+	else if (params->spawn.wind)
+	{
+		params->ray.planx = -0.66;
+		params->ray.plany = 0;
+	}
+}

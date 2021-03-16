@@ -6,27 +6,20 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 13:29:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/16 15:38:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int             ft_init_window(t_params *params)
+int         ft_init_window(t_params *params)
 {
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
-    
-    ft_control(params);
+    mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
     return (1);
-}
+}      
 
-int         ft_control(t_params *params)
-{
-    mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_digit, params);
-    return (1);
-}
-
-int         ft_digit(int key, t_params *params)
+int         ft_controls(int key, t_params *params)
 {
     params->window.x = 0;
     params->window.y = 0;
@@ -49,14 +42,41 @@ int         ft_digit(int key, t_params *params)
     {
         params->spawn.y -= 1;
     }
-    ft_init_minimap(params);
+    ft_rays(params);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     if (key == ESCAPE)
+    {
         mlx_destroy_window(params->window.mlx, params->window.mlx_win);
+        exit(1);
+    }
     return (1);
 }
 
-int         ft_init_minimap(t_params *params)
+int         ft_rays(t_params *params)
+{
+    int i;
+    //double time;
+    //double oldTime;
+    
+    params->ray.posx = params->spawn.x;
+    params->ray.posy = params->spawn.y;
+    ft_set_dir(params);
+    params->ray.planx = 0;
+    params->ray.plany = 0.66;
+    i = 0;
+    while (i < params->window.x)
+    {
+        params->ray.camerax = i * 2 / (double)params->window.x - 1;
+        params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax; 
+        params->ray.raydiry = params->ray.diry + params->ray.plany * params->ray.camerax;
+        i++;
+    }
+    if (!ft_print_map(params))
+        return (0);
+    return (1);
+}
+
+int         ft_print_map(t_params *params)
 {
     int a;
     int b;

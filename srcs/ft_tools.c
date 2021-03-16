@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 11:32:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/16 15:09:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,4 +150,28 @@ int		ft_spawn(char c)
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 		return (1);
 	return (0);
+}
+
+void	ft_set_dir(t_params *params)
+{
+	if (params->spawn.wind == 'N')
+	{
+		params->ray.dirx = -1;
+		params->ray.diry = 0;
+	}
+	else if (params->spawn.wind == 'S')
+	{
+		params->ray.dirx = 1;
+		params->ray.diry = 0;
+	}
+	else if (params->spawn.wind == 'E')
+	{
+		params->ray.dirx = 0;
+		params->ray.diry = 1;
+	}
+	else if (params->spawn.wind)
+	{
+		params->ray.dirx = 0;
+		params->ray.diry = -1;
+	}
 }

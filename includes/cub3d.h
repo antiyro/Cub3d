@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 11:25:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/16 15:32:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ typedef	struct 	s_spawn
 	char wind;
 }				t_spawn;
 
+typedef struct	s_ray
+{
+	double posx;
+	double posy;
+	double dirx;
+	double diry;
+	double planx;
+	double plany;
+	double raydirx;
+	double raydiry;
+	double camerax;
+}				t_ray;
 
 typedef	struct		s_params
 {
@@ -75,6 +87,7 @@ typedef	struct		s_params
 	int		wallright;
 	t_spawn spawn;
 	t_window window;
+	t_ray	ray;
 	
 	char	*mapfile;
 }					t_params;
@@ -125,7 +138,7 @@ char				**ft_tabcpy(char **tab);
 int					ft_ispair(int n);
 int					ft_spawn(char c);
 int         		ft_digit(int digit, t_params *params);
-int					ft_control(t_params *params);
+int					ft_controls(int key, t_params *params);
 
 
 //parsing
@@ -157,8 +170,11 @@ int					ft_verify_garbage(t_params *params);
 //window
 int    				ft_init_window(t_params *params);
 void				ft_print_pixel(t_params *params, int color);
-//void				ft_init_struct_window(t_window *window);
-int					ft_init_minimap(t_params *params);
+int					ft_print_map(t_params *params);
+int					ft_rays(t_params *params);
+
+//rays
+void				ft_set_dir(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

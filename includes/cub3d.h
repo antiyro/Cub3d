@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/16 15:32:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/17 13:09:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include "../srcs/libft/libft.h"
 # include "../mlx/mlx.h"
+# include <math.h>
 
 // STRUCTURES
 
@@ -65,6 +66,11 @@ typedef struct	s_ray
 	double	sideDistY;
 	double	deltaDistX;
 	double	deltaDistY;
+	double	wallDist;
+	int 	stepx;
+	int		stepy;
+	int		hit;
+	int		sideHit;
 }				t_ray;
 
 typedef	struct		s_params

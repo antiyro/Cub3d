@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/16 15:38:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/17 16:55:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int         ft_controls(int key, t_params *params)
     params->window.y = 0;
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
     params->window.mlx_img_data = mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
-    ft_putnbr_fd(key, 0);
+    //ft_putnbr_fd(key, 0);
     if (key == LEFT && params->map[params->spawn.y][params->spawn.x - 1] != '1')
     {
         params->spawn.x -= 1;
@@ -63,13 +63,57 @@ int         ft_rays(t_params *params)
     ft_set_dir(params);
     ft_set_plan(params);
     i = 0;
-    while (i < params->window.x)
+    while (i < params->x)
     {
-        params->ray.camerax = i * 2 / (double)params->window.x - 1;
-        params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax; 
+        params->ray.camerax = 2 * i / (double)params->x - 1;
+        params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax;
         params->ray.raydiry = params->ray.diry + params->ray.plany * params->ray.camerax;
         params->ray.mapx = (int)params->ray.posx;
         params->ray.mapy = (int)params->ray.posy;
+        params->ray.deltaDistX = sqrt(1 + (params->ray.raydiry * params->ray.raydiry) / (params->ray.raydirx * params->ray.raydirx));
+        params->ray.deltaDistY = sqrt(1 + (params->ray.raydirx * params->ray.raydirx) / (params->ray.raydiry * params->ray.raydiry));
+        params->ray.hit = 0;
+        if (params->ray.raydirx < 0)
+        {
+            params->ray.stepx = -1;
+            params->ray.sideDistX = (params->ray.posx - params->ray.mapx) * params->ray.deltaDistX;
+        }
+        else
+        {
+            params->ray.stepx = 1;
+            params->ray.sideDistX = (params->ray.mapx + 1.0 - params->ray.posx) * params->ray.deltaDistX;
+        }
+        if (params->ray.raydiry < 0)
+        {
+            params->ray.stepy = -1;
+            params->ray.sideDistY = (params->ray.posy - params->ray.mapy) * params->ray.deltaDistY; 
+        }
+        else
+        {
+            params->ray.stepy = 1;
+            params->ray.sideDistY = (params->ray.mapy + 1.0 - params->ray.posy) * params->ray.deltaDistY;
+        }
+        while (!params->ray.hit)
+        {
+            if (params->ray.sideDistX < params->ray.sideDistY)
+            {
+                params->ray.sideDistX += params->ray.deltaDistX;
+                params->ray.mapx += params->ray.stepx;
+                params->ray.sideHit = 0;
+            }
+            else
+            {
+                params->ray.sideDistY += params->ray.deltaDistY;
+                params->ray.mapy += params->ray.stepy;
+                params->ray.sideHit = 1;
+            }
+            if (params->map[params->ray.mapy][params->ray.mapx] > 0)
+                params->ray.hit = 1;
+        }
+        if (params->ray.sideHit == 0)
+            params->ray.wallDist = (params->ray.mapx - params->ray.posx + (1 - params->ray.stepx) / 2) / params->ray.dirx;
+        else
+            params->ray.wallDist = (params->ray.mapy - params->ray.posy + (1 - params->ray.stepy) / 2) / params->ray.diry;
         i++;
     }
     if (!ft_print_map(params))

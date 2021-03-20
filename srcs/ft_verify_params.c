@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 12:02:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/20 12:13:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,33 +68,34 @@ int			ft_verify_r(t_params *params)
 		return (0);
 	}
 	params->menu += 1;
-	free(tab);
+	ft_free_tab(tab);
 	return (1);
 }
 
 int			ft_verify_c(t_params *params)
 {
 	char	*str;
-	char	**tab;
 	char	*c_r;
 	char	*c_g;
 	char	*c_b;
 
 	str = ft_strtrim(params->c, "C ");
-	tab = ft_split(str, ',');
-	if (ft_tablen(tab) != 3)
+	params->tabs.tab = ft_split(str, ',');
+	if (ft_tablen(params->tabs.tab) != 3)
 	{
 		ft_error_c(1);
+		ft_free_tab(params->tabs.tab);
 		return (0);
 	}
-	c_r = ft_strtrim(tab[0], ", ");
-	c_g = ft_strtrim(tab[1], ", ");
-	c_b = ft_strtrim(tab[2], ", ");
+	c_r = ft_strtrim(params->tabs.tab[0], ", ");
+	c_g = ft_strtrim(params->tabs.tab[1], ", ");
+	c_b = ft_strtrim(params->tabs.tab[2], ", ");
 	if (ft_atoi(c_r) && ft_atoi(c_g) && ft_atoi(c_b))
 	{
 		if (ft_atoi(c_r) > 2147483647 || ft_atoi(c_g) > 2147483647 || ft_atoi(c_b) > 2147483647)
 		{
 			ft_error_c(3);
+			ft_free_tab(params->tabs.tab);
 			return (0);
 		}
 		params->c_r = (int)ft_atoi(c_r);
@@ -104,15 +105,17 @@ int			ft_verify_c(t_params *params)
 			!ft_rgb(params->c_b))
 		{
 			ft_error_c(2);
+			ft_free_tab(params->tabs.tab);
 			return (0);
 		}
 	}
 	else
 	{
 		ft_error_c(2);
+		ft_free_tab(params->tabs.tab);
 		return (0);
 	}
-	free(tab);
+	ft_free_tab(params->tabs.tab);
 	free(str);
 	free(c_r);
 	free(c_g);
@@ -124,21 +127,20 @@ int			ft_verify_c(t_params *params)
 int			ft_verify_f(t_params *params)
 {
 	char	*str;
-	char	**tab;
 	char	*f_r;
 	char	*f_g;
 	char	*f_b;
 
 	str = ft_strtrim(params->f, "F ");
-	tab = ft_split(str, ',');
-	if (ft_tablen(tab) != 3)
+	params->tabs.tab1 = ft_split(str, ',');
+	if (ft_tablen(params->tabs.tab1) != 3)
 	{
 		ft_error_f(1);
 		return (0);
 	}
-	f_r = ft_strtrim(tab[0], ", ");
-	f_g = ft_strtrim(tab[1], ", ");
-	f_b = ft_strtrim(tab[2], ", ");
+	f_r = ft_strtrim(params->tabs.tab1[0], ", ");
+	f_g = ft_strtrim(params->tabs.tab1[1], ", ");
+	f_b = ft_strtrim(params->tabs.tab1[2], ", ");
 	if (ft_atoi(f_r) && ft_atoi(f_g) && ft_atoi(f_b))
 	{
 		if (ft_atoi(f_r) > 2147483647 || ft_atoi(f_g) > 2147483647 || ft_atoi(f_b) > 2147483647)
@@ -161,7 +163,7 @@ int			ft_verify_f(t_params *params)
 		ft_error_f(2);
 		return (0);
 	}
-	free(tab);
+	ft_free_tab(params->tabs.tab1);
 	free(str);
 	free(f_r);
 	free(f_g);

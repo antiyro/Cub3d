@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/08 14:45:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/20 11:23:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void		ft_fill_params(char *str, t_params *params, int *count)
 	*count += 1;
 }
 
-int			ft_fill_map(char *str, t_params *params)
+int			ft_fill_map(t_params *params)
 {
 	int		i;
 	int		fd;
+	char	*str;
 
 	i = 0;
 	fd = open(params->mapfile, O_RDONLY);
@@ -68,8 +69,10 @@ int			ft_fill_map(char *str, t_params *params)
 	if (i != ft_tablen(params->map))
 	{
 		ft_error_map(4);
+		free(str);
 		return (0);
 	}
+	free(str);
 	return (1);
 }
 
@@ -101,7 +104,11 @@ int		ft_parsing_params(t_params *params)
 	ft_putstr_fd("Checking for errors", 0);
 	ft_loading();
 	if (!ft_parsing_params2(params, &count, fd, &i))
+	{
+		free(str);
 		return (0);
+	}
+	free(str);
 	return (1);
 }
 
@@ -150,6 +157,7 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		else
 		{
 			ft_error_messages(1);
+			free(str);
 			return (0);
 		}
 	}
@@ -160,6 +168,7 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 			if (error)
 			{
 				ft_error_map(1);
+				free(str);
 				return (0);
 			}
 			*i += 1;
@@ -174,6 +183,7 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 			else if (!ft_checkisspace(str))
 			{
 				ft_error_map(1);
+				free(str);
 				return (0);
 			}
 		}
@@ -188,13 +198,18 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	else
 	{
 		ft_error_map(5);
+		free(str);
 		return (0);
 	}
 	ft_putstr_fd("Checking for errors", 0);
 	ft_loading();
-	if (ft_fill_map(str, params) && ft_verify_map(params))
+	if (ft_fill_map(params) && ft_verify_map(params))
 		printf("Map parsing done with success !\n");
 	else
+	{
+		free(str);
 		return (0);
+	}
+	free(str);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/16 15:09:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:20:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		ft_destroy_struct(t_params *params)
 	free(params->so);
 	free(params->we);
 	free(params->ea);
+	ft_free_tab(params->map);
 	free(params->mapfile);
 	free(params->window.mlx);
 	free(params->window.mlx_win);
@@ -128,13 +129,49 @@ void	ft_print_pixel(t_params *params, int color)
 	i = 0;
 	tmpx = params->window.x;
 	tmpy = params->window.y;
-	while (i < 11)
+	while (i < 10)
 	{
 		j = 0;
 		params->window.x = tmpx;
-		while (j < 11)
+		while (j < 10)
 		{
-			params->window.mlx_img_data[params->window.x * 4 + 4 * 800 * params->window.y] = color;
+			params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+			params->window.x++;
+			j++;
+		}
+		params->window.y++;
+		i++;
+	}
+	params->window.y = tmpy;
+	params->window.x = tmpx;
+}
+
+void	ft_print_spawn(t_params *params, int color)
+{
+	int i;
+	int j;
+	int tmpx;
+	int tmpy;
+	int spawnx;
+	int spawny;
+
+	i = 0;
+	tmpx = params->window.x;
+	tmpy = params->window.y;
+	spawnx = (params->ray.posx - (int)params->ray.posx) * 10;
+	spawny = (params->ray.posy - (int)params->ray.posy) * 10;
+	while (i < 10)
+	{
+		j = 0;
+		params->window.x = tmpx;
+		while (j < 10)
+		{
+			params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+			if (i == spawny && j == spawnx)
+			{
+				params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 20;
+						
+			}
 			params->window.x++;
 			j++;
 		}
@@ -152,50 +189,46 @@ int		ft_spawn(char c)
 	return (0);
 }
 
-void	ft_set_dir(t_params *params)
+void	ft_set_dirplan(t_params *params)
 {
 	if (params->spawn.wind == 'N')
 	{
 		params->ray.dirx = -1;
 		params->ray.diry = 0;
-	}
-	else if (params->spawn.wind == 'S')
-	{
-		params->ray.dirx = 1;
-		params->ray.diry = 0;
-	}
-	else if (params->spawn.wind == 'E')
-	{
-		params->ray.dirx = 0;
-		params->ray.diry = 1;
-	}
-	else if (params->spawn.wind)
-	{
-		params->ray.dirx = 0;
-		params->ray.diry = -1;
-	}
-}
-
-void	ft_set_plan(t_params *params)
-{
-	if (params->spawn.wind == 'N')
-	{
 		params->ray.planx = 0;
 		params->ray.plany = 0.66;
 	}
 	else if (params->spawn.wind == 'S')
 	{
+		params->ray.dirx = 1;
+		params->ray.diry = 0;
 		params->ray.planx = 0;
 		params->ray.plany = -0.66;
 	}
 	else if (params->spawn.wind == 'E')
 	{
+		params->ray.dirx = 0;
+		params->ray.diry = 1;
 		params->ray.planx = 0.66;
 		params->ray.plany = 0;
 	}
-	else if (params->spawn.wind)
+	else if (params->spawn.wind == 'W')
 	{
+		params->ray.dirx = 0;
+		params->ray.diry = -1;
 		params->ray.planx = -0.66;
 		params->ray.plany = 0;
+	}
+}
+
+void	ft_free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
 	}
 }

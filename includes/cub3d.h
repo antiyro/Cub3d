@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/17 13:09:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/20 15:48:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_window
 
 typedef	struct 	s_spawn
 {
-	int	x;
-	int y;
+	double	x;
+	double	y;
 	char wind;
 }				t_spawn;
 
@@ -71,7 +71,21 @@ typedef struct	s_ray
 	int		stepy;
 	int		hit;
 	int		sideHit;
+	int		drawend;
+	int		drawstart;
+	int lineheight;
 }				t_ray;
+
+typedef	struct		s_tabs
+{
+	char	**tab;
+	char	**tab1;
+	char	**tab2;
+	char	**tab3;
+	char	**tab4;
+	char	**tab5;
+	char	**tab6;
+}			t_tabs;
 
 typedef	struct		s_params
 {
@@ -93,6 +107,7 @@ typedef	struct		s_params
 	int		f_g;
 	int		f_b;
 	char	**map;
+	t_tabs	tabs;
 	int		wallup;
 	int		walldown;
 	int		wallleft;
@@ -120,6 +135,8 @@ typedef	struct		s_params
 # define OBJ1 "obj1"
 # define OBJ2 "obj2"
 
+# define SPEED 0.1
+
 //keys
 
 # define ROT_LEFT	65361
@@ -134,13 +151,13 @@ typedef	struct		s_params
 
 //tools
 void				ft_init_struct(t_params *params);
-void		ft_destroy_struct(t_params *params);
+void				ft_destroy_struct(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);
 int					ft_rgb(int nb);
 int					ft_wind(char *str);
 int					ft_s(char *str);
 void				ft_loading(void);
-int					ft_fill_map(char *str, t_params *params);
+int					ft_fill_map(t_params *params);
 int					ft_one(char *str);
 int					ft_checkismap(char *str);
 int					ft_checkisempty(char *str);
@@ -151,6 +168,7 @@ int					ft_ispair(int n);
 int					ft_spawn(char c);
 int         		ft_digit(int digit, t_params *params);
 int					ft_controls(int key, t_params *params);
+void				ft_free_tab(char **tab);
 
 
 //parsing
@@ -184,10 +202,10 @@ int    				ft_init_window(t_params *params);
 void				ft_print_pixel(t_params *params, int color);
 int					ft_print_map(t_params *params);
 int					ft_rays(t_params *params);
+void				ft_print_spawn(t_params *params, int color);
 
 //rays
-void				ft_set_dir(t_params *params);
-void				ft_set_plan(t_params *params);
+void				ft_set_dirplan(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

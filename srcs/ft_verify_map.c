@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:38 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 11:37:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/20 11:25:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ int			ft_verify_flood(t_params *params)
 						params->wallup = 1;
 				}
 				else if (!params->wallup)
+				{
+					ft_free_tab(mapcpy);
 					return (0);
+				}
 				x--;
 			}
 			x = i;
@@ -120,7 +123,10 @@ int			ft_verify_flood(t_params *params)
 						params->walldown = 1;
 				}
 				else if (!params->walldown)
+				{
+					ft_free_tab(mapcpy);
 					return (0);
+				}
 				x++;
 			}
 			x = i;
@@ -131,7 +137,10 @@ int			ft_verify_flood(t_params *params)
 				y++;
 			}
 			if (!params->wallright)
+			{
+				ft_free_tab(mapcpy);
 				return (0);
+			}
 			x = i;
 			y = j;
 			while (y >= 0 && mapcpy[x][y])
@@ -142,20 +151,26 @@ int			ft_verify_flood(t_params *params)
 						params->wallleft = 1;
 				}
 				else if (!params->wallleft)
+				{
+					ft_free_tab(mapcpy);
 					return (0);
+				}
 				y--;
 			}
 			if (params->walldown && params->walldown && params->walldown
 				&& params->walldown)
 				mapcpy[i][j] = 'X';
 			else
+			{
+				ft_free_tab(mapcpy);
 				return (0);
+			}
 			if (mapcpy[i][j])
 				j++;
 		}
 		i++;
 	}
-	free(mapcpy);
+	ft_free_tab(mapcpy);
 	return (1);
 }
 
@@ -206,8 +221,8 @@ int			ft_verify_spawn(t_params *params)
 					&& (!error))
 			{
 				params->spawn.wind = params->map[i][j];
-				params->spawn.x = j;
-				params->spawn.y = i;
+				params->spawn.x = j + 0.5;
+				params->spawn.y = i + 0.5;
 				params->map[i][j] = '0';
 				error = 1;
 			}

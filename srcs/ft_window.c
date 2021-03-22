@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/22 13:38:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:50:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int         ft_init_window(t_params *params)
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
     params->ray.posy = params->spawn.x;
     params->ray.posx = params->spawn.y;
+    params->ray.linetab = malloc(sizeof(int) * params->x);
+    params->ray.drawtab = malloc(sizeof(int) * params->x);
     ft_set_dirplan(params);
     mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
     return (1);
@@ -56,6 +58,24 @@ int         ft_controls(int key, t_params *params)
         if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * SPEED)] == '0')
             params->ray.posy += params->ray.diry * SPEED;
     }
+    else if (key == ROT_RIGHT)
+    {
+        params->ray.oldDirX = params->ray.dirx;
+        params->ray.dirx = params->ray.dirx * cos(-ROTSPEED) - params->ray.diry * sin(-ROTSPEED);
+        params->ray.diry = params->ray.oldDirX * sin(-ROTSPEED) + params->ray.diry * cos(-ROTSPEED);
+        params->ray.oldPlanX = params->ray.planx;
+        params->ray.planx = params->ray.planx * cos(-ROTSPEED) - params->ray.plany * sin(-ROTSPEED);
+        params->ray.plany = params->ray.oldPlanX * sin(-ROTSPEED) + params->ray.plany * cos(-ROTSPEED);
+    }
+    else if (key == ROT_LEFT)
+    {
+        params->ray.oldDirX = params->ray.dirx;
+        params->ray.dirx = params->ray.dirx * cos(ROTSPEED) - params->ray.diry * sin(ROTSPEED);
+        params->ray.diry = params->ray.oldDirX * sin(ROTSPEED) + params->ray.diry * cos(ROTSPEED);
+        params->ray.oldPlanX = params->ray.planx;
+        params->ray.planx = params->ray.planx * cos(ROTSPEED) - params->ray.plany * sin(ROTSPEED);
+        params->ray.plany = params->ray.oldPlanX * sin(ROTSPEED) + params->ray.plany * cos(ROTSPEED);
+    }
     ft_rays(params);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     if (key == ESCAPE)
@@ -69,6 +89,8 @@ int         ft_controls(int key, t_params *params)
 int         ft_rays(t_params *params)
 {
     int i;
+    int color = 100;
+
     //double time;
     //double oldTime;
     i = 0;
@@ -131,15 +153,44 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
+        if (params->ray.sideHit == 1)
+            color = color /2;
+        params->ray.linetab[i] = params->ray.lineheight;
+        params->ray.drawtab[i] = params->ray.drawstart;
         i++;
+        printf("line %d\nstart %d\nend %d\n", params->ray.lineheight, params->ray.drawstart, params->ray.drawend);
     }
-    if (!ft_print_map(params))
-        return (0);
+    if (!ft_print_map(params, color))
+            return (0);
     return (1);
 }
 
-int         ft_print_map(t_params *params)
+int         ft_print_map(t_params *params, int color)
 {
+    int j;
+    int i;
+
+    i = 0;
+    j = 0;
+    params->window.y = 0;
+    while (i < params->x)
+    {
+        while (j < params->ray.drawtab[i])
+        {
+            params->window.y++;
+            j++;
+        }
+        j = 0;
+        while (j < params->ray.linetab[i])
+        {
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+            params->window.y++ ;
+            j++;
+        }
+        params->window.x++;
+        i++;
+    }
+    /*MINIMAP
     int a;
     int b;
 
@@ -165,7 +216,7 @@ int         ft_print_map(t_params *params)
         }
         a++;
         params->window.y+=10;
-    }
+    }*/
     mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
     return (1);
 }

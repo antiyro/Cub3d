@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/22 12:13:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:08:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,8 @@ void	ft_set_ray(t_params *params)
 	params->ray.stepx = 0;
 	params->ray.stepy = 0;
 	params->ray.wallDist = 0;
+	params->ray.oldDirX = 0;
+	params->ray.oldPlanX = 0;
 }
 
 void	ft_free_tab(char **tab)

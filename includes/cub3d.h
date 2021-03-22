@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/22 12:13:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/22 16:37:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ typedef struct	s_ray
 	int		drawend;
 	int		drawstart;
 	int lineheight;
+	double	oldDirX;
+	double 	oldPlanX;
+	int		*linetab;
+	int		*drawtab;
 }				t_ray;
 
 typedef	struct		s_tabs
@@ -136,6 +140,7 @@ typedef	struct		s_params
 # define OBJ2 "obj2"
 
 # define SPEED 0.1
+# define ROTSPEED 0.1
 
 //keys
 
@@ -201,7 +206,7 @@ int					ft_verify_garbage(t_params *params);
 //window
 int    				ft_init_window(t_params *params);
 void				ft_print_pixel(t_params *params, int color);
-int					ft_print_map(t_params *params);
+int					ft_print_map(t_params *params, int color);
 int					ft_rays(t_params *params);
 void				ft_print_spawn(t_params *params, int color);
 

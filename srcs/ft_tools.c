@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 16:20:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/22 12:13:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void		ft_init_struct(t_params *params)
 	params->window.endian = 0;
 	params->window.x = 0;
 	params->window.y = 0;
+	ft_set_ray(params);
 }
 
 void		ft_destroy_struct(t_params *params)
@@ -158,8 +159,8 @@ void	ft_print_spawn(t_params *params, int color)
 	i = 0;
 	tmpx = params->window.x;
 	tmpy = params->window.y;
-	spawnx = (params->ray.posx - (int)params->ray.posx) * 10;
-	spawny = (params->ray.posy - (int)params->ray.posy) * 10;
+	spawny = (params->ray.posx - (int)params->ray.posx) * 10;
+	spawnx = (params->ray.posy - (int)params->ray.posy) * 10;
 	while (i < 10)
 	{
 		j = 0;
@@ -169,7 +170,7 @@ void	ft_print_spawn(t_params *params, int color)
 			params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
 			if (i == spawny && j == spawnx)
 			{
-				params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 20;
+				params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 0;
 						
 			}
 			params->window.x++;
@@ -219,6 +220,25 @@ void	ft_set_dirplan(t_params *params)
 		params->ray.planx = -0.66;
 		params->ray.plany = 0;
 	}
+}
+
+void	ft_set_ray(t_params *params)
+{
+	params->ray.lineheight = 0;
+	params->ray.mapx = 0;
+	params->ray.mapy = 0;
+	params->ray.planx = 0;
+	params->ray.plany = 0;
+	params->ray.posx = 0;
+	params->ray.posy = 0;
+	params->ray.raydirx = 0;
+	params->ray.raydiry = 0;
+	params->ray.sideDistX = 0;
+	params->ray.sideDistY = 0;
+	params->ray.sideHit = 0;
+	params->ray.stepx = 0;
+	params->ray.stepy = 0;
+	params->ray.wallDist = 0;
 }
 
 void	ft_free_tab(char **tab)

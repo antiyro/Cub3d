@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 15:48:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/22 12:13:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int					ft_spawn(char c);
 int         		ft_digit(int digit, t_params *params);
 int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
+void				ft_set_ray(t_params *params);
 
 
 //parsing

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/24 11:03:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/24 13:46:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int         ft_controls(int key, t_params *params)
         if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * SPEED)] == '0')
             params->ray.posy += params->ray.diry * SPEED;
     }
-    /*else if (key == ROT_RIGHT)
+    else if (key == ROT_RIGHT)
     {
         params->ray.oldDirX = params->ray.dirx;
         params->ray.dirx = params->ray.dirx * cos(-ROTSPEED) - params->ray.diry * sin(-ROTSPEED);
@@ -69,7 +69,7 @@ int         ft_controls(int key, t_params *params)
         params->ray.oldPlanX = params->ray.planx;
         params->ray.planx = params->ray.planx * cos(ROTSPEED) - params->ray.plany * sin(ROTSPEED);
         params->ray.plany = params->ray.oldPlanX * sin(ROTSPEED) + params->ray.plany * cos(ROTSPEED);
-    }*/
+    }
     ft_rays(params);
     ft_print_map(params);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
@@ -89,19 +89,19 @@ int         ft_rays(t_params *params)
     params->ray.linetab = malloc(sizeof(int) * params->x);
     params->ray.drawtab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
-    params->ray.stepy = 0;
-    params->ray.stepx = 0;
+    ft_set_ray(params);
     while (i < params->x)
     {
-        params->ray.drawend = 0;
-	    params->ray.drawstart = 0;
         params->ray.camerax = 2 * i / (double)params->x - 1;
         params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax;
         params->ray.raydiry = params->ray.diry + params->ray.plany * params->ray.camerax;
+        printf("%f\n", params->ray.camerax);
         params->ray.mapx = (int)params->ray.posx;
         params->ray.mapy = (int)params->ray.posy;
-        params->ray.deltaDistX = fabs(1 / params->ray.raydirx);
-        params->ray.deltaDistY = fabs(1 / params->ray.raydiry);
+        params->ray.deltaDistX = (params->ray.raydiry == 0) ? 0 : ((params->ray.raydirx == 0) ? 1 : fabs(1 / params->ray.raydirx));
+        params->ray.deltaDistY = (params->ray.raydirx == 0) ? 0 : ((params->ray.raydiry == 0) ? 1 : fabs(1 / params->ray.raydiry));
+        //params->ray.deltaDistX = fabs(1 / params->ray.raydirx);
+        //params->ray.deltaDistY = fabs(1 / params->ray.raydiry);
         params->ray.hit = 0;
         if (params->ray.raydirx < 0)
         {
@@ -141,11 +141,10 @@ int         ft_rays(t_params *params)
                 params->ray.hit = 1;
         }
         if (params->ray.sideHit == 0)
-            params->ray.wallDist = (params->ray.mapx - params->ray.posx + (1 - params->ray.stepx) / 2) / params->ray.dirx;
+            params->ray.wallDist = (params->ray.mapx - params->ray.posx + (1 - params->ray.stepx) / 2) / params->ray.raydirx;
         else
-            params->ray.wallDist = (params->ray.mapy - params->ray.posy + (1 - params->ray.stepy) / 2) / params->ray.diry;
+            params->ray.wallDist = (params->ray.mapy - params->ray.posy + (1 - params->ray.stepy) / 2) / params->ray.raydiry;
         params->ray.lineheight = (int)(params->y / params->ray.wallDist);
-        printf("mapy : %d\n posy : %f\n stepy : %d\n diry : %f\n", params->ray.mapy, params->ray.posy, params->ray.stepy, params->ray.diry);
 		params->ray.drawstart = -params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawstart < 0)
 			params->ray.drawstart = 0;
@@ -162,9 +161,6 @@ int         ft_rays(t_params *params)
 
 int         ft_print_map(t_params *params)
 {
-    /*for(int v = 0; v < params->x; v++)
-        printf("%d\n", params->ray.linetab[v]);*/
-    printf("\n");
     /*int a;
     int b;
 
@@ -191,7 +187,7 @@ int         ft_print_map(t_params *params)
         a++;
         params->window.y+=10;
     }*/
-    int color = 500;
+    int color = 100;
     params->window.x = 0;
     params->window.y = 0;
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
@@ -212,8 +208,8 @@ int         ft_print_map(t_params *params)
         j = 0;
         while (j < params->ray.linetab[i])
         {
-            /*if (!params->ray.sidetab[i])
-                color = 500;*/
+            if (!params->ray.sidetab[i])
+                color = 500;
             params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
             params->window.y++;
             j++;
@@ -221,9 +217,9 @@ int         ft_print_map(t_params *params)
         params->window.x++;
         i++;
     }
-    // free(params->ray.sidetab);
-    // free(params->ray.linetab);
-    // free(params->ray.drawtab);
+    free(params->ray.sidetab);
+    free(params->ray.linetab);
+    free(params->ray.drawtab);
     /*MINIMAP*/
     
     mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);

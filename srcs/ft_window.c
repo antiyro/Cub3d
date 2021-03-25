@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/24 13:46:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 10:18:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,30 @@ int         ft_controls(int key, t_params *params)
 {
     if (key == LEFT)
     {
-        if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.dirx * SPEED)] == '0') 
+        if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.dirx * SPEED)] == '0') 
             params->ray.posy += params->ray.dirx * SPEED;
-        if(params->map[(int)(params->ray.posx + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
-            params->ray.posx += params->ray.diry * SPEED;
+        if (params->map[(int)(params->ray.posx + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
+            params->ray.posx -= params->ray.diry * SPEED;
     }
     else if (key == RIGHT)
     {
-        if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.dirx * SPEED)] == '0')
+        if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.dirx * SPEED)] == '0')
             params->ray.posy -= params->ray.dirx * SPEED;
-        if(params->map[(int)(params->ray.posx - params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
-            params->ray.posx -= params->ray.diry * SPEED;
+        if (params->map[(int)(params->ray.posx - params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
+            params->ray.posx += params->ray.diry * SPEED;
     }
     else if (key == BACK)
     {
-        if(params->map[(int)(params->ray.posx - params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0')
+        if (params->map[(int)(params->ray.posx - params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0')
             params->ray.posx -= params->ray.dirx * SPEED;
-        if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.diry * SPEED)] == '0')
+        if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.diry * SPEED)] == '0')
             params->ray.posy -= params->ray.diry * SPEED;
     }
     else if (key == FORWARD)
     {
-        if(params->map[(int)(params->ray.posx + params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0') 
+        if (params->map[(int)(params->ray.posx + params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0') 
             params->ray.posx += params->ray.dirx * SPEED;
-        if(params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * SPEED)] == '0')
+        if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * SPEED)] == '0')
             params->ray.posy += params->ray.diry * SPEED;
     }
     else if (key == ROT_RIGHT)
@@ -95,13 +95,10 @@ int         ft_rays(t_params *params)
         params->ray.camerax = 2 * i / (double)params->x - 1;
         params->ray.raydirx = params->ray.dirx + params->ray.planx * params->ray.camerax;
         params->ray.raydiry = params->ray.diry + params->ray.plany * params->ray.camerax;
-        printf("%f\n", params->ray.camerax);
         params->ray.mapx = (int)params->ray.posx;
         params->ray.mapy = (int)params->ray.posy;
-        params->ray.deltaDistX = (params->ray.raydiry == 0) ? 0 : ((params->ray.raydirx == 0) ? 1 : fabs(1 / params->ray.raydirx));
-        params->ray.deltaDistY = (params->ray.raydirx == 0) ? 0 : ((params->ray.raydiry == 0) ? 1 : fabs(1 / params->ray.raydiry));
-        //params->ray.deltaDistX = fabs(1 / params->ray.raydirx);
-        //params->ray.deltaDistY = fabs(1 / params->ray.raydiry);
+        params->ray.deltaDistX = fabs(1 / params->ray.raydirx);
+        params->ray.deltaDistY = fabs(1 / params->ray.raydiry);
         params->ray.hit = 0;
         if (params->ray.raydirx < 0)
         {
@@ -161,32 +158,6 @@ int         ft_rays(t_params *params)
 
 int         ft_print_map(t_params *params)
 {
-    /*int a;
-    int b;
-
-    a = 0;
-    while (params->map[a])
-    {
-        b = 0;
-        params->window.x = 0;
-        while (params->map[a][b])
-        {
-            if (params->map[a][b] == '1')
-                ft_print_pixel(params, 100);
-            else if (a == (int)params->ray.posx && b == (int)params->ray.posy)
-                ft_print_spawn(params, 255);
-            else if (params->map[a][b] == '0')
-                ft_print_pixel(params, 255);
-            else if (params->map[a][b] == '2')
-                ft_print_pixel(params, 100);
-            else if (ft_isspace(params->map[a][b]))
-                ft_print_pixel(params, 0);
-            b++;
-            params->window.x+=10;
-        }
-        a++;
-        params->window.y+=10;
-    }*/
     int color = 100;
     params->window.x = 0;
     params->window.y = 0;
@@ -210,6 +181,8 @@ int         ft_print_map(t_params *params)
         {
             if (!params->ray.sidetab[i])
                 color = 500;
+            else
+                color = 100;
             params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
             params->window.y++;
             j++;
@@ -221,7 +194,33 @@ int         ft_print_map(t_params *params)
     free(params->ray.linetab);
     free(params->ray.drawtab);
     /*MINIMAP*/
-    
+    int a;
+    int b;
+
+    a = 0;
+    params->window.y = 0;
+    while (params->map[a])
+    {
+        b = 0;
+        params->window.x = 0;
+        while (params->map[a][b])
+        {
+            if (params->map[a][b] == '1')
+                ft_print_pixel(params, 1000);
+            else if (a == (int)params->ray.posx && b == (int)params->ray.posy)
+                ft_print_spawn(params, 255);
+            else if (params->map[a][b] == '0')
+                ft_print_pixel(params, 5000);
+            else if (params->map[a][b] == '2')
+                ft_print_pixel(params, 100);
+            else if (ft_isspace(params->map[a][b]))
+                ft_print_pixel(params, 0);
+            b++;
+            params->window.x+=10;
+        }
+        a++;
+        params->window.y+=10;
+    }
     mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
     return (1);
 }

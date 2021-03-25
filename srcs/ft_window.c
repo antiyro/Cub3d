@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 10:18:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 15:24:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int         ft_rays(t_params *params)
     int i;
 
     i = 0;
+    if (!ft_load_text(params))
+        return (0);
     params->ray.linetab = malloc(sizeof(int) * params->x);
     params->ray.drawtab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);

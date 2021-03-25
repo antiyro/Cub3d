@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:30 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 12:19:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 16:02:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int			ft_verify_no(t_params *params)
 		ft_free_tab(params->tabs.tab2);
 		return (0);
 	}
+	else
+		params->linkno = ft_strdup(params->tabs.tab2[1]);
 	params->menu += 1;
 	ft_free_tab(params->tabs.tab2);
 	return (1);
@@ -63,6 +65,8 @@ int			ft_verify_we(t_params *params)
 		ft_free_tab(params->tabs.tab3);
 		return (0);
 	}
+	else
+		params->linkwe = ft_strdup(params->tabs.tab3[1]);
 	params->menu += 1;
 	ft_free_tab(params->tabs.tab3);
 	return (1);
@@ -91,6 +95,8 @@ int			ft_verify_ea(t_params *params)
 		ft_free_tab(params->tabs.tab4);
 		return (0);
 	}
+	else
+		params->linkea = ft_strdup(params->tabs.tab4[1]);
 	params->menu += 1;
 	ft_free_tab(params->tabs.tab4);
 	return (1);
@@ -119,6 +125,8 @@ int			ft_verify_so(t_params *params)
 		ft_free_tab(params->tabs.tab5);
 		return (0);
 	}
+	else
+		params->linkso = ft_strdup(params->tabs.tab5[1]);
 	params->menu += 1;
 	ft_free_tab(params->tabs.tab5);
 	return (1);

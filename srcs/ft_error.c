@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/15 12:04:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 15:28:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,11 @@ void	ft_error_wind(int error, char *wind)
 		printf("- Please enter : NO (north), SO (south), EA (east), ");
 		printf("WE (west)\n");
 	}
+}
+
+void	ft_error_texture(int error)
+{
+	printf("Error\n");
+	if (error == 0)
+		printf("Failed loading textures\n");
 }

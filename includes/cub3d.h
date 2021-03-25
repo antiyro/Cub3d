@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 09:42:34 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 15:59:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <fcntl.h>
 # include "../srcs/libft/libft.h"
 # include "../mlx/mlx.h"
+# include "../mlx/mlx_int.h"
 # include <math.h>
 
 // STRUCTURES
@@ -92,6 +93,13 @@ typedef	struct		s_tabs
 	char	**tab6;
 }			t_tabs;
 
+typedef struct		s_text
+{
+	void		*img;
+	int			width;
+	int 		height;
+}					t_text;
+
 typedef	struct		s_params
 {
 	char	*r;
@@ -117,10 +125,14 @@ typedef	struct		s_params
 	int		walldown;
 	int		wallleft;
 	int		wallright;
+	char	*linkno;
+	char	*linkso;
+	char	*linkwe;
+	char	*linkea;
 	t_spawn spawn;
 	t_window window;
 	t_ray	ray;
-	
+	t_text	texture[5];
 	char	*mapfile;
 }					t_params;
 
@@ -132,10 +144,10 @@ typedef	struct		s_params
 #  define BUFFER_SIZE 5
 # endif
 
-# define LINK1 "link1"
-# define LINK2 "link2"
-# define LINK3 "link3"
-# define LINK4 "link4"
+# define LINK1 "/home/user42/Documents/cub3d/textures/mossy.xpm"
+# define LINK2 "/home/user42/Documents/cub3d/textures/redbrick.xpm"
+# define LINK3 "/home/user42/Documents/cub3d/textures/sand.xpm"
+# define LINK4 "/home/user42/Documents/cub3d/textures/stone.xpm"
 
 # define OBJ1 "obj1"
 # define OBJ2 "obj2"
@@ -176,6 +188,7 @@ int         		ft_digit(int digit, t_params *params);
 int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
 void				ft_set_ray(t_params *params);
+int					ft_load_text(t_params *params);
 
 
 //parsing
@@ -224,5 +237,6 @@ void				ft_error_s(int error);
 void				ft_error_all(int error, char *str);
 void				ft_error_map(int error);
 void				ft_error_system(int error);
+void				ft_error_texture(int error);
 
 #endif

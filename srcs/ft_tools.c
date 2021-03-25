@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/24 11:34:49 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/25 16:04:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,4 +249,29 @@ void	ft_free_tab(char **tab)
 		free(tab[i]);
 		i++;
 	}
+}
+
+int	ft_load_text(t_params *params)
+{
+	if (!(params->texture[0].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkno, &params->texture[0].width, &params->texture[0].height))))
+	{
+		ft_error_texture(0);
+		return (0);
+	}
+	if (!(params->texture[1].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkso, &params->texture[0].width, &params->texture[0].height))))
+	{
+		ft_error_texture(0);
+		return (0);
+	}
+	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[0].width, &params->texture[0].height))))
+	{
+		ft_error_texture(0);
+		return (0);
+	}
+	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[0].width, &params->texture[0].height))))
+	{
+		ft_error_texture(0);
+		return (0);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 15:24:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/26 10:50:03 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,29 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
+        params->text.texNum = 1;
+        if (params->ray.sideHit == 0)
+            params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydirx;
+        else
+            params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydiry;
+        params->text.wallx = (params->text.wallx - (int)params->text.wallx) * 10;
+        params->text.texX = (int)(params->text.wallx * (double)params->texture[0].width);
+        if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
+            params->text.texX = params->texture[0].width - params->text.texX - 1;
+        if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
+            params->text.texX = params->texture[0].width - params->text.texX - 1;
+        params->text.step = 1.0 * params->texture[0].height / params->ray.lineheight;
+        params->text.texPos = (params->ray.drawstart - params->y / 2 + params->ray.lineheight / 2) * params->text.step;
+        int g = params->ray.drawstart;
+        while (g < params->ray.drawend)
+        {
+            params->text.texY = (int)params->text.texPos & (params->texture[0].height - 1);
+            params->text.texPos += params->text.step;
+            params->text.color = params->texture[0].adr[params->texture[0].height * params->text.texY + params->text.texX];
+            if (params->ray.sideHit == 1)
+                params->text.color = (params->text.color >> 1) & 8355711;
+            g++;
+        }
         params->ray.linetab[i] = params->ray.lineheight;
         params->ray.drawtab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
@@ -185,7 +208,7 @@ int         ft_print_map(t_params *params)
                 color = 500;
             else
                 color = 100;
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = params->text.color;
             params->window.y++;
             j++;
         }

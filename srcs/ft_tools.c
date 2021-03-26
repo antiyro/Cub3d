@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 16:04:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/26 10:48:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,20 +258,24 @@ int	ft_load_text(t_params *params)
 		ft_error_texture(0);
 		return (0);
 	}
-	if (!(params->texture[1].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkso, &params->texture[0].width, &params->texture[0].height))))
+	params->texture[0].adr = mlx_get_data_addr(params->texture[0].img, &params->texture[0].bpp, &params->texture[0].size_line, &params->texture[0].endian);
+	if (!(params->texture[1].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkso, &params->texture[1].width, &params->texture[1].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
-	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[0].width, &params->texture[0].height))))
+	params->texture[1].adr = mlx_get_data_addr(params->texture[1].img, &params->texture[1].bpp, &params->texture[1].size_line, &params->texture[1].endian);
+	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[2].width, &params->texture[2].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
-	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[0].width, &params->texture[0].height))))
+	params->texture[2].adr = mlx_get_data_addr(params->texture[2].img, &params->texture[2].bpp, &params->texture[2].size_line, &params->texture[2].endian);
+	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[3].width, &params->texture[3].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
+	params->texture[3].adr = mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian);
 	return (1);
 }

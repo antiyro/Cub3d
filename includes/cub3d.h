@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 15:59:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/26 10:44:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,47 +93,64 @@ typedef	struct		s_tabs
 	char	**tab6;
 }			t_tabs;
 
-typedef struct		s_text
+typedef struct		s_texture
 {
 	void		*img;
 	int			width;
 	int 		height;
-}					t_text;
+	char		*adr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}					t_texture;
+
+typedef struct s_text
+{
+	int		texNum;
+	double	wallx;
+	int		texX;
+	int		texY;
+	double	step;
+	double	texPos;
+	unsigned int color;
+}				t_text;
+
 
 typedef	struct		s_params
 {
-	char	*r;
-	char	*f;
-	char	*c;
-	char	*s;
-	char	*no;
-	char	*we;
-	char	*ea;
-	char	*so;
-	int		menu;
-	int		x;
-	int		y;
-	int		c_r;
-	int		c_g;
-	int		c_b;
-	int		f_r;
-	int		f_g;
-	int		f_b;
-	char	**map;
-	t_tabs	tabs;
-	int		wallup;
-	int		walldown;
-	int		wallleft;
-	int		wallright;
-	char	*linkno;
-	char	*linkso;
-	char	*linkwe;
-	char	*linkea;
-	t_spawn spawn;
-	t_window window;
-	t_ray	ray;
-	t_text	texture[5];
-	char	*mapfile;
+	char		*r;
+	char		*f;
+	char		*c;
+	char		*s;
+	char		*no;
+	char		*we;
+	char		*ea;
+	char		*so;
+	int			menu;
+	int			x;
+	int			y;
+	int			c_r;
+	int			c_g;
+	int			c_b;
+	int			f_r;
+	int			f_g;
+	int			f_b;
+	char		**map;
+	t_tabs		tabs;
+	int			wallup;
+	int			walldown;
+	int			wallleft;
+	int			wallright;
+	char		*linkno;
+	char		*linkso;
+	char		*linkwe;
+	char		*linkea;
+	t_spawn 	spawn;
+	t_window 	window;
+	t_ray		ray;
+	t_texture	texture[5];
+	t_text		text;
+	char		*mapfile;
 }					t_params;
 
 

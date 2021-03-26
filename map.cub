@@ -1,7 +1,7 @@
 R 800 600
 F 10,255,255
 C   210   ,215,54
-NO          /home/user42/Documents/cub3d/textures/mossy.xpm
+NO          /home/user42/Documents/cub3d/textures/stone.xpm
 SO /home/user42/Documents/cub3d/textures/redbrick.xpm
 EA /home/user42/Documents/cub3d/textures/sand.xpm
 WE /home/user42/Documents/cub3d/textures/stone.xpm
@@ -15,6 +15,6 @@ S obj2
 100000000000000000000000000011111
 10000000000000000000000000001
 100001000000000000000000000011
-100W0000000000000001111111111
+100N0000000000000001111111111
 1000000000000111111
 111111111111111

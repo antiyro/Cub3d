@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/26 10:50:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/26 12:32:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,21 @@ int         ft_controls(int key, t_params *params)
 int         ft_rays(t_params *params)
 {
     int i;
+    int v;
 
     i = 0;
+    v = 0;
     if (!ft_load_text(params))
         return (0);
     params->ray.linetab = malloc(sizeof(int) * params->x);
     params->ray.drawtab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
+    params->ray.colortab = malloc(sizeof(int *) * params->x);
+    while(v < params->x)
+    {
+        params->ray.colortab[v] = malloc(sizeof(int) * params->x);
+        v++;
+    }
     ft_set_ray(params);
     while (i < params->x)
     {
@@ -164,6 +172,7 @@ int         ft_rays(t_params *params)
         params->text.step = 1.0 * params->texture[0].height / params->ray.lineheight;
         params->text.texPos = (params->ray.drawstart - params->y / 2 + params->ray.lineheight / 2) * params->text.step;
         int g = params->ray.drawstart;
+        int j = 0;
         while (g < params->ray.drawend)
         {
             params->text.texY = (int)params->text.texPos & (params->texture[0].height - 1);
@@ -172,6 +181,8 @@ int         ft_rays(t_params *params)
             if (params->ray.sideHit == 1)
                 params->text.color = (params->text.color >> 1) & 8355711;
             g++;
+            params->ray.colortab[i][j] = params->text.color;
+            j++;
         }
         params->ray.linetab[i] = params->ray.lineheight;
         params->ray.drawtab[i] = params->ray.drawstart;
@@ -181,15 +192,18 @@ int         ft_rays(t_params *params)
     return (1);
 }
 
-int         ft_print_map(t_params *params)
+int        ft_print_map(t_params *params)
 {
-    int color = 100;
+    for (int d = 0; d < params->x; d++)
+        printf("%d/n", params->x);
+    //int color = 100;
     params->window.x = 0;
     params->window.y = 0;
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
     params->window.mlx_img_data = mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
     int j;
     int i;
+    int k;
 
     i = 0;
     while (i < params->x)
@@ -204,13 +218,15 @@ int         ft_print_map(t_params *params)
         j = 0;
         while (j < params->ray.linetab[i])
         {
-            if (!params->ray.sidetab[i])
+            k = 0;
+            /*if (!params->ray.sidetab[i])
                 color = 500;
             else
-                color = 100;
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = params->text.color;
+                color = 100;*/
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = params->ray.colortab[i][k];
             params->window.y++;
             j++;
+            k++;
         }
         params->window.x++;
         i++;
@@ -218,6 +234,7 @@ int         ft_print_map(t_params *params)
     free(params->ray.sidetab);
     free(params->ray.linetab);
     free(params->ray.drawtab);
+    free(params->ray.colortab);
     /*MINIMAP*/
     int a;
     int b;

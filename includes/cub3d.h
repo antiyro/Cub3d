@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/26 10:44:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/26 11:31:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct	s_ray
 	int		*linetab;
 	int		*drawtab;
 	int		*sidetab;
+	int		**colortab;
 }				t_ray;
 
 typedef	struct		s_tabs

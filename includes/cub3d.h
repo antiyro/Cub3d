@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/26 11:31:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/29 14:37:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ typedef	struct		s_params
 	int			f_r;
 	int			f_g;
 	int			f_b;
+	int			hexaf;
+	int			hexac;
 	char		**map;
 	t_tabs		tabs;
 	int			wallup;
@@ -207,6 +209,8 @@ int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
 void				ft_set_ray(t_params *params);
 int					ft_load_text(t_params *params);
+int        ft_destroy_window(int key, t_params *params);
+void		ft_rgbtohex(t_params *params);
 
 
 //parsing

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 18:09:24 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 11:52:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/29 11:55:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static size_t	sep(char const *s, int pos, char c)
 char			**ft_split(char const *s, char c)
 {
 	char	**tab;
-	char	**tmp;
 	int		i;
 	int		j;
 	int		k;

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 10:56:52 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/17 14:50:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/29 11:53:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ char				*ft_char_tostr(char c);
 void				ft_clean_stdin(void);
 int					ft_check_file_exist(char *name);
 int					ft_tablen(char **tab);
+char				*ft_convert(unsigned int num);
 
 #endif

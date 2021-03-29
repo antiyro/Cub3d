@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/26 10:48:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/29 14:38:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void		ft_init_struct(t_params *params)
 	params->window.endian = 0;
 	params->window.x = 0;
 	params->window.y = 0;
+	params->hexac = 0;
+	params->hexaf = 0;
 	ft_set_ray(params);
 }
 
@@ -278,4 +280,10 @@ int	ft_load_text(t_params *params)
 	}
 	params->texture[3].adr = mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian);
 	return (1);
+}
+
+void		ft_rgbtohex(t_params *params)
+{
+	params->hexac = 256*256*params->c_r+256*params->c_g+params->c_b;
+	params->hexaf = 256*256*params->f_r+256*params->f_g+params->f_b;
 }

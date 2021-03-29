@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/26 12:32:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/29 15:01:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int         ft_init_window(t_params *params)
     params->ray.posy = params->spawn.x;
     params->ray.posx = params->spawn.y;
     ft_set_dirplan(params);
+    ft_rgbtohex(params);
     mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
+    mlx_hook(params->window.mlx_win, 33, 1L<<17, ft_destroy_window, params);
     return (1);
 }      
 
@@ -74,10 +76,15 @@ int         ft_controls(int key, t_params *params)
     ft_print_map(params);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     if (key == ESCAPE)
-    {
-        mlx_destroy_window(params->window.mlx, params->window.mlx_win);
-        exit(1);
-    }
+        ft_destroy_window(key, params);
+    return (1);
+}
+
+int       ft_destroy_window(int key, t_params *params)
+{
+    (void)key;
+    mlx_destroy_window(params->window.mlx, params->window.mlx_win);
+            exit(1);
     return (1);
 }
 
@@ -158,7 +165,7 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-        params->text.texNum = 1;
+       /* params->text.texNum = 1;
         if (params->ray.sideHit == 0)
             params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydirx;
         else
@@ -183,7 +190,7 @@ int         ft_rays(t_params *params)
             g++;
             params->ray.colortab[i][j] = params->text.color;
             j++;
-        }
+        }*/
         params->ray.linetab[i] = params->ray.lineheight;
         params->ray.drawtab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
@@ -194,16 +201,13 @@ int         ft_rays(t_params *params)
 
 int        ft_print_map(t_params *params)
 {
-    for (int d = 0; d < params->x; d++)
-        printf("%d/n", params->x);
-    //int color = 100;
+    int color = params->hexac;
     params->window.x = 0;
     params->window.y = 0;
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
     params->window.mlx_img_data = mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
     int j;
     int i;
-    int k;
 
     i = 0;
     while (i < params->x)
@@ -212,28 +216,40 @@ int        ft_print_map(t_params *params)
         j = 0;
         while (j < params->ray.drawtab[i])
         {
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 25;
             params->window.y++;
             j++;
         }
         j = 0;
-        while (j < params->ray.linetab[i])
+        while (j < params->ray.linetab[i] && j < params->y)
         {
-            k = 0;
-            /*if (!params->ray.sidetab[i])
-                color = 500;
+            if (!params->ray.sidetab[i])
+                color = params->hexac;
             else
-                color = 100;*/
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = params->ray.colortab[i][k];
+                color = params->hexac/2;
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
             params->window.y++;
             j++;
-            k++;
         }
+       /* printf("%d\n", j);
+        while (j < params->y)
+        {
+            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 25;
+            params->window.y++;
+            j++;
+        }*/
         params->window.x++;
         i++;
     }
     free(params->ray.sidetab);
     free(params->ray.linetab);
     free(params->ray.drawtab);
+    int n = 0;
+    while (n < params->x)
+    {
+        free(params->ray.colortab[n]);
+        n++;
+    }
     free(params->ray.colortab);
     /*MINIMAP*/
     int a;

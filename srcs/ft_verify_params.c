@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 12:13:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 15:22:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,29 @@ int			ft_verify_params(t_params *params)
 
 int			ft_verify_r(t_params *params)
 {
-	char	**tab;
 	int		xmax;
 	int		ymax;
 
 	xmax = 0;
 	ymax = 0;
 	mlx_get_screen_size(params->window.mlx, &xmax, &ymax);
-	tab = ft_split(params->r, ' ');
-	if (ft_tablen(tab) != 3)
+	params->tabs.tab7 = ft_split(params->r, ' ');
+	if (ft_tablen(params->tabs.tab7) != 3)
 	{
 		ft_error_r(1);
+		ft_free_tab(params->tabs.tab7);
 		return (0);
 	}
-	if (ft_atoi(tab[1]) && ft_atoi(tab[2]))
+	if (ft_atoi(params->tabs.tab7[1]) && ft_atoi(params->tabs.tab7[2]))
 	{
-		if (ft_atoi(tab[1]) > 2147483647 || ft_atoi(tab[2]) > 2147483647)
+		if (ft_atoi(params->tabs.tab7[1]) > 2147483647 || ft_atoi(params->tabs.tab7[2]) > 2147483647)
 		{
 			ft_error_r(3);
+			ft_free_tab(params->tabs.tab7);
 			return (0);
 		}
-		params->x = (int)ft_atoi(tab[1]);
-		params->y = (int)ft_atoi(tab[2]);
+		params->x = (int)ft_atoi(params->tabs.tab7[1]);
+		params->y = (int)ft_atoi(params->tabs.tab7[2]);
 		if (params->x > xmax)
 			params->x = xmax;
 		if (params->y > ymax)
@@ -65,10 +66,11 @@ int			ft_verify_r(t_params *params)
 	else
 	{
 		ft_error_r(2);
+		ft_free_tab(params->tabs.tab7);
 		return (0);
 	}
 	params->menu += 1;
-	ft_free_tab(tab);
+	ft_free_tab(params->tabs.tab7);
 	return (1);
 }
 

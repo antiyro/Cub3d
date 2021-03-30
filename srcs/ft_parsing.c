@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 11:23:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 15:16:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_fill_map(t_params *params)
 			params->map[i] = ft_strdup(str);
 			i++;
 		}
+		free(str);
 	}
 	if (ft_checkismap(str) && i > 0)
 	{
@@ -96,7 +97,10 @@ int		ft_parsing_params(t_params *params)
 	ft_putstr_fd("Parsing map parameters", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0 && count != 7)
+	{
 		ft_fill_params(str, params, &count);
+		free(str);
+	}
 	if (count < 8 && count > 0)
 		ft_fill_params(str, params, &count);
 	else if (ft_checkismap(str))
@@ -151,15 +155,22 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
+		{
+			free(str);
 			break ;
+		}
 		else if (ft_checkisspace(str))
+		{	
+			free(str);
 			continue ;
+		}
 		else
 		{
 			ft_error_messages(1);
 			free(str);
 			return (0);
 		}
+		free(str);
 	}
 	while (get_next_line(fd, &str) > 0)
 	{
@@ -187,6 +198,7 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 				return (0);
 			}
 		}
+		free(str);
 	}
 	if (ft_checkismap(str))
 		*i += 1;

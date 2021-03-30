@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 13:30:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 14:54:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int         ft_controls(int key, t_params *params)
     }
     ft_rays(params);
     ft_print_map(params);
-    mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     if (key == ESCAPE)
         ft_destroy_window(key, params);
     return (1);
@@ -165,26 +164,26 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-        params->text.texNum = 0;
+        ft_setTexnum(params);
         if (params->ray.sideHit == 0)
             params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydiry;
         else
             params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydirx;
         params->text.wallx -= floor((params->text.wallx));
-        params->text.texX = (int)(params->text.wallx * (double)params->texture[0].width);
+        params->text.texX = (int)(params->text.wallx * (double)params->texture[params->text.texNum].width);
         if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
-            params->text.texX = params->texture[0].width - params->text.texX - 1;
+            params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
         if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
-            params->text.texX = params->texture[0].width - params->text.texX - 1;
-        params->text.step = 1.0 * params->texture[0].height / params->ray.lineheight;
+            params->text.texX = params->texture[params->text.texNum + 1].width - params->text.texX - 1;
+        params->text.step = 1.0 * params->texture[params->text.texNum].height / params->ray.lineheight;
         params->text.texPos = (params->ray.drawstart - params->y / 2 + params->ray.lineheight / 2) * params->text.step;
         int g = params->ray.drawstart;
         int j = 0;
         while (g < params->ray.drawend)
         {
-            params->text.texY = (int)params->text.texPos & (params->texture[0].height - 1);
+            params->text.texY = (int)params->text.texPos & (params->texture[params->text.texNum].height - 1);
             params->text.texPos += params->text.step;
-            params->text.color = params->texture[0].adr[params->text.texY * params->texture[0].size_line / 4 + params->text.texX];
+            params->text.color = params->texture[params->text.texNum].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
             if (params->ray.sideHit == 1)
                 params->text.color = (params->text.color >> 1) & 8355711;
             g++;
@@ -281,5 +280,6 @@ int        ft_print_map(t_params *params)
         params->window.y+=10;
     }
     mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
+    mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     return (1);
 }

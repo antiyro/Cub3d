@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 12:55:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 15:03:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,4 +286,16 @@ void		ft_rgbtohex(t_params *params)
 {
 	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
 	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
+}
+
+void		ft_setTexnum(t_params *params)
+{
+	if (params->spawn.wind == 'N')
+		params->text.texNum = 0;
+	else if (params->spawn.wind == 'S')
+		params->text.texNum = 1;
+	else if (params->spawn.wind == 'E')
+		params->text.texNum = 2;
+	else if (params->spawn.wind == 'W')
+		params->text.texNum = 3;
 }

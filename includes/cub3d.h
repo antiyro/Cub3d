@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 11:32:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 15:20:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef	struct		s_tabs
 	char	**tab4;
 	char	**tab5;
 	char	**tab6;
+	char	**tab7;
 }			t_tabs;
 
 typedef struct		s_texture
@@ -164,7 +165,7 @@ typedef	struct		s_params
 #  define BUFFER_SIZE 5
 # endif
 
-# define LINK1 "/home/user42/Documents/cub3d/textures/mossy.xpm"
+# define LINK1 "/home/user42/Documents/cub3d/textures/wood.xpm"
 # define LINK2 "/home/user42/Documents/cub3d/textures/redbrick.xpm"
 # define LINK3 "/home/user42/Documents/cub3d/textures/sand.xpm"
 # define LINK4 "/home/user42/Documents/cub3d/textures/stone.xpm"
@@ -211,6 +212,7 @@ void				ft_set_ray(t_params *params);
 int					ft_load_text(t_params *params);
 int        ft_destroy_window(int key, t_params *params);
 void		ft_rgbtohex(t_params *params);
+void		ft_setTexnum(t_params *params);
 
 
 //parsing

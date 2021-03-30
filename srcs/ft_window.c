@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 11:49:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 13:30:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,12 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-        params->text.texNum = 1;
+        params->text.texNum = 0;
         if (params->ray.sideHit == 0)
-            params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydirx;
+            params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydiry;
         else
-            params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydiry;
-        params->text.wallx = (params->text.wallx - (int)params->text.wallx) * 10;
+            params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydirx;
+        params->text.wallx -= floor((params->text.wallx));
         params->text.texX = (int)(params->text.wallx * (double)params->texture[0].width);
         if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
             params->text.texX = params->texture[0].width - params->text.texX - 1;
@@ -208,6 +208,7 @@ int        ft_print_map(t_params *params)
     params->window.mlx_img_data = (int *)mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
     int j;
     int i;
+    int k;
 
     i = 0;
     while (i < params->x)
@@ -220,14 +221,16 @@ int        ft_print_map(t_params *params)
             params->window.y++;
             j++;
         }
+        k = 0;
         while (j < params->ray.drawendtab[i] && j < params->y)
         {
             if (!params->ray.sidetab[i])
-                color = params->ray.colortab[j][i];
+                color = params->ray.colortab[k][i];
             else
-                color = params->ray.colortab[j][i] / 2;
+                color = params->ray.colortab[k][i];
             params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
             params->window.y++;
+            k++;
             j++;
         }
         while (j < params->y)

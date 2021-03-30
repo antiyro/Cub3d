@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 11:40:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 12:55:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	ft_print_pixel(t_params *params, int color)
 		params->window.x = tmpx;
 		while (j < 10)
 		{
-			params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+			params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
 			params->window.x++;
 			j++;
 		}
@@ -169,10 +169,10 @@ void	ft_print_spawn(t_params *params, int color)
 		params->window.x = tmpx;
 		while (j < 10)
 		{
-			params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+			params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
 			if (i == spawny && j == spawnx)
 			{
-				params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 0;
+				params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = 0;
 						
 			}
 			params->window.x++;

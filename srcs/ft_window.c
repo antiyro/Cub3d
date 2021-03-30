@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/29 15:01:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 11:49:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int         ft_rays(t_params *params)
     v = 0;
     if (!ft_load_text(params))
         return (0);
-    params->ray.linetab = malloc(sizeof(int) * params->x);
-    params->ray.drawtab = malloc(sizeof(int) * params->x);
+    params->ray.drawendtab = malloc(sizeof(int) * params->x);
+    params->ray.drawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
     params->ray.colortab = malloc(sizeof(int *) * params->x);
     while(v < params->x)
@@ -165,7 +165,7 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-       /* params->text.texNum = 1;
+        params->text.texNum = 1;
         if (params->ray.sideHit == 0)
             params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydirx;
         else
@@ -184,15 +184,15 @@ int         ft_rays(t_params *params)
         {
             params->text.texY = (int)params->text.texPos & (params->texture[0].height - 1);
             params->text.texPos += params->text.step;
-            params->text.color = params->texture[0].adr[params->texture[0].height * params->text.texY + params->text.texX];
+            params->text.color = params->texture[0].adr[params->text.texY * params->texture[0].size_line / 4 + params->text.texX];
             if (params->ray.sideHit == 1)
                 params->text.color = (params->text.color >> 1) & 8355711;
             g++;
-            params->ray.colortab[i][j] = params->text.color;
+            params->ray.colortab[j][i] = params->text.color;
             j++;
-        }*/
-        params->ray.linetab[i] = params->ray.lineheight;
-        params->ray.drawtab[i] = params->ray.drawstart;
+        }
+        params->ray.drawendtab[i] = params->ray.drawend;
+        params->ray.drawstarttab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
         i++;
     }
@@ -201,11 +201,11 @@ int         ft_rays(t_params *params)
 
 int        ft_print_map(t_params *params)
 {
-    int color = params->hexac;
+    int color;
     params->window.x = 0;
     params->window.y = 0;
     params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
-    params->window.mlx_img_data = mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
+    params->window.mlx_img_data = (int *)mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
     int j;
     int i;
 
@@ -214,36 +214,34 @@ int        ft_print_map(t_params *params)
     {
         params->window.y = 0;
         j = 0;
-        while (j < params->ray.drawtab[i])
+        while (j < params->ray.drawstarttab[i])
         {
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 25;
+            params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = params->hexac;
             params->window.y++;
             j++;
         }
-        j = 0;
-        while (j < params->ray.linetab[i] && j < params->y)
+        while (j < params->ray.drawendtab[i] && j < params->y)
         {
             if (!params->ray.sidetab[i])
-                color = params->hexac;
+                color = params->ray.colortab[j][i];
             else
-                color = params->hexac/2;
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = color;
+                color = params->ray.colortab[j][i] / 2;
+            params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
             params->window.y++;
             j++;
         }
-       /* printf("%d\n", j);
         while (j < params->y)
         {
-            params->window.mlx_img_data[params->window.x * 4 + 4 * params->x * params->window.y] = 25;
+            params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = params->hexaf;
             params->window.y++;
             j++;
-        }*/
+        }
         params->window.x++;
         i++;
     }
     free(params->ray.sidetab);
-    free(params->ray.linetab);
-    free(params->ray.drawtab);
+    free(params->ray.drawstarttab);
+    free(params->ray.drawendtab);
     int n = 0;
     while (n < params->x)
     {

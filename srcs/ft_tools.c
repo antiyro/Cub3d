@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/29 14:38:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 11:40:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,30 +260,30 @@ int	ft_load_text(t_params *params)
 		ft_error_texture(0);
 		return (0);
 	}
-	params->texture[0].adr = mlx_get_data_addr(params->texture[0].img, &params->texture[0].bpp, &params->texture[0].size_line, &params->texture[0].endian);
+	params->texture[0].adr = (int *)(mlx_get_data_addr(params->texture[0].img, &params->texture[0].bpp, &params->texture[0].size_line, &params->texture[0].endian));
 	if (!(params->texture[1].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkso, &params->texture[1].width, &params->texture[1].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
-	params->texture[1].adr = mlx_get_data_addr(params->texture[1].img, &params->texture[1].bpp, &params->texture[1].size_line, &params->texture[1].endian);
+	params->texture[1].adr = (int *)(mlx_get_data_addr(params->texture[1].img, &params->texture[1].bpp, &params->texture[1].size_line, &params->texture[1].endian));
 	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[2].width, &params->texture[2].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
-	params->texture[2].adr = mlx_get_data_addr(params->texture[2].img, &params->texture[2].bpp, &params->texture[2].size_line, &params->texture[2].endian);
+	params->texture[2].adr = (int *)(mlx_get_data_addr(params->texture[2].img, &params->texture[2].bpp, &params->texture[2].size_line, &params->texture[2].endian));
 	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[3].width, &params->texture[3].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
-	params->texture[3].adr = mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian);
+	params->texture[3].adr = (int *)(mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian));
 	return (1);
 }
 
 void		ft_rgbtohex(t_params *params)
 {
-	params->hexac = 256*256*params->c_r+256*params->c_g+params->c_b;
-	params->hexaf = 256*256*params->f_r+256*params->f_g+params->f_b;
+	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
+	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
 }

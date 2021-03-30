@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/29 14:37:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/30 11:32:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_window
 	void	*mlx;
 	void	*mlx_win;
 	void	*mlx_img;
-	char	*mlx_img_data;
+	int		*mlx_img_data;
 	int		bpp;
 	int		size_line;
 	int		endian;
@@ -74,11 +74,11 @@ typedef struct	s_ray
 	int		sideHit;
 	int		drawend;
 	int		drawstart;
-	int lineheight;
+	int 	lineheight;
 	double	oldDirX;
 	double 	oldPlanX;
-	int		*linetab;
-	int		*drawtab;
+	int		*drawendtab;
+	int		*drawstarttab;
 	int		*sidetab;
 	int		**colortab;
 }				t_ray;
@@ -99,7 +99,7 @@ typedef struct		s_texture
 	void		*img;
 	int			width;
 	int 		height;
-	char		*adr;
+	int		*adr;
 	int			bpp;
 	int			size_line;
 	int			endian;

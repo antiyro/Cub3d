@@ -1,7 +1,7 @@
 R 8000 600
-F 10,255,255
-C   100   ,100,100
-NO          /home/user42/Documents/cub3d/textures/stone.xpm
+F 255,229,1
+C   185   ,138, 1
+NO          /home/user42/Documents/cub3d/textures/redbrick.xpm
 SO /home/user42/Documents/cub3d/textures/redbrick.xpm
 EA /home/user42/Documents/cub3d/textures/sand.xpm
 WE /home/user42/Documents/cub3d/textures/stone.xpm

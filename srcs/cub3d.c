@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 15:50:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/31 10:25:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		main(int argc, char **argv)
 			return (0);
 		mlx_loop(params.window.mlx);
 		ft_destroy_struct(&params);
+		mlx_destroy_display(params.window.mlx);
 	}
 }

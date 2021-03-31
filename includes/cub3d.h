@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 15:20:15 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/31 10:32:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef	struct		s_tabs
 	char	**tab5;
 	char	**tab6;
 	char	**tab7;
+	char	**mapcpy;
 }			t_tabs;
 
 typedef struct		s_texture

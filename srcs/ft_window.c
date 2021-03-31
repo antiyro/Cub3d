@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 15:32:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/31 12:02:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,10 +171,19 @@ int         ft_rays(t_params *params)
             params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydirx;
         params->text.wallx -= floor((params->text.wallx));
         params->text.texX = (int)(params->text.wallx * (double)params->texture[params->text.texNum].width);
-        if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
+        if (params->ray.sideHit == 0 && params->ray.dirx < 0)
+            params->text.texNum = 0;
+        if (params->ray.sideHit == 0 && params->ray.dirx > 0)
+            params->text.texNum = 1;
+        if (params->ray.sideHit == 1 && params->ray.diry < 0)
+            params->text.texNum = 2;
+        if (params->ray.sideHit == 1 && params->ray.diry > 0)
+            params->text.texNum = 3;
+        // if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
+        //     params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
+        // if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
             params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
-        if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
-            params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
+
         params->text.step = 1.0 * params->texture[params->text.texNum].height / params->ray.lineheight;
         params->text.texPos = (params->ray.drawstart - params->y / 2 + params->ray.lineheight / 2) * params->text.step;
         int g = params->ray.drawstart;
@@ -194,6 +203,7 @@ int         ft_rays(t_params *params)
         params->ray.drawstarttab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
         i++;
+        printf("x = %f\ny = %f\n", params->ray.dirx, params->ray.diry);
     }
     return (1);
 }

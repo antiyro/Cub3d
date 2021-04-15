@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/15 09:36:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/15 10:17:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,8 +227,6 @@ void	ft_set_dirplan(t_params *params)
 void	ft_set_ray(t_params *params)
 {
 	params->ray.lineheight = 0;
-	//params->ray.planx = 0;
-	//params->ray.plany = 0;
 	params->ray.raydirx = 0;
 	params->ray.raydiry = 0;
 	params->ray.sideDistX = 0;

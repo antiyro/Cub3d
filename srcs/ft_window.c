@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/15 09:42:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/15 15:56:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int         ft_init_window(t_params *params)
     params->ray.drawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
     params->ray.colortab = malloc(sizeof(int *) * params->x);
+    ft_setTexnum(params);
     int v = 0;
     while(v < params->x)
     {
@@ -31,6 +32,7 @@ int         ft_init_window(t_params *params)
     params->ray.posx = params->spawn.y;
     ft_set_dirplan(params);
     ft_rgbtohex(params);
+    ft_print_map(params);
     mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
     mlx_hook(params->window.mlx_win, 33, 1L<<17, ft_destroy_window, params);
     return (1);
@@ -163,26 +165,25 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-        ft_setTexnum(params);
+        if ((params->ray.sideHit == 0) && (params->ray.dirx < 0))
+            params->text.texNum = 0;
+        else if ((params->ray.sideHit == 0) && (params->ray.dirx > 0))
+            params->text.texNum = 1;
+        else if ((params->ray.sideHit == 1) && (params->ray.diry < 0))
+            params->text.texNum = 2;
+        else if ((params->ray.sideHit == 1) && (params->ray.diry > 0))
+            params->text.texNum = 3;
         if (params->ray.sideHit == 0)
             params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydiry;
         else
             params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydirx;
         params->text.wallx -= floor((params->text.wallx));
-        params->text.texX = (int)(params->text.wallx * (double)params->texture[params->text.texNum].width);
-        if (params->ray.sideHit == 0 && params->ray.dirx < 0)
-            params->text.texNum = 0;
-        if (params->ray.sideHit == 0 && params->ray.dirx > 0)
-            params->text.texNum = 1;
-        if (params->ray.sideHit == 1 && params->ray.diry < 0)
-            params->text.texNum = 2;
-        if (params->ray.sideHit == 1 && params->ray.diry > 0)
-            params->text.texNum = 3;
+        //printf("x: %f\ny: %f\nside: %d\n", params->ray.raydirx, params->ray.raydiry, params->ray.sideHit);
+        params->text.texX = (int)(params->text.wallx * (double)(params->texture[params->text.texNum].width));
         if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
             params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
         if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
             params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
-
         params->text.step = 1.0 * params->texture[params->text.texNum].height / params->ray.lineheight;
         params->text.texPos = (params->ray.drawstart - params->y / 2 + params->ray.lineheight / 2) * params->text.step;
         int g = params->ray.drawstart;
@@ -249,7 +250,7 @@ int        ft_print_map(t_params *params)
         params->window.x++;
         i++;
     }
-    /*MINIMAP*/
+    /*MINIMAP
     int a;
     int b;
 
@@ -276,7 +277,7 @@ int        ft_print_map(t_params *params)
         }
         a++;
         params->window.y+=10;
-    }
+    }*/
     mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
     mlx_destroy_image(params->window.mlx, params->window.mlx_img);
     return (1);

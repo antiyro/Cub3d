@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/31 12:02:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/15 09:42:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 int         ft_init_window(t_params *params)
 {
+    params->ray.drawendtab = malloc(sizeof(int) * params->x);
+    params->ray.drawstarttab = malloc(sizeof(int) * params->x);
+    params->ray.sidetab = malloc(sizeof(int) * params->x);
+    params->ray.colortab = malloc(sizeof(int *) * params->x);
+    int v = 0;
+    while(v < params->x)
+    {
+        params->ray.colortab[v] = malloc(sizeof(int) * params->x);
+        v++;
+    }
+    if (!ft_load_text(params))
+        return (0);
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
     params->ray.posy = params->spawn.x;
     params->ray.posx = params->spawn.y;
@@ -90,21 +102,8 @@ int       ft_destroy_window(int key, t_params *params)
 int         ft_rays(t_params *params)
 {
     int i;
-    int v;
 
     i = 0;
-    v = 0;
-    if (!ft_load_text(params))
-        return (0);
-    params->ray.drawendtab = malloc(sizeof(int) * params->x);
-    params->ray.drawstarttab = malloc(sizeof(int) * params->x);
-    params->ray.sidetab = malloc(sizeof(int) * params->x);
-    params->ray.colortab = malloc(sizeof(int *) * params->x);
-    while(v < params->x)
-    {
-        params->ray.colortab[v] = malloc(sizeof(int) * params->x);
-        v++;
-    }
     ft_set_ray(params);
     while (i < params->x)
     {
@@ -179,9 +178,9 @@ int         ft_rays(t_params *params)
             params->text.texNum = 2;
         if (params->ray.sideHit == 1 && params->ray.diry > 0)
             params->text.texNum = 3;
-        // if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
-        //     params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
-        // if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
+        if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
+            params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
+        if (params->ray.sideHit == 1 && params->ray.raydiry < 0)
             params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;
 
         params->text.step = 1.0 * params->texture[params->text.texNum].height / params->ray.lineheight;
@@ -203,7 +202,6 @@ int         ft_rays(t_params *params)
         params->ray.drawstarttab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
         i++;
-        printf("x = %f\ny = %f\n", params->ray.dirx, params->ray.diry);
     }
     return (1);
 }
@@ -251,16 +249,6 @@ int        ft_print_map(t_params *params)
         params->window.x++;
         i++;
     }
-    free(params->ray.sidetab);
-    free(params->ray.drawstarttab);
-    free(params->ray.drawendtab);
-    int n = 0;
-    while (n < params->x)
-    {
-        free(params->ray.colortab[n]);
-        n++;
-    }
-    free(params->ray.colortab);
     /*MINIMAP*/
     int a;
     int b;

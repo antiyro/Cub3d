@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 12:59:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 13:57:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,6 @@ int			ft_s(char *str)
 
 	tmp = 0;
 	if (!ft_strcmp(str, OBJ1))
-		tmp += 1;
-	if (!ft_strcmp(str, OBJ2))
 		tmp += 1;
 	if (tmp)
 		return (1);
@@ -314,6 +312,12 @@ int	ft_load_text(t_params *params)
 		return (0);
 	}
 	params->texture[3].adr = (int *)(mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian));
+	if (!(params->texture[4].img = (mlx_xpm_file_to_image(params->window.mlx, params->obj1, &params->texture[4].width, &params->texture[4].height))))
+	{
+		ft_error_texture(0);
+		return (0);
+	}
+	params->texture[4].adr = (int *)(mlx_get_data_addr(params->texture[4].img, &params->texture[4].bpp, &params->texture[4].size_line, &params->texture[4].endian));
 	return (1);
 }
 

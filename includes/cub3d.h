@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 11:32:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 13:56:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,18 @@ typedef	struct		s_tabs
 	char	**mapcpy;
 }			t_tabs;
 
-typedef struct		s_texture
+typedef struct	s_texture
 {
 	void		*img;
 	int			width;
 	int 		height;
-	int		*adr;
+	int			*adr;
 	int			bpp;
 	int			size_line;
 	int			endian;
-}					t_texture;
+}				t_texture;
 
-typedef struct s_text
+typedef struct	s_text
 {
 	int		texNum;
 	double	wallx;
@@ -117,6 +117,13 @@ typedef struct s_text
 	double	texPos;
 	unsigned int color;
 }				t_text;
+
+typedef	struct	s_sprite
+{
+	double x;
+	double y;
+	int texture;
+}				t_sprite;
 
 
 typedef	struct		s_params
@@ -150,11 +157,13 @@ typedef	struct		s_params
 	char		*linkso;
 	char		*linkwe;
 	char		*linkea;
+	char		*obj1;
 	t_spawn 	spawn;
 	t_window 	window;
 	t_ray		ray;
 	t_texture	texture[5];
 	t_text		text;
+	t_sprite	sprite;
 	char		*mapfile;
 }					t_params;
 
@@ -171,8 +180,7 @@ typedef	struct		s_params
 # define LINK3 "./textures/sand.xpm"
 # define LINK4 "./textures/stone.xpm"
 
-# define OBJ1 "obj1"
-# define OBJ2 "obj2"
+# define OBJ1 "./textures/barrel.xpm"
 
 # define SPEED 0.1
 # define ROTSPEED 0.1

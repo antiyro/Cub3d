@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:28:02 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/08 09:49:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 13:54:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ void	ft_error_s(int error)
 		printf("Error\n");
 		printf("- Bad values entered\n");
 		printf("- Please write with the following format : S");
-		printf(" /Users/nbouhada/Documents/cub3d/sprite/s\n");
+		printf(" ./textures/barrel.xpm\n");
 	}
 	else if (error == 2)
 	{
 		printf("Error\n");
 		printf("- Bad link for the object entered\n");
 		printf("- Please write with the following format : S");
-		printf(" /Users/nbouhada/Documents/cub3d/sprite/s\n");
-		printf("- Substituing link1 by one of the 2 allowed object :\n");
-		printf("- obj1\n- obj2\n");
+		printf(" ./textures/barrel.xpm\n");
 	}
 	else if (error == 3)
 	{

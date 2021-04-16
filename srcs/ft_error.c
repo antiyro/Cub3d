@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 15:28:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 09:53:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ void	ft_error_wind(int error, char *wind)
 	{
 		printf("Error\n");
 		printf("- Bad values entered for %s\n", wind);
-		printf("- Please write with the following format : %s", wind);
-		printf(" /Users/nbouhada/Documents/cub3d/sprite/link1\n");
+		printf("- Please review the following link : %s", wind);
 	}
 	else if (error == 2)
 	{
@@ -109,8 +108,8 @@ void	ft_error_wind(int error, char *wind)
 		printf("- Bad link for the sprites entered\n");
 		printf("- Please write with the following format : %s", wind);
 		printf(" /Users/nbouhada/Documents/cub3d/sprite/link1\n");
-		printf("- Substituing link1 by one of the 4 allowed sprites :\n");
-		printf("- link1\n- link2\n- link3\n- link4\n");
+		printf("- Choose one of the 4 allowed sprites :\n");
+		printf("- ./textures/wood.xpm\n- ./textures/redbrick.xpm\n- ./textures/stone.xpm\n- ./textures/sand.xpm\n");
 	}
 	else if (error == 3)
 	{

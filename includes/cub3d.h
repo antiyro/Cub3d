@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/31 10:32:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 09:50:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,10 @@ typedef	struct		s_params
 #  define BUFFER_SIZE 5
 # endif
 
-# define LINK1 "/home/user42/Documents/cub3d/textures/wood.xpm"
-# define LINK2 "/home/user42/Documents/cub3d/textures/redbrick.xpm"
-# define LINK3 "/home/user42/Documents/cub3d/textures/sand.xpm"
-# define LINK4 "/home/user42/Documents/cub3d/textures/stone.xpm"
+# define LINK1 "./textures/wood.xpm"
+# define LINK2 "./textures/redbrick.xpm"
+# define LINK3 "./textures/sand.xpm"
+# define LINK4 "./textures/stone.xpm"
 
 # define OBJ1 "obj1"
 # define OBJ2 "obj2"

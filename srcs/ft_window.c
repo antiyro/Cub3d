@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/15 15:56:00 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 09:56:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int         ft_init_window(t_params *params)
 {
+    ft_putstr_fd("Opening window", 0);
+	ft_loading();
     params->ray.drawendtab = malloc(sizeof(int) * params->x);
     params->ray.drawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
     params->ray.colortab = malloc(sizeof(int *) * params->x);
-    ft_setTexnum(params);
     int v = 0;
     while(v < params->x)
     {
@@ -165,20 +166,19 @@ int         ft_rays(t_params *params)
 		params->ray.drawend = params->ray.lineheight / 2 + params->y / 2;
 		if (params->ray.drawend >= params->y)
 			params->ray.drawend = params->y - 1;
-        if ((params->ray.sideHit == 0) && (params->ray.dirx < 0))
+        if ((params->ray.sideHit == 0) && (params->ray.raydirx < 0))
             params->text.texNum = 0;
-        else if ((params->ray.sideHit == 0) && (params->ray.dirx > 0))
+        else if ((params->ray.sideHit == 0) && (params->ray.raydirx > 0))
             params->text.texNum = 1;
-        else if ((params->ray.sideHit == 1) && (params->ray.diry < 0))
+        else if ((params->ray.sideHit == 1) && (params->ray.raydiry < 0))
             params->text.texNum = 2;
-        else if ((params->ray.sideHit == 1) && (params->ray.diry > 0))
+        else if ((params->ray.sideHit == 1) && (params->ray.raydiry > 0))
             params->text.texNum = 3;
         if (params->ray.sideHit == 0)
             params->text.wallx = params->ray.posy + params->ray.wallDist * params->ray.raydiry;
         else
             params->text.wallx = params->ray.posx + params->ray.wallDist * params->ray.raydirx;
         params->text.wallx -= floor((params->text.wallx));
-        //printf("x: %f\ny: %f\nside: %d\n", params->ray.raydirx, params->ray.raydiry, params->ray.sideHit);
         params->text.texX = (int)(params->text.wallx * (double)(params->texture[params->text.texNum].width));
         if (params->ray.sideHit == 0 && params->ray.raydirx > 0)
             params->text.texX = params->texture[params->text.texNum].width - params->text.texX - 1;

@@ -1,10 +1,10 @@
 R 8000 600
-F 255,229,1
-C   185   ,138, 1
-NO          /home/user42/Documents/cub3d/textures/wood.xpm
-SO /home/user42/Documents/cub3d/textures/redbrick.xpm
-EA /home/user42/Documents/cub3d/textures/sand.xpm
-WE /home/user42/Documents/cub3d/textures/stone.xpm
+F 100,29,1
+C   126   ,18, 15
+NO          ./textures/wood.xpm
+SO ./textures/sand.xpm
+EA ./textures/redbrick.xpm
+WE ./textures/stone.xpm
 S obj2
 
     111

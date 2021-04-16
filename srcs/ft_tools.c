@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/15 10:17:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 10:09:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,17 @@ void		ft_destroy_struct(t_params *params)
 	free(params->so);
 	free(params->we);
 	free(params->ea);
-	ft_free_tab(params->map);
 	free(params->mapfile);
+}
+
+void		ft_destroy_winstruct(t_params *params)
+{
+
 	free(params->window.mlx);
 	free(params->window.mlx_win);
 	free(params->window.mlx_img);
 	free(params->window.mlx_img_data);
+	ft_free_tab(params->map);
 }
 
 int			ft_rgb(int nb)
@@ -265,13 +270,13 @@ int	ft_load_text(t_params *params)
 		return (0);
 	}
 	params->texture[1].adr = (int *)(mlx_get_data_addr(params->texture[1].img, &params->texture[1].bpp, &params->texture[1].size_line, &params->texture[1].endian));
-	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[2].width, &params->texture[2].height))))
+	if (!(params->texture[2].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[2].width, &params->texture[2].height))))
 	{
 		ft_error_texture(0);
 		return (0);
 	}
 	params->texture[2].adr = (int *)(mlx_get_data_addr(params->texture[2].img, &params->texture[2].bpp, &params->texture[2].size_line, &params->texture[2].endian));
-	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkwe, &params->texture[3].width, &params->texture[3].height))))
+	if (!(params->texture[3].img = (mlx_xpm_file_to_image(params->window.mlx, params->linkea, &params->texture[3].width, &params->texture[3].height))))
 	{
 		ft_error_texture(0);
 		return (0);
@@ -284,16 +289,4 @@ void		ft_rgbtohex(t_params *params)
 {
 	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
 	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
-}
-
-void		ft_setTexnum(t_params *params)
-{
-	if (params->spawn.wind == 'N')
-		params->text.texNum = 0;
-	else if (params->spawn.wind == 'S')
-		params->text.texNum = 1;
-	else if (params->spawn.wind == 'E')
-		params->text.texNum = 2;
-	else if (params->spawn.wind == 'W')
-		params->text.texNum = 3;
 }

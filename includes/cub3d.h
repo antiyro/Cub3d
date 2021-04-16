@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 13:56:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 15:29:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <math.h>
 
 // STRUCTURES
+
+struct	s_sprite;
 
 typedef struct s_window
 {
@@ -118,13 +120,15 @@ typedef struct	s_text
 	unsigned int color;
 }				t_text;
 
-typedef	struct	s_sprite
+typedef struct	s_sprite
 {
-	double x;
-	double y;
-	int texture;
-}				t_sprite;
-
+	int			numSprite;
+	double		x;
+	double		y;
+	int			texture;
+	double		first;
+	double		second;
+}		t_sprite;
 
 typedef	struct		s_params
 {
@@ -166,7 +170,6 @@ typedef	struct		s_params
 	t_sprite	sprite;
 	char		*mapfile;
 }					t_params;
-
 
 // DEFINES
 
@@ -222,7 +225,6 @@ int					ft_load_text(t_params *params);
 int        ft_destroy_window(int key, t_params *params);
 void		ft_rgbtohex(t_params *params);
 void		ft_setTexnum(t_params *params);
-
 void		ft_destroy_tabs(t_params *params);
 
 
@@ -258,6 +260,7 @@ void				ft_print_pixel(t_params *params, int color);
 int					ft_print_map(t_params *params);
 int					ft_rays(t_params *params);
 void				ft_print_spawn(t_params *params, int color);
+int     			ft_sprites(t_params *params, double *Zbuffer);
 
 //rays
 void				ft_set_dirplan(t_params *params);

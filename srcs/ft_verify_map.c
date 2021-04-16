@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:38 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 11:06:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 14:10:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,8 @@ int			ft_verify_spaces(t_params *params)
 				if (params->map[i - 1][j] == ' ')
 					return (0);
 			}
+			if (params->map[i][j] == '2')
+				params->sprite.numSprite += 1;
 			j++;
 		}
 		i++;

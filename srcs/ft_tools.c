@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 13:57:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 15:30:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		ft_init_struct(t_params *params)
 	params->linkso = 0;
 	params->linkwe = 0;
 	params->linkea = 0;
+	params->sprite.numSprite = 0;
 	ft_set_ray(params);
 }
 
@@ -312,7 +313,7 @@ int	ft_load_text(t_params *params)
 		return (0);
 	}
 	params->texture[3].adr = (int *)(mlx_get_data_addr(params->texture[3].img, &params->texture[3].bpp, &params->texture[3].size_line, &params->texture[3].endian));
-	if (!(params->texture[4].img = (mlx_xpm_file_to_image(params->window.mlx, params->obj1, &params->texture[4].width, &params->texture[4].height))))
+	if (!(params->texture[4].img = (mlx_xpm_file_to_image(params->window.mlx, params->obj1, &params->sprite.x, &params->sprite.y))))
 	{
 		ft_error_texture(0);
 		return (0);
@@ -325,4 +326,21 @@ void		ft_rgbtohex(t_params *params)
 {
 	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
 	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
+}
+
+void		ft_sortSprite(int	*order, double	*dist, int amount)
+{
+	int i;
+
+	i = 0;
+	while (i < amount)
+	{
+		//std::vector<std::pair<double, int>> sprites(amount);
+		params->sprite.first = dist[i];
+		params->sprite.second = order[i];
+		i++;
+	}
+	i = 0;
+	//std::sort(sprites.begin(), sprites.end());
+
 }

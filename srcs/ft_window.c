@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 11:47:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 15:16:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int       ft_destroy_window(int key, t_params *params)
 int         ft_rays(t_params *params)
 {
     int i;
+    double ZBuffer[params->x];
 
     i = 0;
     ft_set_ray(params);
@@ -203,9 +204,27 @@ int         ft_rays(t_params *params)
         params->ray.drawendtab[i] = params->ray.drawend;
         params->ray.drawstarttab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
+        ZBuffer[i] = params->ray.wallDist;
         i++;
     }
+    ft_sprites(params, ZBuffer);
     return (1);
+}
+
+int     ft_sprites(t_params *params, double *Zbuffer)
+{
+    int i;
+    int     spriteOrder[params->sprite.numSprite];
+    double  spriteDistance[params->sprite.numSprite];
+
+    i = 0;
+    while (i < params->sprite.numSprite)
+    {
+        spriteOrder[i] = i;
+        spriteDistance[i] = ((params->ray.posx - params->sprite.x) * (params->ray.posx - params->sprite.x) + (params->ray.posy - params->sprite.y) * (params->ray.posy - params->sprite.y));
+        i++;
+    }
+    ft_sortSprites(spriteOrder, spriteDistance, params->sprite.numSprite);
 }
 
 int        ft_print_map(t_params *params)

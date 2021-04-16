@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 09:50:06 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 11:32:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,8 @@ int					ft_load_text(t_params *params);
 int        ft_destroy_window(int key, t_params *params);
 void		ft_rgbtohex(t_params *params);
 void		ft_setTexnum(t_params *params);
+
+void		ft_destroy_tabs(t_params *params);
 
 
 //parsing

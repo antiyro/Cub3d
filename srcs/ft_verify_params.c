@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/30 15:22:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 13:07:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,32 @@
 
 int			ft_verify_params(t_params *params)
 {
+	int error;
+
+	error = 0;
 	if (!ft_verify_r(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_c(params))
-		return (0);
+		error += 1;
 	else if (!ft_verify_f(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_s(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_no(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_so(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_we(params))
-		return (0);
+		error += 1;
 	if (!ft_verify_ea(params))
+		error += 1;
+	if (error)
+	{
+		ft_destroy_struct(params);
+		ft_destroy_tabs(params);
 		return (0);
+	}
+	//ft_destroy_tabs(params);
 	return (1);
 }
 
@@ -45,7 +55,6 @@ int			ft_verify_r(t_params *params)
 	if (ft_tablen(params->tabs.tab7) != 3)
 	{
 		ft_error_r(1);
-		ft_free_tab(params->tabs.tab7);
 		return (0);
 	}
 	if (ft_atoi(params->tabs.tab7[1]) && ft_atoi(params->tabs.tab7[2]))
@@ -53,7 +62,6 @@ int			ft_verify_r(t_params *params)
 		if (ft_atoi(params->tabs.tab7[1]) > 2147483647 || ft_atoi(params->tabs.tab7[2]) > 2147483647)
 		{
 			ft_error_r(3);
-			ft_free_tab(params->tabs.tab7);
 			return (0);
 		}
 		params->x = (int)ft_atoi(params->tabs.tab7[1]);
@@ -66,11 +74,9 @@ int			ft_verify_r(t_params *params)
 	else
 	{
 		ft_error_r(2);
-		ft_free_tab(params->tabs.tab7);
 		return (0);
 	}
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab7);
 	return (1);
 }
 
@@ -86,7 +92,6 @@ int			ft_verify_c(t_params *params)
 	if (ft_tablen(params->tabs.tab) != 3)
 	{
 		ft_error_c(1);
-		ft_free_tab(params->tabs.tab);
 		return (0);
 	}
 	c_r = ft_strtrim(params->tabs.tab[0], ", ");
@@ -97,7 +102,6 @@ int			ft_verify_c(t_params *params)
 		if (ft_atoi(c_r) > 2147483647 || ft_atoi(c_g) > 2147483647 || ft_atoi(c_b) > 2147483647)
 		{
 			ft_error_c(3);
-			ft_free_tab(params->tabs.tab);
 			return (0);
 		}
 		params->c_r = (int)ft_atoi(c_r);
@@ -107,17 +111,14 @@ int			ft_verify_c(t_params *params)
 			!ft_rgb(params->c_b))
 		{
 			ft_error_c(2);
-			ft_free_tab(params->tabs.tab);
 			return (0);
 		}
 	}
 	else
 	{
 		ft_error_c(2);
-		ft_free_tab(params->tabs.tab);
 		return (0);
 	}
-	ft_free_tab(params->tabs.tab);
 	free(str);
 	free(c_r);
 	free(c_g);
@@ -165,7 +166,6 @@ int			ft_verify_f(t_params *params)
 		ft_error_f(2);
 		return (0);
 	}
-	ft_free_tab(params->tabs.tab1);
 	free(str);
 	free(f_r);
 	free(f_g);

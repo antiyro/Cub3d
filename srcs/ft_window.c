@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 09:56:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 11:47:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int         ft_init_window(t_params *params)
     ft_print_map(params);
     mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
     mlx_hook(params->window.mlx_win, 33, 1L<<17, ft_destroy_window, params);
+    ft_putstr_fd("Window opened with success !", 0);
     return (1);
 }      
 

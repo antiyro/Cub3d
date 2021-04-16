@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:30 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/25 16:02:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 13:00:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int			ft_verify_no(t_params *params)
 	if (ft_strcmp(params->tabs.tab2[0], "NO"))
 	{
 		ft_error_wind(3, params->tabs.tab2[0]);
-		ft_free_tab(params->tabs.tab2);
 		return (0);
 	}
 	if (ft_tablen(params->tabs.tab2) != 2)
@@ -32,13 +31,11 @@ int			ft_verify_no(t_params *params)
 	if (!ft_wind(params->tabs.tab2[1]))
 	{
 		ft_error_wind(2, params->tabs.tab2[0]);
-		ft_free_tab(params->tabs.tab2);
 		return (0);
 	}
 	else
 		params->linkno = ft_strdup(params->tabs.tab2[1]);
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab2);
 	return (1);
 }
 
@@ -50,25 +47,21 @@ int			ft_verify_we(t_params *params)
 	if (ft_strcmp(params->tabs.tab3[0], "WE"))
 	{
 		ft_error_wind(3, params->tabs.tab3[0]);
-		ft_free_tab(params->tabs.tab3);
 		return (0);
 	}
 	if (ft_tablen(params->tabs.tab3) != 2)
 	{
 		ft_error_wind(1, params->tabs.tab3[0]);
-		ft_free_tab(params->tabs.tab3);
 		return (0);
 	}
 	if (!ft_wind(params->tabs.tab3[1]))
 	{
 		ft_error_wind(2, params->tabs.tab3[0]);
-		ft_free_tab(params->tabs.tab3);
 		return (0);
 	}
 	else
 		params->linkwe = ft_strdup(params->tabs.tab3[1]);
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab3);
 	return (1);
 }
 
@@ -80,25 +73,21 @@ int			ft_verify_ea(t_params *params)
 	if (ft_strcmp(params->tabs.tab4[0], "EA"))
 	{
 		ft_error_wind(3, params->tabs.tab4[0]);
-		ft_free_tab(params->tabs.tab4);
 		return (0);
 	}
 	if (ft_tablen(params->tabs.tab4) != 2)
 	{
 		ft_error_wind(1, params->tabs.tab4[0]);
-		ft_free_tab(params->tabs.tab4);
 		return (0);
 	}
 	if (!ft_wind(params->tabs.tab4[1]))
 	{
 		ft_error_wind(2, params->tabs.tab4[0]);
-		ft_free_tab(params->tabs.tab4);
 		return (0);
 	}
 	else
 		params->linkea = ft_strdup(params->tabs.tab4[1]);
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab4);
 	return (1);
 }
 
@@ -110,25 +99,21 @@ int			ft_verify_so(t_params *params)
 	if (ft_strcmp(params->tabs.tab5[0], "SO"))
 	{
 		ft_error_wind(3, params->tabs.tab5[0]);
-		ft_free_tab(params->tabs.tab5);
 		return (0);
 	}
 	if (ft_tablen(params->tabs.tab5) != 2)
 	{
 		ft_error_wind(1, params->tabs.tab5[0]);
-		ft_free_tab(params->tabs.tab5);
 		return (0);
 	}
 	if (!ft_wind(params->tabs.tab5[1]))
 	{
 		ft_error_wind(2, params->tabs.tab5[0]);
-		ft_free_tab(params->tabs.tab5);
 		return (0);
 	}
 	else
 		params->linkso = ft_strdup(params->tabs.tab5[1]);
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab5);
 	return (1);
 }
 
@@ -140,16 +125,13 @@ int			ft_verify_s(t_params *params)
 	if (ft_tablen(params->tabs.tab6) != 2)
 	{
 		ft_error_s(1);
-		ft_free_tab(params->tabs.tab6);
 		return (0);
 	}
 	if (!ft_s(params->tabs.tab6[1]))
 	{
 		ft_error_s(2);
-		ft_free_tab(params->tabs.tab6);
 		return (0);
 	}
 	params->menu += 1;
-	ft_free_tab(params->tabs.tab6);
 	return (1);
 }

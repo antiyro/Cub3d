@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 10:21:41 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 12:03:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		else
 		{
 			ft_error_messages(1);
-			ft_destroy_struct(params);
 			free(str);
 			return (0);
 		}
@@ -179,7 +178,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		{
 			if (error)
 			{
-				ft_destroy_struct(params);
 				ft_error_map(1);
 				free(str);
 				return (0);
@@ -195,7 +193,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 			}
 			else if (!ft_checkisspace(str))
 			{
-				ft_destroy_struct(params);
 				ft_error_map(1);
 				free(str);
 				return (0);
@@ -213,7 +210,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	else
 	{
 		ft_error_map(5);
-		ft_destroy_struct(params);
 		free(str);
 		return (0);
 	}
@@ -224,7 +220,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	else
 	{
 		free(str);
-		ft_destroy_struct(params);
 		return (0);
 	}
 	free(str);

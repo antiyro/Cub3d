@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 15:30:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/16 15:43:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,7 +340,12 @@ void		ft_sortSprite(int	*order, double	*dist, int amount)
 		params->sprite.second = order[i];
 		i++;
 	}
-	i = 0;
 	//std::sort(sprites.begin(), sprites.end());
+	i = 0;
+	while (i < amount)
+	{
+		dist[i] = params.sprite
+		i++;
+	}
 
 }

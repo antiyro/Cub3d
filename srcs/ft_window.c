@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/17 15:30:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/17 15:54:51 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,6 @@ int     ft_sprites(t_params *params, double *Zbuffer)
             params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) + params->texture[4].width / spriteWidth) / 256;
             //printf("transY: %f\nstripe: %d\nparamsx: %d\nzbuf: %f", transformY, stripe, params->x, Zbuffer[stripe]);
             if (transformY > 0 && stripe > 0 && stripe < params->x && transformY < Zbuffer[stripe])
-                TEST
             y = drawStartY;
             while (y < drawEndY)
             {

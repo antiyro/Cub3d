@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 15:43:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/17 09:43:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,10 @@ typedef struct	s_text
 
 typedef struct	s_sprite
 {
-	int			numSprite;
 	double		x;
 	double		y;
+	int			height;
+	int			width;
 	int			texture;
 	double		first;
 	double		second;
@@ -167,7 +168,11 @@ typedef	struct		s_params
 	t_ray		ray;
 	t_texture	texture[5];
 	t_text		text;
-	t_sprite	sprite;
+	//SPRITES
+	int			numSprite;
+	int			*spriteOrder;
+	double		*spriteDistance;
+	t_sprite	*sprite;
 	char		*mapfile;
 }					t_params;
 
@@ -261,6 +266,8 @@ int					ft_print_map(t_params *params);
 int					ft_rays(t_params *params);
 void				ft_print_spawn(t_params *params, int color);
 int     			ft_sprites(t_params *params, double *Zbuffer);
+int         		ft_init_var(t_params *params);
+void				ft_sortSprites(int	*order, double	*dist, int amount, t_params *params);
 
 //rays
 void				ft_set_dirplan(t_params *params);

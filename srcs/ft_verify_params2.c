@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:30 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 13:44:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/17 09:50:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int			ft_verify_s(t_params *params)
 	}
 	else
 		params->obj1 = ft_strdup(params->tabs.tab6[1]);
-	printf("%s", params->obj1);
 	params->menu += 1;
 	return (1);
 }

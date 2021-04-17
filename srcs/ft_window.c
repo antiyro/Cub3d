@@ -6,16 +6,17 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 15:16:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/17 10:46:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int         ft_init_window(t_params *params)
+int         ft_init_var(t_params *params)
 {
-    ft_putstr_fd("Opening window", 0);
-	ft_loading();
+    params->sprite = malloc(sizeof(t_sprite) * params->numSprite);
+    params->spriteOrder = malloc(sizeof(int) * params->numSprite);
+    params->spriteDistance = malloc(sizeof(double) * params->numSprite);
     params->ray.drawendtab = malloc(sizeof(int) * params->x);
     params->ray.drawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
@@ -26,6 +27,14 @@ int         ft_init_window(t_params *params)
         params->ray.colortab[v] = malloc(sizeof(int) * params->x);
         v++;
     }
+    return (1);
+}
+
+int         ft_init_window(t_params *params)
+{
+    ft_putstr_fd("Opening window", 0);
+	ft_loading();
+    ft_init_var(params);
     if (!ft_load_text(params))
         return (0);
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
@@ -99,7 +108,10 @@ int       ft_destroy_window(int key, t_params *params)
 {
     (void)key;
     mlx_destroy_window(params->window.mlx, params->window.mlx_win);
-            exit(1);
+    ft_putstr_fd("\nCleaning session", 0);
+    ft_loading();
+    ft_putstr_fd("Session closed with success !\n", 0);
+    exit(1);
     return (1);
 }
 
@@ -214,17 +226,78 @@ int         ft_rays(t_params *params)
 int     ft_sprites(t_params *params, double *Zbuffer)
 {
     int i;
-    int     spriteOrder[params->sprite.numSprite];
-    double  spriteDistance[params->sprite.numSprite];
+    int y;
+    int d;
+    int stripe;
+    int drawStartY;
+    int drawEndY;
+    int drawStartX;
+    int drawEndX;
+    int spriteScreenX;
+    int spriteHeight;
+    int spriteWidth;
+    double spriteX;
+    double spriteY;
+    double invDet;
+    double transformX;
+    double transformY;
 
     i = 0;
-    while (i < params->sprite.numSprite)
+    while (i < params->numSprite)
     {
-        spriteOrder[i] = i;
-        spriteDistance[i] = ((params->ray.posx - params->sprite.x) * (params->ray.posx - params->sprite.x) + (params->ray.posy - params->sprite.y) * (params->ray.posy - params->sprite.y));
+        params->spriteOrder[i] = i;
+        params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) * (params->ray.posx - params->sprite[i].x) + (params->ray.posy - params->sprite[i].y)
+            * (params->ray.posy - params->sprite[i].y));
         i++;
     }
-    ft_sortSprites(spriteOrder, spriteDistance, params->sprite.numSprite);
+    ft_sortSprites(params->spriteOrder, params->spriteDistance, params->numSprite, params);
+    i = 0;
+    while (i < params->numSprite)
+    {
+        spriteX = params->sprite[params->spriteOrder[i]].x - params->ray.posx;
+        spriteY = params->sprite[params->spriteOrder[i]].y - params->ray.posy;
+        invDet = 1.0 / (params->ray.planx * params->ray.diry - params->ray.dirx * params->ray.plany);
+        transformX = invDet * (params->ray.diry * spriteX - params->ray.dirx * spriteY);
+        transformY = invDet * (-params->ray.plany * spriteX + params->ray.planx * spriteY);
+        spriteScreenX = (int)((params->x / 2) * (1 + transformX / transformY));
+        //height
+        spriteHeight = abs((int)(params->y / transformY));
+        drawStartY = -spriteHeight / 2 + params->y / 2;
+        if (drawStartY < 0)
+            drawStartY = 0;
+        drawEndY = spriteHeight / 2 + params->y / 2;
+        if (drawEndY >= params->y)
+            drawEndY = params->y - 1;
+        //width
+        spriteWidth = abs((int)(params->y / transformY));
+        drawStartX = -spriteWidth / 2 + spriteScreenX;
+        if (drawStartX < 0)
+            drawStartX = 0;
+        drawEndX = spriteWidth / 2 + spriteScreenX;
+        if (drawEndX >= params->x)
+            drawEndX = params->x - 1;
+        stripe = drawStartX;
+        while (stripe < drawEndX)
+        {
+            params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) + params->texture[4].width / spriteWidth) / 256;
+            if (transformY > 0 && stripe > 0 && stripe < params->x && transformY < Zbuffer[stripe])
+            {
+                y = drawStartY;
+                while (y < drawEndY)
+                {
+                    d = (y) * 256 - params->y * 128 + spriteHeight * 128;
+                    params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
+                    params->text.color = params->texture[4].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
+                    if ((params->text.color & 0x00FFFFFF) != 0)
+                        params->ray.colortab[y][stripe] = params->text.color;
+                    y++;
+                }
+            }
+            stripe++;
+        }
+        i++;
+    }
+    return (1);
 }
 
 int        ft_print_map(t_params *params)

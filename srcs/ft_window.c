@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/17 15:54:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 12:11:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int         ft_init_var(t_params *params)
 {
-    params->sprite = malloc(sizeof(t_sprite) * params->numSprite);
+    ft_sprite_pos(params);
+    params->ZBuffer = malloc(sizeof(double) * params->x);
     params->spriteOrder = malloc(sizeof(int) * params->numSprite);
     params->spriteDistance = malloc(sizeof(double) * params->numSprite);
     params->ray.drawendtab = malloc(sizeof(int) * params->x);
     params->ray.drawstarttab = malloc(sizeof(int) * params->x);
+    params->ray.sdrawendtab = malloc(sizeof(int) * params->x);
+    params->ray.sdrawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
     params->ray.colortab = malloc(sizeof(int *) * params->x);
     int v = 0;
@@ -26,6 +29,13 @@ int         ft_init_var(t_params *params)
     {
         params->ray.colortab[v] = malloc(sizeof(int) * params->x);
         v++;
+    }
+    params->ray.scolortab = malloc(sizeof(int *) * params->x);
+    int k = 0;
+    while(k < params->x)
+    {
+        params->ray.scolortab[k] = malloc(sizeof(int) * params->x);
+        k++;
     }
     return (1);
 }
@@ -118,7 +128,6 @@ int       ft_destroy_window(int key, t_params *params)
 int         ft_rays(t_params *params)
 {
     int i;
-    double ZBuffer[params->x];
 
     i = 0;
     ft_set_ray(params);
@@ -216,14 +225,14 @@ int         ft_rays(t_params *params)
         params->ray.drawendtab[i] = params->ray.drawend;
         params->ray.drawstarttab[i] = params->ray.drawstart;
         params->ray.sidetab[i] = params->ray.sideHit;
-        ZBuffer[i] = params->ray.wallDist;
+        params->ZBuffer[i] = params->ray.wallDist;
         i++;
     }
-    ft_sprites(params, ZBuffer);
+    ft_sprites(params);
     return (1);
 }
 
-int     ft_sprites(t_params *params, double *Zbuffer)
+int     ft_sprites(t_params *params)
 {
     int i;
     int y;
@@ -241,13 +250,12 @@ int     ft_sprites(t_params *params, double *Zbuffer)
     double invDet;
     double transformX;
     double transformY;
-    Zbuffer[0] = 0;
     i = 0;
+
     while (i < params->numSprite)
     {
         params->spriteOrder[i] = i;
-        params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) * (params->ray.posx - params->sprite[i].x) + (params->ray.posy - params->sprite[i].y)
-            * (params->ray.posy - params->sprite[i].y));
+        params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) * (params->ray.posx - params->sprite[i].x) + (params->ray.posy - params->sprite[i].y) * (params->ray.posy - params->sprite[i].y));
         i++;
     }
     ft_sortSprites(params->spriteOrder, params->spriteDistance, params->numSprite, params);
@@ -262,7 +270,7 @@ int     ft_sprites(t_params *params, double *Zbuffer)
         spriteScreenX = (int)((params->x / 2) * (1 + transformX / transformY));
         
         //height
-        spriteHeight = abs((int)(params->y / transformY));
+        spriteHeight = abs((int)(params->y / (transformY)));
         drawStartY = -spriteHeight / 2 + params->y / 2;
         if (drawStartY < 0)
             drawStartY = 0;
@@ -270,7 +278,7 @@ int     ft_sprites(t_params *params, double *Zbuffer)
         if (drawEndY >= params->y)
             drawEndY = params->y - 1;
         //width
-        spriteWidth = abs((int)(params->y / transformY));
+        spriteWidth = abs((int)(params->y / (transformY)));
         drawStartX = -spriteWidth / 2 + spriteScreenX;
         if (drawStartX < 0)
             drawStartX = 0;
@@ -280,20 +288,27 @@ int     ft_sprites(t_params *params, double *Zbuffer)
         stripe = drawStartX;
         while (stripe < drawEndX)
         {
-            params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) + params->texture[4].width / spriteWidth) / 256;
+            params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * params->texture[4].width / spriteWidth) / 256;
             //printf("transY: %f\nstripe: %d\nparamsx: %d\nzbuf: %f", transformY, stripe, params->x, Zbuffer[stripe]);
-            if (transformY > 0 && stripe > 0 && stripe < params->x && transformY < Zbuffer[stripe])
-            y = drawStartY;
-            while (y < drawEndY)
-            {
-                d = (y) * 256 - params->y * 128 + spriteHeight * 128;
-                params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
-                params->text.color = params->texture[4].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
-                if ((params->text.color & 0x00FFFFFF) != 0)
+            //if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
+            //{
+                y = drawStartY;
+                while (y < drawEndY)
                 {
-                    params->ray.colortab[y][stripe] = params->text.color;}
-                y++;
-            }
+                    d = (y) * 256 - params->y * 128 + spriteHeight * 128;
+                    params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
+                    params->text.color = params->texture[4].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
+                    if ((params->text.color & 0x00FFFFFF) != 0)
+                    {
+                        params->ray.colortab[y][stripe] = params->text.color;
+                        //printf("%d\n", params->text.color);
+                    }
+                    y++;
+                }
+
+            //}
+            params->ray.sdrawendtab[i] = drawEndY;
+            params->ray.sdrawstarttab[i] = drawStartY;
             stripe++;
         }
         i++;
@@ -341,9 +356,34 @@ int        ft_print_map(t_params *params)
             params->window.y++;
             j++;
         }
+        j = 0;
         params->window.x++;
         i++;
     }
+    /*params->window.x = 0;
+    i = 0;
+    while (i < params->x)
+    {
+        params->window.y = 0;
+        j = 0;
+        while (j < params->ray.sdrawstarttab[i])
+        {
+            params->window.y++;
+            j++;
+        }
+        k = 0;
+        while (j < params->ray.sdrawendtab[i] && j < params->y)
+        {
+            color = params->ray.scolortab[k][i];
+            //printf("%d\n", color);
+            params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
+            params->window.y++;
+            k++;
+            j++;
+        }
+        params->window.x++;
+        i++;
+    }*/
     /*MINIMAP
     int a;
     int b;

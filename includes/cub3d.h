@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/17 09:43:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 12:11:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ typedef struct	s_ray
 	double 	oldPlanX;
 	int		*drawendtab;
 	int		*drawstarttab;
+	int		*sdrawendtab;
+	int		*sdrawstarttab;
 	int		*sidetab;
 	int		**colortab;
+	int		**scolortab;
 }				t_ray;
 
 typedef	struct		s_tabs
@@ -172,6 +175,7 @@ typedef	struct		s_params
 	int			numSprite;
 	int			*spriteOrder;
 	double		*spriteDistance;
+	double		*ZBuffer;			
 	t_sprite	*sprite;
 	char		*mapfile;
 }					t_params;
@@ -231,6 +235,7 @@ int        ft_destroy_window(int key, t_params *params);
 void		ft_rgbtohex(t_params *params);
 void		ft_setTexnum(t_params *params);
 void		ft_destroy_tabs(t_params *params);
+int			ft_sprite_pos(t_params *params);
 
 
 //parsing
@@ -265,7 +270,7 @@ void				ft_print_pixel(t_params *params, int color);
 int					ft_print_map(t_params *params);
 int					ft_rays(t_params *params);
 void				ft_print_spawn(t_params *params, int color);
-int     			ft_sprites(t_params *params, double *Zbuffer);
+int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);
 void				ft_sortSprites(int	*order, double	*dist, int amount, t_params *params);
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/17 10:30:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 12:10:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,4 +349,31 @@ void		ft_sortSprites(int	*order, double	*dist, int amount, t_params *params)
 		i++;
 	}
 
+}
+
+int			ft_sprite_pos(t_params *params)
+{
+	int		i;
+	int		j;
+	int 	k;
+
+	i = 0;
+	k = 0;
+    params->sprite = malloc(sizeof(t_sprite) * params->numSprite);
+	while (params->map[i])
+	{
+		j = 0;
+		while (params->map[i][j])
+		{
+			if (params->map[i][j] == '2')
+			{
+				params->sprite[k].x = i;
+				params->sprite[k].x = i;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }

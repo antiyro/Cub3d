@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/19 12:11:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 14:20:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ int					ft_rays(t_params *params);
 void				ft_print_spawn(t_params *params, int color);
 int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);
-void				ft_sortSprites(int	*order, double	*dist, int amount, t_params *params);
+void				ft_sortSprites(t_params *params);
 
 //rays
 void				ft_set_dirplan(t_params *params);

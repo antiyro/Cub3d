@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/19 14:19:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/19 16:31:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,24 +331,32 @@ void		ft_rgbtohex(t_params *params)
 void		ft_sortSprites(t_params *params)
 {
 	int i;
+	int j;
+	int	tmp;
 
+	i = 0;
+	j = 0;
+	while (i < params->numSprite - 1)
+	{
+		j = 0;
+		while (j < params->numSprite - i - 1)
+		{
+			if (params->spriteDistance[j] < params->spriteDistance[j + 1])
+			{
+				tmp = params->spriteDistance[j];
+				params->spriteDistance[j + 1] = params->spriteDistance[j];
+				params->spriteDistance[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
 	i = 0;
 	while (i < params->numSprite)
 	{
-		//std::vector<std::pair<double, int>> sprites(amount);
-		params->sprite[i].first = params->spriteDistance[i];
-		params->sprite[i].second = params->spriteOrder[i];
+		params->spriteOrder[i] = params->spriteDistance[i];
 		i++;
 	}
-	//std::sort(sprites.begin(), sprites.end());
-	i = 0;
-	while (i < params->numSprite)
-	{
-		params->spriteDistance[i] = params->sprite[params->numSprite - i - 1].first;
-		params->spriteOrder[i] = params->sprite[params->numSprite - i - 1].second;
-		i++;
-	}
-
 }
 
 int			ft_sprite_pos(t_params *params)

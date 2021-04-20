@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 11:19:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 14:19:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,30 @@ void		ft_init_struct(t_params *params)
 	params->linkso = 0;
 	params->linkwe = 0;
 	params->linkea = 0;
+	params->obj1 = 0;
 	params->numSprite = 0;
+	params->tabs.tab = 0;
 	ft_set_ray(params);
 }
 
 void		ft_destroy_struct(t_params *params)
 {
-	free(params->r);
-	free(params->f);
-	free(params->c);
-	free(params->s);
-	free(params->no);
-	free(params->so);
-	free(params->we);
-	free(params->ea);
+	if (params->r)
+		free(params->r);
+	if (params->f)
+		free(params->f);
+	if (params->c)
+		free(params->c);
+	if (params->s)
+		free(params->s);
+	if (params->no)
+		free(params->no);
+	if (params->so)
+		free(params->so);
+	if (params->we)
+		free(params->we);
+	if (params->ea)
+		free(params->ea);
 	if (params->linkno)
 		free(params->linkno);
 	if (params->linkso)
@@ -69,7 +79,10 @@ void		ft_destroy_struct(t_params *params)
 		free(params->linkwe);
 	if (params->linkea)
 		free(params->linkea);
-	free(params->mapfile);
+	if (params->obj1)
+		free(params->obj1);
+	if (params->mapfile)
+		free(params->mapfile);
 }
 
 void		ft_destroy_tabs(t_params *params)
@@ -91,7 +104,7 @@ void		ft_destroy_tabs(t_params *params)
 	if (params->tabs.tab7)
 		ft_free_tab(params->tabs.tab7);
 	if (params->tabs.tab8)
-		ft_free_tab(params->tabs.tab7);
+		ft_free_tab(params->tabs.tab8);
 }
 
 void		ft_destroy_winstruct(t_params *params)

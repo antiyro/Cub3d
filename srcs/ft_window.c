@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 09:59:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 14:34:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int       ft_destroy_window(int key, t_params *params)
     ft_loading();
     ft_putstr_fd("Session closed with success !\n", 0);
     exit(1);
-    return (1);
+    return (0);
 }
 
 int         ft_rays(t_params *params)

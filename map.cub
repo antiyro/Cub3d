@@ -3,7 +3,7 @@ F 100,29,1
 C   111   ,202, 215  
 NO          ./textures/wood.xpm
 SO ./textures/sand.xpm
-EA ./textures/redbrick.xpm
+EA ./textures/redxbrick.xpm
 WE ./textures/stone.xpm
 S ./textures/barrel.xpm
 
@@ -18,6 +18,6 @@ S ./textures/barrel.xpm
 101200100011
 100000000011111111111111111111
 100000E000000000000020011111
-10000000000200011110111111
-1000000000111111
+10000000000200011101111111
+1000000000111111  1  
 1111111111111

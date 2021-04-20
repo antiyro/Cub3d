@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 11:05:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 14:35:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ int		main(int argc, char **argv)
 		params.window.mlx = mlx_init();
 		if (!ft_parsing_params(&params))
 		{
-			ft_destroy_struct(&params);
 			mlx_destroy_display(params.window.mlx);
 			return (0);
-		}
+		}TEST
 		if (!ft_init_window(&params))
 			return (0);
 		mlx_loop(params.window.mlx);

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/19 14:20:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 10:38:44 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef	struct		s_tabs
 	char	**tab5;
 	char	**tab6;
 	char	**tab7;
+	char	**tab8;
 	char	**mapcpy;
 }			t_tabs;
 
@@ -231,11 +232,13 @@ int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
 void				ft_set_ray(t_params *params);
 int					ft_load_text(t_params *params);
-int        ft_destroy_window(int key, t_params *params);
-void		ft_rgbtohex(t_params *params);
-void		ft_setTexnum(t_params *params);
-void		ft_destroy_tabs(t_params *params);
-int			ft_sprite_pos(t_params *params);
+int        			ft_destroy_window(int key, t_params *params);
+void				ft_rgbtohex(t_params *params);
+void				ft_setTexnum(t_params *params);
+void				ft_destroy_tabs(t_params *params);
+int					ft_sprite_pos(t_params *params);
+int					ft_verify_arg(t_params *params);
+int 				ft_count_comas(char	*str);
 
 
 //parsing

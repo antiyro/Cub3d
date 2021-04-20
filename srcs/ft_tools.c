@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/19 16:31:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 10:38:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void		ft_destroy_tabs(t_params *params)
 	if (params->tabs.tab6)
 		ft_free_tab(params->tabs.tab6);
 	if (params->tabs.tab7)
+		ft_free_tab(params->tabs.tab7);
+	if (params->tabs.tab8)
 		ft_free_tab(params->tabs.tab7);
 }
 
@@ -383,5 +385,41 @@ int			ft_sprite_pos(t_params *params)
 		}
 		i++;
 	}
+	return (1);
+}
+
+int			ft_verify_arg(t_params *params)
+{
+	if (!params->mapfile)
+		return (0);
+	params->tabs.tab8 = ft_split(params->mapfile, '.');
+	if (ft_tablen(params->tabs.tab8) != 2)
+	{
+		ft_error_system(1);
+		return (0);
+	}
+	if (ft_strcmp(params->tabs.tab8[1], "cub"))
+	{
+		ft_error_system(1);
+		return (0);
+	}
+	return (1);
+}
+
+int 		ft_count_comas(char	*str)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count += 1;
+		i++;
+	}
+	if (count != 2)
+		return (0);
 	return (1);
 }

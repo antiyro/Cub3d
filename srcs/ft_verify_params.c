@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 13:07:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 10:39:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ int			ft_verify_c(t_params *params)
 	char	*c_g;
 	char	*c_b;
 
+	if (!ft_count_comas(params->c))
+	{
+		ft_error_c(4);
+		return (0);
+	}
 	str = ft_strtrim(params->c, "C ");
 	params->tabs.tab = ft_split(str, ',');
 	if (ft_tablen(params->tabs.tab) != 3)
@@ -134,6 +139,11 @@ int			ft_verify_f(t_params *params)
 	char	*f_g;
 	char	*f_b;
 
+	if (!ft_count_comas(params->f))
+	{
+		ft_error_f(4);
+		return (0);
+	}
 	str = ft_strtrim(params->f, "F ");
 	params->tabs.tab1 = ft_split(str, ',');
 	if (ft_tablen(params->tabs.tab1) != 3)

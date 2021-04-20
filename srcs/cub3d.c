@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/16 13:06:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 10:26:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ int		main(int argc, char **argv)
 	else
 	{
 		ft_init_struct(&params);
-		params.window.mlx = mlx_init();
 		params.mapfile = ft_strdup(argv[1]);
+		if (!ft_verify_arg(&params))
+		{
+			ft_free_tab(params.tabs.tab8);
+			return (0);
+		}
+		printf("%s\n", params.mapfile);
+		params.window.mlx = mlx_init();
 		if (!ft_parsing_params(&params))
 			return (0);
 		if (!ft_init_window(&params))

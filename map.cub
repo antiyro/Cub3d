@@ -3,7 +3,7 @@ F 100,29,1
 C   111   ,202, 215  
 NO          ./textures/wood.xpm
 SO ./textures/sand.xpm
-EA ./textures/redxbrick.xpm
+EA ./textures/redbrick.xpm
 WE ./textures/stone.xpm
 S ./textures/barrel.xpm
 

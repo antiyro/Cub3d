@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/19 16:46:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/20 09:38:34 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,8 +291,8 @@ int     ft_sprites(t_params *params)
             params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * params->texture[4].width / spriteWidth) / 256;
             //printf("transY: %f\nstripe: %d\nparamsx: %d\nzbuf: %f", transformY, stripe, params->x, Zbuffer[stripe]);
             //printf("transY: %f\nzb: %f\n", transformY, params->ZBuffer[stripe]);
-            /*if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
-            {*/
+            if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
+            {
                 y = drawStartY;
                 int j = 0;
                 while (y < drawEndY)
@@ -301,15 +301,14 @@ int     ft_sprites(t_params *params)
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
                     params->text.color = params->texture[4].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
                     if ((params->text.color & 0x00FFFFFF) != 0)
-                    {
                         params->ray.scolortab[j][stripe] = params->text.color;
-                        printf("%d\n", params->text.color);
-                        j++;
-                    }
+                    else
+                        params->ray.scolortab[j][stripe] = 0;
+                    j++;
                     y++;
                 }
 
-            //}
+            }
             params->ray.sdrawendtab[stripe] = drawEndY;
             params->ray.sdrawstarttab[stripe] = drawStartY;
             stripe++;
@@ -364,6 +363,7 @@ int        ft_print_map(t_params *params)
         i++;
     }
     params->window.x = 0;
+    params->window.y = 0;
     i = 0;
     while (i < params->x)
     {

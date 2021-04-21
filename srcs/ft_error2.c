@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 11:28:02 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 10:05:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:33:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,10 @@ void	ft_error_system(int error)
 	{
 		printf("- Opening of the .cub file failed\n");
 		printf("- Please use the right filepath and an existing map\n");
+	}
+	else if (error == 2)
+	{
+		printf("- Third argument format invalid\n");
+		printf("- Please enter --save\n");
 	}
 }

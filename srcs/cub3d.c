@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 15:46:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:46:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	if (argc < 1 && argc > 2)
+	if (argc < 1 && argc > 3)
 	{
 		printf("Error\nWrong number of parameters\nPlease give a map and you");
 		printf(" may also want to add the \"--save\" parameter");
@@ -31,6 +31,15 @@ int		main(int argc, char **argv)
 		{
 			ft_free_tab(params.tabs.tab8);
 			return (0);
+		}
+		if (argc == 3)
+		{
+			params.savearg = ft_strdup(argv[2]);
+			if (!ft_verify_save(&params))
+			{
+				free(params.savearg);
+				return (0);
+			}
 		}
 		printf("%s\n", params.mapfile);
 		params.window.mlx = mlx_init();
@@ -52,6 +61,7 @@ int		main(int argc, char **argv)
     	    n++;
    		}
     	free(params.ray.colortab);
+		printf("%d\n", params.save);
 		if (params.r)
 			ft_destroy_struct(&params);
 		mlx_destroy_display(params.window.mlx);

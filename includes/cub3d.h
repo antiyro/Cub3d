@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 10:38:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:39:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ typedef	struct		s_params
 	char		*linkwe;
 	char		*linkea;
 	char		*obj1;
+	int			save;
+	char		*savearg;
 	t_spawn 	spawn;
 	t_window 	window;
 	t_ray		ray;
@@ -239,6 +241,7 @@ void				ft_destroy_tabs(t_params *params);
 int					ft_sprite_pos(t_params *params);
 int					ft_verify_arg(t_params *params);
 int 				ft_count_comas(char	*str);
+int					ft_verify_save(t_params *params);
 
 
 //parsing

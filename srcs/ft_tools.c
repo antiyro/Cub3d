@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 12:25:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:36:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		ft_init_struct(t_params *params)
 {
+	params->save = 0;
 	params->r = 0;
 	params->f = 0;
 	params->c = 0;
@@ -363,23 +364,7 @@ void		ft_sortSprites(t_params *params)
 		j = 0;
 		while (j < params->numSprite - i - 1)
 		{
-			if (params->sprite[j].first > params->sprite[j + 1].first)
-			{
-				tmp = params->sprite[j].first;
-				params->sprite[j].first = params->sprite[j + 1].first;
-				params->sprite[j + 1].first = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < params->numSprite - 1)
-	{
-		j = 0;
-		while (j < params->numSprite - i - 1)
-		{
-			if (params->sprite[j].second > params->sprite[j + 1].second)
+			if (params->sprite[j].first < params->sprite[j + 1].first)
 			{
 				tmp = params->sprite[j].second;
 				params->sprite[j].second = params->sprite[j + 1].second;
@@ -440,6 +425,18 @@ int			ft_verify_arg(t_params *params)
 		ft_error_system(1);
 		return (0);
 	}
+	return (1);
+}
+
+int			ft_verify_save(t_params *params)
+{
+
+	if (ft_strcmp(params->savearg, "--save"))
+	{
+		ft_error_system(2);
+		return (0);
+	}
+	params->save = 1;
 	return (1);
 }
 

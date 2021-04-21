@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 14:34:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 09:54:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ int     ft_sprites(t_params *params)
         params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) * (params->ray.posx - params->sprite[i].x) + (params->ray.posy - params->sprite[i].y) * (params->ray.posy - params->sprite[i].y));
         i++;
     }
-    //ft_sortSprites(params);
+    ft_sortSprites(params);
     i = 0;
     while (i < params->numSprite)
     {
@@ -299,7 +299,7 @@ int     ft_sprites(t_params *params)
                 {
                     d = (y) * 256 - params->y * 128 + spriteHeight * 128;
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
-                    params->text.color = params->texture[4].adr[params->text.texY * params->texture[params->text.texNum].size_line / 4 + params->text.texX];
+                    params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
                     if ((params->text.color & 0x00FFFFFF) != 0)
                         params->ray.scolortab[j][stripe] = params->text.color;
                     else

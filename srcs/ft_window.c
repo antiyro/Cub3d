@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 09:54:23 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 11:18:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,16 +269,21 @@ int     ft_sprites(t_params *params)
         transformY = invDet * (-params->ray.plany * spriteX + params->ray.planx * spriteY);
         spriteScreenX = (int)((params->x / 2) * (1 + transformX / transformY));
         
+        #define uDiv 1
+        #define vDiv 1
+        #define vMove params->texture[4].height
+        int vMoveScreen = (int)(vMove / transformY);
+
         //height
-        spriteHeight = abs((int)(params->y / (transformY)));
-        drawStartY = -spriteHeight / 2 + params->y / 2;
+        spriteHeight = abs((int)(params->y / (transformY))) / vDiv;
+        drawStartY = -spriteHeight / 2 + params->y / 2 + vMoveScreen;
         if (drawStartY < 0)
             drawStartY = 0;
-        drawEndY = spriteHeight / 2 + params->y / 2;
+        drawEndY = spriteHeight / 2 + params->y / 2 + vMoveScreen;
         if (drawEndY >= params->y)
             drawEndY = params->y - 1;
         //width
-        spriteWidth = abs((int)(params->y / (transformY)));
+        spriteWidth = abs((int)(params->y / (transformY))) / uDiv;
         drawStartX = -spriteWidth / 2 + spriteScreenX;
         if (drawStartX < 0)
             drawStartX = 0;
@@ -289,15 +294,15 @@ int     ft_sprites(t_params *params)
         while (stripe < drawEndX)
         {
             params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * params->texture[4].width / spriteWidth) / 256;
-            //printf("transY: %f\nstripe: %d\nparamsx: %d\nzbuf: %f", transformY, stripe, params->x, Zbuffer[stripe]);
+            //printf("transY: %f\nstripe: %d\nparamsx: %d\nzbuf: %f\n\n", transformY, stripe, params->x, params->ZBuffer[stripe]);
             //printf("transY: %f\nzb: %f\n", transformY, params->ZBuffer[stripe]);
-            /*if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
-            {*/
+            if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
+            {
                 y = drawStartY;
                 int j = 0;
                 while (y < drawEndY)
                 {
-                    d = (y) * 256 - params->y * 128 + spriteHeight * 128;
+                    d = (y - vMoveScreen) * 256 - params->y * 128 + spriteHeight * 128;
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
                     params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
                     if ((params->text.color & 0x00FFFFFF) != 0)
@@ -307,8 +312,7 @@ int     ft_sprites(t_params *params)
                     j++;
                     y++;
                 }
-
-            //}
+            }
             params->ray.sdrawendtab[stripe] = drawEndY;
             params->ray.sdrawstarttab[stripe] = drawStartY;
             stripe++;
@@ -378,12 +382,13 @@ int        ft_print_map(t_params *params)
         while (j < params->ray.sdrawendtab[i] && j < params->y)
         {
             color = params->ray.scolortab[k][i];
-            if (color > 0)
+            if (color != 0)
                 params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
             params->window.y++;
             k++;
             j++;
         }
+        j = 0;
         params->window.x++;
         i++;
     }

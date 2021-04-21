@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 09:26:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 11:08:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,16 +358,32 @@ void		ft_sortSprites(t_params *params)
 		i++;
 	}
 	i = 0;
-	while (i < params->numSprite)
+	while (i < params->numSprite - 1)
 	{
 		j = 0;
-		while (j < params->numSprite - 2)
+		while (j < params->numSprite - i - 1)
 		{
 			if (params->sprite[j].first > params->sprite[j + 1].first)
 			{
 				tmp = params->sprite[j].first;
 				params->sprite[j].first = params->sprite[j + 1].first;
-				params->sprite[j].first = tmp;
+				params->sprite[j + 1].first = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < params->numSprite - 1)
+	{
+		j = 0;
+		while (j < params->numSprite - i - 1)
+		{
+			if (params->sprite[j].second > params->sprite[j + 1].second)
+			{
+				tmp = params->sprite[j].second;
+				params->sprite[j].second = params->sprite[j + 1].second;
+				params->sprite[j + 1].second = tmp;
 			}
 			j++;
 		}
@@ -376,10 +392,10 @@ void		ft_sortSprites(t_params *params)
 	i = 0;
 	while (i < params->numSprite)
 	{
-		printf("%f\n", params->sprite[i].first);
+		params->spriteDistance[i] = params->sprite[params->numSprite - i - 1].first;
+		params->spriteOrder[i] = params->sprite[params->numSprite - i - 1].second;
 		i++;
 	}
-	TEST
 }
 
 int			ft_sprite_pos(t_params *params)
@@ -399,7 +415,7 @@ int			ft_sprite_pos(t_params *params)
 			if (params->map[i][j] == '2')
 			{
 				params->sprite[k].x = i;
-				params->sprite[k].x = i;
+				params->sprite[k].y = j;
 				k++;
 			}
 			j++;

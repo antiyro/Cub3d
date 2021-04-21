@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 12:06:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 14:31:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,17 @@ int     ft_sprites(t_params *params)
     double transformY;
     i = 0;
 
+    while (i < params->x)
+    {
+        int h = 0;
+        while (h < params->x)
+        {
+            params->ray.scolortab[i][h] = 0;
+            h++;
+        }
+        i++;
+    }
+    i = 0;
     while (i < params->numSprite)
     {
         params->spriteOrder[i] = i;
@@ -303,7 +314,7 @@ int     ft_sprites(t_params *params)
                     d = (y - vMoveScreen) * 256 - params->y * 128 + spriteHeight * 128;
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
                     params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
-                    if ((params->text.color & 0x00FFFFFF) != 0)
+                    if (params->text.color != 0)
                         params->ray.scolortab[j][stripe] = params->text.color;
                     else
                         params->ray.scolortab[j][stripe] = 0;

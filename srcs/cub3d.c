@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 15:46:30 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/21 15:49:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		main(int argc, char **argv)
     	    n++;
    		}
     	free(params.ray.colortab);
-		printf("%d\n", params.save);
 		if (params.r)
 			ft_destroy_struct(&params);
 		mlx_destroy_display(params.window.mlx);

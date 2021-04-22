@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 15:39:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/22 14:34:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_ray
 	int		*drawstarttab;
 	int		*sdrawendtab;
 	int		*sdrawstarttab;
+	int 	*sdrawstartxtab;
 	int		*sidetab;
 	int		**colortab;
 	int		**scolortab;
@@ -214,7 +215,9 @@ typedef	struct		s_params
 
 //tools
 void				ft_init_struct(t_params *params);
+void				ft_init_struct2(t_params *params);
 void				ft_destroy_struct(t_params *params);
+void				ft_destroy_struct2(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);
 int					ft_rgb(int nb);
 int					ft_wind(char *str);
@@ -233,10 +236,13 @@ int         		ft_digit(int digit, t_params *params);
 int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
 void				ft_set_ray(t_params *params);
-int					ft_load_text(t_params *params);
+int					ft_load_text(t_params *params, int error);
+int					ft_load_text2(t_params *params, int error);
 int        			ft_destroy_window(int key, t_params *params);
 void				ft_rgbtohex(t_params *params);
 void				ft_setTexnum(t_params *params);
+void				ft_set_dirplan(t_params *params);
+void				ft_set_dirplan2(t_params *params);
 void				ft_destroy_tabs(t_params *params);
 int					ft_sprite_pos(t_params *params);
 int					ft_verify_arg(t_params *params);
@@ -279,9 +285,6 @@ void				ft_print_spawn(t_params *params, int color);
 int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);
 void				ft_sortSprites(t_params *params);
-
-//rays
-void				ft_set_dirplan(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

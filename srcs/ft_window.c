@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/21 15:50:39 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/22 14:29:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int         ft_init_var(t_params *params)
     params->ray.sdrawstarttab = malloc(sizeof(int) * params->x);
     params->ray.sidetab = malloc(sizeof(int) * params->x);
     params->ray.colortab = malloc(sizeof(int *) * params->x);
+    params->ray.sdrawstartxtab = malloc(sizeof(int) * params->numSprite);
     int v = 0;
     while(v < params->x)
     {
@@ -45,8 +46,10 @@ int         ft_init_window(t_params *params)
     ft_putstr_fd("Opening window", 0);
 	ft_loading();
     ft_init_var(params);
-    if (!ft_load_text(params))
+    if (!ft_load_text(params, 0))
         return (0);
+	if (!ft_load_text2(params, 0))
+		return (0);
     params->window.mlx_win = mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
     params->ray.posy = params->spawn.x;
     params->ray.posx = params->spawn.y;
@@ -302,6 +305,7 @@ int     ft_sprites(t_params *params)
         if (drawEndX >= params->x)
             drawEndX = params->x - 1;
         stripe = drawStartX;
+        params->ray.sdrawstartxtab[i] = drawStartX;
         while (stripe < drawEndX)
         {
             params->text.texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * params->texture[4].width / spriteWidth) / 256;
@@ -314,7 +318,7 @@ int     ft_sprites(t_params *params)
                     d = (y - vMoveScreen) * 256 - params->y * 128 + spriteHeight * 128;
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
                     params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
-                    if (params->text.color != 0)
+                    if ((params->text.color & 0x00FFFFFF) != 0 || params->text.color != 0)
                         params->ray.scolortab[j][stripe] = params->text.color;
                     else
                         params->ray.scolortab[j][stripe] = 0;
@@ -356,10 +360,7 @@ int        ft_print_map(t_params *params)
         k = 0;
         while (j < params->ray.drawendtab[i] && j < params->y)
         {
-            if (!params->ray.sidetab[i])
-                color = params->ray.colortab[k][i];
-            else
-                color = params->ray.colortab[k][i];
+            color = params->ray.colortab[k][i];
             params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
             params->window.y++;
             k++;
@@ -375,29 +376,43 @@ int        ft_print_map(t_params *params)
         params->window.x++;
         i++;
     }
+    
     params->window.x = 0;
     params->window.y = 0;
     i = 0;
+    int g = 0;
+
     while (i < params->x)
     {
+        int count = 0;
+
         params->window.y = 0;
         j = 0;
-        while (j < params->ray.sdrawstarttab[i])
-        {
-            params->window.y++;
-            j++;
-        }
-        k = 0;
-        while (j < params->ray.sdrawendtab[i] && j < params->y)
-        {
-            color = params->ray.scolortab[k][i];
-            if (color != 0)
-                params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
-            params->window.y++;
-            k++;
-            j++;
-        }
-        j = 0;
+            while (j < params->ray.sdrawstarttab[i])
+            {
+                params->window.y++;
+                count = 1;
+                j++;
+            }
+            if (!count)
+            {
+                while (j < params->y)
+                {
+                    params->window.y++;
+                    j++;
+                }
+            }
+            k = 0;
+            while (j < params->ray.sdrawendtab[i] && j < params->y && count)
+            {
+                color = params->ray.scolortab[k][i];
+                if (color != 0)
+                    params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
+                params->window.y++;
+                k++;
+                j++;
+            }
+            g++;
         params->window.x++;
         i++;
     }

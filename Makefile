@@ -7,7 +7,7 @@ OBJ_MAIN = ${MAIN:.c=.o}
 SRCS =		srcs/cub3d.c srcs/ft_error.c srcs/ft_error2.c srcs/ft_parsing.c \
 	 		srcs/ft_tools.c srcs/ft_tools2.c srcs/ft_verify_map.c \
 			srcs/ft_verify_params.c srcs/ft_verify_params2.c srcs/get_next_line.c \
-			srcs/ft_window.c \
+			srcs/ft_window.c srcs/ft_struct.c srcs/ft_set.c srcs/ft_sprite_tools.c\
 
 PATH_SRCS = ./
 

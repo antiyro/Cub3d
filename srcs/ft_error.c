@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/20 10:32:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/22 14:50:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_error_f(int error)
 		printf("Error\n");
 		printf("- Colors parameters cant be treated as an int\n");
 		printf("- Please enter the indicators as a positive int value ");
-		printf("between 0 and 255\n");;
+		printf("between 0 and 255\n");
 	}
 	else if (error == 4)
 	{
@@ -128,11 +128,4 @@ void	ft_error_wind(int error, char *wind)
 		printf("- Please enter : NO (north), SO (south), EA (east), ");
 		printf("WE (west)\n");
 	}
-}
-
-void	ft_error_texture(int error)
-{
-	printf("Error\n");
-	if (error == 0)
-		printf("Failed loading textures\n");
 }

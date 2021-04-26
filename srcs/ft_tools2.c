@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/03/20 11:35:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:16:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,35 @@ char		**ft_tabcpy(char **tab)
 	}
 	tab2[i] = 0;
 	return (tab2);
+}
+
+void		ft_tabcpy2(t_params *params)
+{
+	int		i;
+
+	i = 0;
+	while (i < params->x)
+	{
+		params->ray.scolortab[i] = params->ray.colortab[i];
+		i++;
+	}
+}
+
+void		ft_print_tab(int **tab)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < 800)
+	{
+		j = 0;
+		while (j < 600)
+		{
+			printf("%d ", tab[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

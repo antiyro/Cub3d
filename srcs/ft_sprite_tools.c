@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 13:45:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 11:50:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ void		ft_sortSprites(t_params *params)
 				tmp = params->sprite[j].second;
 				params->sprite[j].second = params->sprite[j + 1].second;
 				params->sprite[j + 1].second = tmp;
+			}
+			if (params->sprite[j].first > params->sprite[j + 1].first)
+			{
+				tmp = params->sprite[j].first;
+				params->sprite[j].first = params->sprite[j + 1].first;
+				params->sprite[j + 1].first = tmp;
 			}
 			j++;
 		}

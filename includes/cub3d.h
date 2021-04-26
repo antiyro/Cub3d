@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 14:34:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:11:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,8 @@ int					ft_sprite_pos(t_params *params);
 int					ft_verify_arg(t_params *params);
 int 				ft_count_comas(char	*str);
 int					ft_verify_save(t_params *params);
+void				ft_tabcpy2(t_params *params);
+void				ft_print_tab(int **tab);	
 
 
 //parsing

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 14:29:49 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:59:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,6 @@ int         ft_rays(t_params *params)
         params->ZBuffer[i] = params->ray.wallDist;
         i++;
     }
-    ft_sprites(params);
     return (1);
 }
 
@@ -253,18 +252,7 @@ int     ft_sprites(t_params *params)
     double invDet;
     double transformX;
     double transformY;
-    i = 0;
 
-    while (i < params->x)
-    {
-        int h = 0;
-        while (h < params->x)
-        {
-            params->ray.scolortab[i][h] = 0;
-            h++;
-        }
-        i++;
-    }
     i = 0;
     while (i < params->numSprite)
     {
@@ -312,17 +300,13 @@ int     ft_sprites(t_params *params)
             if ((transformY > 0) && (stripe > 0) && (stripe < params->x) && (transformY < params->ZBuffer[stripe]))
             {
                 y = drawStartY;
-                int j = 0;
                 while (y < drawEndY)
                 {
                     d = (y - vMoveScreen) * 256 - params->y * 128 + spriteHeight * 128;
                     params->text.texY = ((d * params->texture[4].height) / spriteHeight) / 256;
                     params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
                     if ((params->text.color & 0x00FFFFFF) != 0 || params->text.color != 0)
-                        params->ray.scolortab[j][stripe] = params->text.color;
-                    else
-                        params->ray.scolortab[j][stripe] = 0;
-                    j++;
+                        params->window.mlx_img_data[y * params->window.size_line / 4 + stripe] = params->text.color;
                     y++;
                 }
             }
@@ -376,46 +360,7 @@ int        ft_print_map(t_params *params)
         params->window.x++;
         i++;
     }
-    
-    params->window.x = 0;
-    params->window.y = 0;
-    i = 0;
-    int g = 0;
-
-    while (i < params->x)
-    {
-        int count = 0;
-
-        params->window.y = 0;
-        j = 0;
-            while (j < params->ray.sdrawstarttab[i])
-            {
-                params->window.y++;
-                count = 1;
-                j++;
-            }
-            if (!count)
-            {
-                while (j < params->y)
-                {
-                    params->window.y++;
-                    j++;
-                }
-            }
-            k = 0;
-            while (j < params->ray.sdrawendtab[i] && j < params->y && count)
-            {
-                color = params->ray.scolortab[k][i];
-                if (color != 0)
-                    params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
-                params->window.y++;
-                k++;
-                j++;
-            }
-            g++;
-        params->window.x++;
-        i++;
-    }
+    ft_sprites(params);
     /*MINIMAP
     int a;
     int b;

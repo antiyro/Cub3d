@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 10:11:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 15:02:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,8 +249,9 @@ int					ft_verify_arg(t_params *params);
 int 				ft_count_comas(char	*str);
 int					ft_verify_save(t_params *params);
 void				ft_tabcpy2(t_params *params);
-void				ft_print_tab(int **tab);	
-
+void				ft_print_tab(int **tab);
+void				ft_clean(t_params *params);
+int					ft_arg_init(t_params *params, int argc, char **argv);
 
 //parsing
 int					ft_parsing_params(t_params *params);
@@ -283,10 +284,16 @@ int    				ft_init_window(t_params *params);
 void				ft_print_pixel(t_params *params, int color);
 int					ft_print_map(t_params *params);
 int					ft_rays(t_params *params);
-void				ft_print_spawn(t_params *params, int color);
 int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);
-void				ft_sortSprites(t_params *params);
+void				ft_sort_sprites(t_params *params);
+void        		ft_print_save(t_params *params);
+
+//rays
+void    			ft_rays_throw(t_params *params, int *i);
+void    			ft_rays_hit(t_params *params);
+void    			ft_rays_text(t_params *params);
+void    			ft_rays_draw(t_params *params, int *i);
 
 //errors
 void				ft_error_messages(int error);

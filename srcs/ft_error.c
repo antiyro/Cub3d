@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:54:32 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 14:50:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 14:21:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ void	ft_error_wind(int error, char *wind)
 		printf("- Please write with the following format : %s", wind);
 		printf(" /Users/nbouhada/Documents/cub3d/sprite/link1\n");
 		printf("- Choose one of the 4 allowed sprites :\n");
-		printf("- ./textures/wood.xpm\n- ./textures/redbrick.xpm\n- ./textures/stone.xpm\n- ./textures/sand.xpm\n");
+		printf("- ./textures/wood.xpm\n- ./textures/redbrick.xpm\n- ");
+		printf("./textures/stone.xpm\n- ./textures/sand.xpm\n");
 	}
 	else if (error == 3)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_struct.c                                        :+:      :+:    :+:   */
+/*   ft_tools_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 13:35:17 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 15:20:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,4 @@ void		ft_destroy_tabs(t_params *params)
 		ft_free_tab(params->tabs.tab7);
 	if (params->tabs.tab8)
 		ft_free_tab(params->tabs.tab8);
-}
-
-void		ft_destroy_winstruct(t_params *params)
-{
-	free(params->window.mlx);
-	free(params->window.mlx_win);
-	free(params->window.mlx_img);
-	free(params->window.mlx_img_data);
-	ft_free_tab(params->map);
 }

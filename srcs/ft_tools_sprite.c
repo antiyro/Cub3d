@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sprite_tools.c                                  :+:      :+:    :+:   */
+/*   ft_tools_sprite.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 11:50:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 14:16:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int			ft_sprite_pos(t_params *params)
 {
 	int		i;
 	int		j;
-	int 	k;
+	int		k;
 
 	i = 0;
 	k = 0;
-    params->sprite = malloc(sizeof(t_sprite) * params->numSprite);
+	params->sprite = malloc(sizeof(t_sprite) * params->numSprite);
 	while (params->map[i])
 	{
 		j = 0;
@@ -39,11 +39,11 @@ int			ft_sprite_pos(t_params *params)
 	return (1);
 }
 
-void		ft_sortSprites(t_params *params)
+void		ft_sort_sprites(t_params *params)
 {
-	int i;
-	int j;
-	int tmp;
+	int		i;
+	int		j;
+	int		tmp;
 
 	i = 0;
 	while (i < params->numSprite)
@@ -77,8 +77,10 @@ void		ft_sortSprites(t_params *params)
 	i = 0;
 	while (i < params->numSprite)
 	{
-		params->spriteDistance[i] = params->sprite[params->numSprite - i - 1].first;
-		params->spriteOrder[i] = params->sprite[params->numSprite - i - 1].second;
+		params->spriteDistance[i] =
+			params->sprite[params->numSprite - i - 1].first;
+		params->spriteOrder[i] =
+			params->sprite[params->numSprite - i - 1].second;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 15:02:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/26 16:13:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,19 @@ typedef struct	s_sprite
 	int			texture;
 	double		first;
 	double		second;
+	int 		stripe;
+    int 		drawstarty;
+    int 		drawendy;
+    int 		drawstartx;
+    int 		drawendx;
+    int 		spritescreenx;
+    int 		spriteheight;
+    int 		spritewidth;
+    double 		spritex;
+    double 		spritey;
+    double 		invdet;
+    double 		transformx;
+    double 		transformy;
 }		t_sprite;
 
 typedef	struct		s_params
@@ -179,7 +192,8 @@ typedef	struct		s_params
 	int			numSprite;
 	int			*spriteOrder;
 	double		*spriteDistance;
-	double		*ZBuffer;			
+	double		*ZBuffer;
+	t_sprite	spritetools;			
 	t_sprite	*sprite;
 	char		*mapfile;
 }					t_params;
@@ -195,11 +209,13 @@ typedef	struct		s_params
 # define LINK2 "./textures/redbrick.xpm"
 # define LINK3 "./textures/sand.xpm"
 # define LINK4 "./textures/stone.xpm"
-
 # define OBJ1 "./textures/barrel.xpm"
 
 # define SPEED 0.1
 # define ROTSPEED 0.1
+
+#define uDiv 1
+#define vDiv 1
 
 //keys
 

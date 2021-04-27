@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 14:06:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:14:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,14 @@ int			ft_rgb(int nb)
 	return (0);
 }
 
-int			ft_wind(char *str)
+int			ft_wind(char *str, t_params *params)
 {
-	int		tmp;
-
-	tmp = 0;
-	if (!ft_strcmp(str, LINK1))
-		tmp += 1;
-	if (!ft_strcmp(str, LINK2))
-		tmp += 1;
-	if (!ft_strcmp(str, LINK3))
-		tmp += 1;
-	if (!ft_strcmp(str, LINK4))
-		tmp += 1;
-	if (tmp)
-		return (1);
-	return (0);
-}
-
-int			ft_s(char *str)
-{
-	int		tmp;
-
-	tmp = 0;
-	if (!ft_strcmp(str, OBJ1))
-		tmp += 1;
-	if (tmp)
-		return (1);
-	return (0);
+	params->tabs.tab9 = ft_split(str, '.');
+	if (ft_tablen(params->tabs.tab9) != 2)
+		return (0);
+	if (ft_strcmp(params->tabs.tab9[1], "xpm"))
+		return (0);
+	return (1);
 }
 
 int			ft_count_comas(char *str)

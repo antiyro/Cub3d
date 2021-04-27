@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 16:25:32 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 09:52:50 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ int			ft_controls(int key, t_params *params)
 	{
 		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.dirx * SPEED)] == '0')
 			params->ray.posy += params->ray.dirx * SPEED;
+		
 		if (params->map[(int)(params->ray.posx + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
 			params->ray.posx -= params->ray.diry * SPEED;
+		
 	}
 	else if (key == RIGHT)
 	{

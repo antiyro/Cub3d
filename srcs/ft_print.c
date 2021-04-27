@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 16:21:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 09:55:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int			ft_print_map(t_params *params)
 
 void		ft_print_save(t_params *params)
 {
+	int fd;
+
+	fd = open("save.bpm", O_WRONLY);
 	ft_rays(params);
 	ft_print_map(params);
 }

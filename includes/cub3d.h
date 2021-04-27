@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 16:13:08 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:05:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef	struct		s_tabs
 	char	**tab6;
 	char	**tab7;
 	char	**tab8;
+	char	**tab9;
 	char	**mapcpy;
 }			t_tabs;
 
@@ -236,7 +237,7 @@ void				ft_destroy_struct(t_params *params);
 void				ft_destroy_struct2(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);
 int					ft_rgb(int nb);
-int					ft_wind(char *str);
+int					ft_wind(char *str, t_params *params);
 int					ft_s(char *str);
 void				ft_loading(void);
 int					ft_fill_map(t_params *params);

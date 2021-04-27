@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 14:35:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:48:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	ft_clean(t_params *params)
 	}
 	free(params->ray.colortab);
 	ft_destroy_struct(params);
+	ft_destroy_tabs(params);
 	mlx_destroy_display(params->window.mlx);
 }

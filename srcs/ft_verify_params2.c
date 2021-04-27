@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:30 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/17 09:50:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:11:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			ft_verify_no(t_params *params)
 		ft_free_tab(params->tabs.tab2);
 		return (0);
 	}
-	if (!ft_wind(params->tabs.tab2[1]))
+	if (!ft_wind(params->tabs.tab2[1], params))
 	{
 		ft_error_wind(2, params->tabs.tab2[0]);
 		return (0);
@@ -54,7 +54,7 @@ int			ft_verify_we(t_params *params)
 		ft_error_wind(1, params->tabs.tab3[0]);
 		return (0);
 	}
-	if (!ft_wind(params->tabs.tab3[1]))
+	if (!ft_wind(params->tabs.tab3[1], params))
 	{
 		ft_error_wind(2, params->tabs.tab3[0]);
 		return (0);
@@ -80,7 +80,7 @@ int			ft_verify_ea(t_params *params)
 		ft_error_wind(1, params->tabs.tab4[0]);
 		return (0);
 	}
-	if (!ft_wind(params->tabs.tab4[1]))
+	if (!ft_wind(params->tabs.tab4[1], params))
 	{
 		ft_error_wind(2, params->tabs.tab4[0]);
 		return (0);
@@ -106,7 +106,7 @@ int			ft_verify_so(t_params *params)
 		ft_error_wind(1, params->tabs.tab5[0]);
 		return (0);
 	}
-	if (!ft_wind(params->tabs.tab5[1]))
+	if (!ft_wind(params->tabs.tab5[1], params))
 	{
 		ft_error_wind(2, params->tabs.tab5[0]);
 		return (0);
@@ -127,7 +127,7 @@ int			ft_verify_s(t_params *params)
 		ft_error_s(1);
 		return (0);
 	}
-	if (!ft_s(params->tabs.tab6[1]))
+	if (!ft_wind(params->tabs.tab6[1], params))
 	{
 		ft_error_s(2);
 		return (0);

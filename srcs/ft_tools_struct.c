@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 15:20:52 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:39:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,6 @@ void		ft_destroy_tabs(t_params *params)
 		ft_free_tab(params->tabs.tab7);
 	if (params->tabs.tab8)
 		ft_free_tab(params->tabs.tab8);
+	if (params->tabs.tab9)
+		ft_free_tab(params->tabs.tab9);
 }

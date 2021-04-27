@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 15:27:54 by user42            #+#    #+#             */
-/*   Updated: 2021/04/27 13:38:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:57:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int     ft_sprites(t_params *params)
 		if (params->spritetools.drawendx >= params->x)
 			params->spritetools.drawendx = params->x - 1;
 		params->spritetools.stripe = params->spritetools.drawstartx;
-		params->ray.sdrawstartxtab[i] = params->spritetools.drawstartx;
 		while (params->spritetools.stripe < params->spritetools.drawendx)
 		{
 			params->text.texX = (int)(256 * (params->spritetools.stripe - (-params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx)) * params->texture[4].width / params->spritetools.spritewidth) / 256;

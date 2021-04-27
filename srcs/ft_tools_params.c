@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 10:14:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 14:05:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ int			ft_wind(char *str, t_params *params)
 {
 	params->tabs.tab9 = ft_split(str, '.');
 	if (ft_tablen(params->tabs.tab9) != 2)
+	{
+		ft_free_tab(params->tabs.tab9);
 		return (0);
+	}
 	if (ft_strcmp(params->tabs.tab9[1], "xpm"))
+	{
+		ft_free_tab(params->tabs.tab9);
 		return (0);
+	}
+	ft_free_tab(params->tabs.tab9);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/22 14:37:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 14:49:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,6 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	else
 	{
 		free(str);
-		ft_free_tab(params->map);
 		ft_destroy_struct(params);
 		ft_destroy_tabs(params);
 		return (0);

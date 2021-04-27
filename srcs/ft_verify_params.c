@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:51:17 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 10:40:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 14:06:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			ft_verify_params(t_params *params)
 		ft_destroy_tabs(params);
 		return (0);
 	}
-	//ft_destroy_tabs(params);
 	return (1);
 }
 

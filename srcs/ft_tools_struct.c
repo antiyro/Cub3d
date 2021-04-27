@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 13:36:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 14:48:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void		ft_init_struct(t_params *params)
 
 void		ft_init_struct2(t_params *params)
 {
+	params->ray.drawendtab = 0;
+	params->ray.drawstarttab = 0;
+	params->ray.sidetab = 0;
+	params->ZBuffer = 0;
+	params->spriteOrder = 0;
+	params->spriteDistance = 0;
+	params->sprite = 0;
+	params->map = 0;
 	params->wallup = 0;
 	params->walldown = 0;
 	params->wallleft = 0;
@@ -132,6 +140,4 @@ void		ft_destroy_tabs(t_params *params)
 		ft_free_tab(params->tabs.tab7);
 	if (params->tabs.tab8)
 		ft_free_tab(params->tabs.tab8);
-	if (params->tabs.tab9)
-		ft_free_tab(params->tabs.tab9);
 }

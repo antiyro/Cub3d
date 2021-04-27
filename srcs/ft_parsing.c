@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 14:49:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 15:56:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 			printf("Paramaters parsing done with success !\n");
 		else
 		{
-			ft_destroy_struct(params);
 			printf("- Parameters parsing returned error\n");
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 13:15:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 15:32:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ typedef	struct		s_params
 //tools
 void				ft_init_struct(t_params *params);
 void				ft_init_struct2(t_params *params);
+void				ft_init_struct3(t_params *params);
 void				ft_destroy_struct(t_params *params);
 void				ft_destroy_struct2(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);

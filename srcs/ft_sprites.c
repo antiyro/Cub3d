@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 15:27:54 by user42            #+#    #+#             */
-/*   Updated: 2021/04/26 16:26:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:38:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int     ft_sprites(t_params *params)
 					y++;
 				}
 			}
-			params->ray.sdrawendtab[params->spritetools.stripe] = params->spritetools.drawendy;
-			params->ray.sdrawstarttab[params->spritetools.stripe] = params->spritetools.drawstarty;
 			params->spritetools.stripe++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/26 14:14:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:15:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ void		ft_loading(void)
 }
 
 void		ft_free_tab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void		ft_free_tabi(int **tab)
 {
 	int		i;
 

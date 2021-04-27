@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 10:39:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:36:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,22 @@ void		ft_destroy_struct(t_params *params)
 		free(params->ea);
 	if (params->mapfile)
 		free(params->mapfile);
+	if (params->ray.drawendtab)
+		free(params->ray.drawendtab);
+	if (params->ray.drawstarttab)
+		free(params->ray.drawstarttab);
+	if (params->ZBuffer)
+		free(params->ZBuffer);
+	if (params->ray.sidetab)
+		free(params->ray.sidetab);
+	if (params->spriteOrder)
+		free(params->spriteOrder);
+	if (params->spriteDistance)
+		free(params->spriteDistance);
+	if (params->sprite)
+		free(params->sprite);
+	if (params->map)
+		ft_free_tab(params->map);
 	ft_destroy_struct2(params);
 }
 

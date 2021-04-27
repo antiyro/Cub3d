@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:41:59 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 10:48:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:16:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int		main(int argc, char **argv)
 			mlx_destroy_display(params.window.mlx);
 			return (0);
 		}
-		if (!ft_init_window(&params))
-			return (0);
+		ft_init_window(&params);
 		ft_clean(&params);
 	}
 	return (0);
@@ -67,9 +66,6 @@ void	ft_clean(t_params *params)
 
 	i = 0;
 	mlx_loop(params->window.mlx);
-	free(params->ray.sidetab);
-	free(params->ray.drawstarttab);
-	free(params->ray.drawendtab);
 	while (i < params->x)
 	{
 		free(params->ray.colortab[i]);

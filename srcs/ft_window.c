@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 09:52:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 12:25:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,11 @@ int			ft_init_var(t_params *params)
 	params->spriteDistance = malloc(sizeof(double) * params->numSprite);
 	params->ray.drawendtab = malloc(sizeof(int) * params->x);
 	params->ray.drawstarttab = malloc(sizeof(int) * params->x);
-	params->ray.sdrawendtab = malloc(sizeof(int) * params->x);
-	params->ray.sdrawstarttab = malloc(sizeof(int) * params->x);
 	params->ray.sidetab = malloc(sizeof(int) * params->x);
 	params->ray.colortab = malloc(sizeof(int *) * params->x);
-	params->ray.sdrawstartxtab = malloc(sizeof(int) * params->numSprite);
-	params->ray.scolortab = malloc(sizeof(int *) * params->x);
 	while (v < params->x)
 	{
 		params->ray.colortab[v] = malloc(sizeof(int) * params->x);
-		params->ray.scolortab[v] = malloc(sizeof(int) * params->x);
 		v++;
 	}
 	return (1);
@@ -43,10 +38,11 @@ int			ft_init_window(t_params *params)
 	ft_putstr_fd("Opening window", 0);
 	ft_loading();
 	ft_init_var(params);
-	if (!ft_load_text(params, 0))
+	if (!ft_load_text(params) || !ft_load_text2(params))
+	{
+		ft_error_texture(0);
 		return (0);
-	if (!ft_load_text2(params, 0))
-		return (0);
+	}
 	params->window.mlx_win =
 		mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
 	params->ray.posy = params->spawn.x;

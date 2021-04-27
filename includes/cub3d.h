@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 10:05:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/04/27 13:15:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,9 +252,10 @@ int					ft_spawn(char c);
 int         		ft_digit(int digit, t_params *params);
 int					ft_controls(int key, t_params *params);
 void				ft_free_tab(char **tab);
+void				ft_free_tabi(int **tab);
 void				ft_set_ray(t_params *params);
-int					ft_load_text(t_params *params, int error);
-int					ft_load_text2(t_params *params, int error);
+int					ft_load_text(t_params *params);
+int					ft_load_text2(t_params *params);
 int        			ft_destroy_window(int key, t_params *params);
 void				ft_rgbtohex(t_params *params);
 void				ft_setTexnum(t_params *params);

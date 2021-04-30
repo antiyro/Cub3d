@@ -194,7 +194,7 @@ typedef	struct		s_params
 	int			*spriteOrder;
 	double		*spriteDistance;
 	double		*ZBuffer;
-	t_sprite	spritetools;			
+	t_sprite	spritet;			
 	t_sprite	*sprite;
 	char		*mapfile;
 	int			bitspp;
@@ -306,6 +306,8 @@ void				ft_print_map(t_params *params);
 void				ft_print_map2(t_params *params, int *j, int *i, int *k);
 int					ft_rays(t_params *params);
 int     			ft_sprites(t_params *params);
+void				ft_sprites2(t_params *params);
+void				ft_sprites3(t_params *params, int *vmovescreen);
 void				ft_spritehw(t_params *params, int *vmovescreen);
 int         		ft_init_var(t_params *params);
 void				ft_sort_sprites(t_params *params);

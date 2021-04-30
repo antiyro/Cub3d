@@ -15,10 +15,6 @@
 int			ft_sprites(t_params *params)
 {
 	int		i;
-	int		y;
-	int		d;
-	int		vmovescreen;
-	int		vmove;
 
 	i = 0;
 	while (i < params->numSprite)
@@ -31,33 +27,13 @@ int			ft_sprites(t_params *params)
 	i = 0;
 	while (i < params->numSprite)
 	{
-		params->spritetools.spritex = params->sprite[params->spriteOrder[i]].x - params->ray.posx;
-		params->spritetools.spritey = params->sprite[params->spriteOrder[i]].y - params->ray.posy;
-		params->spritetools.invdet = 1.0 / (params->ray.planx * params->ray.diry - params->ray.dirx * params->ray.plany);
-		params->spritetools.transformx = params->spritetools.invdet * (params->ray.diry * params->spritetools.spritex - params->ray.dirx * params->spritetools.spritey);
-		params->spritetools.transformy = params->spritetools.invdet * (-params->ray.plany * params->spritetools.spritex + params->ray.planx * params->spritetools.spritey);
-		params->spritetools.spritescreenx = (int)((params->x / 2) * (1 + params->spritetools.transformx / params->spritetools.transformy));
-		vmove = params->texture[4].height;
-		vmovescreen = (int)(vmove / params->spritetools.transformy);
-		ft_spritehw(params, &vmovescreen);
-		while (params->spritetools.stripe < params->spritetools.drawendx)
-		{
-			params->text.texX = (int)(256 * (params->spritetools.stripe - (-params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx)) * params->texture[4].width / params->spritetools.spritewidth) / 256;
-			if ((params->spritetools.transformy > 0) && (params->spritetools.stripe > 0) && (params->spritetools.stripe < params->x) && (params->spritetools.transformy < params->ZBuffer[params->spritetools.stripe]))
-			{
-				y = params->spritetools.drawstarty;
-				while (y < params->spritetools.drawendy)
-				{
-					d = (y - vmovescreen) * 256 - params->y * 128 + params->spritetools.spriteheight * 128;
-					params->text.texY = ((d * params->texture[4].height) / params->spritetools.spriteheight) / 256;
-					params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
-					if ((params->text.color & 0x00FFFFFF) != 0)
-						params->window.mlx_img_data[y * params->window.size_line / 4 + params->spritetools.stripe] = params->text.color;
-					y++;
-				}
-			}
-			params->spritetools.stripe++;
-		}
+		params->spritet.spritex = params->sprite[params->spriteOrder[i]].x - params->ray.posx;
+		params->spritet.spritey = params->sprite[params->spriteOrder[i]].y - params->ray.posy;
+		params->spritet.invdet = 1.0 / (params->ray.planx * params->ray.diry - params->ray.dirx * params->ray.plany);
+		params->spritet.transformx = params->spritet.invdet * (params->ray.diry * params->spritet.spritex - params->ray.dirx * params->spritet.spritey);
+		params->spritet.transformy = params->spritet.invdet * (-params->ray.plany * params->spritet.spritex + params->ray.planx * params->spritet.spritey);
+		params->spritet.spritescreenx = (int)((params->x / 2) * (1 + params->spritet.transformx / params->spritet.transformy));
+		ft_sprites2(params);
 		i++;
 	}
 	return (1);
@@ -65,26 +41,67 @@ int			ft_sprites(t_params *params)
 
 void		ft_spritehw(t_params *params, int *vmovescreen)
 {
-	
-	params->spritetools.spriteheight =
-		abs((int)(params->y / (params->spritetools.transformy))) / vDiv;
-	params->spritetools.drawstarty =
-		-params->spritetools.spriteheight / 2 + params->y / 2 + *vmovescreen;
-	if (params->spritetools.drawstarty < 0)
-		params->spritetools.drawstarty = 0;
-	params->spritetools.drawendy =
-		params->spritetools.spriteheight / 2 + params->y / 2 + *vmovescreen;
-	if (params->spritetools.drawendy >= params->y)
-		params->spritetools.drawendy = params->y - 1;
-	params->spritetools.spritewidth =
-		abs((int)(params->y / (params->spritetools.transformy))) / uDiv;
-	params->spritetools.drawstartx =
-		-params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
-	if (params->spritetools.drawstartx < 0)
-		params->spritetools.drawstartx = 0;
-	params->spritetools.drawendx =
-		params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
-	if (params->spritetools.drawendx >= params->x)
-		params->spritetools.drawendx = params->x - 1;
-	params->spritetools.stripe = params->spritetools.drawstartx;
+	params->spritet.spriteheight =
+		abs((int)(params->y / (params->spritet.transformy))) / vDiv;
+	params->spritet.drawstarty =
+		-params->spritet.spriteheight / 2 + params->y / 2 + *vmovescreen;
+	if (params->spritet.drawstarty < 0)
+		params->spritet.drawstarty = 0;
+	params->spritet.drawendy =
+		params->spritet.spriteheight / 2 + params->y / 2 + *vmovescreen;
+	if (params->spritet.drawendy >= params->y)
+		params->spritet.drawendy = params->y - 1;
+	params->spritet.spritewidth =
+		abs((int)(params->y / (params->spritet.transformy))) / uDiv;
+	params->spritet.drawstartx =
+	-params->spritet.spritewidth / 2 + params->spritet.spritescreenx;
+	if (params->spritet.drawstartx < 0)
+		params->spritet.drawstartx = 0;
+	params->spritet.drawendx =
+		params->spritet.spritewidth / 2 + params->spritet.spritescreenx;
+	if (params->spritet.drawendx >= params->x)
+		params->spritet.drawendx = params->x - 1;
+	params->spritet.stripe = params->spritet.drawstartx;
+}
+
+void	ft_sprites2(t_params *params)
+{
+	int vmove;
+	int vmovescreen;
+
+	vmove = params->texture[4].height;
+	vmovescreen = (int)(vmove / params->spritet.transformy);
+	ft_spritehw(params, &vmovescreen);
+	while (params->spritet.stripe < params->spritet.drawendx)
+	{
+		params->text.texX = (int)(256 * (params->spritet.stripe - (-params->spritet.spritewidth / 2 + params->spritet.spritescreenx)) * params->texture[4].width / params->spritet.spritewidth) / 256;
+		ft_sprites3(params, &vmovescreen);
+		params->spritet.stripe++;
+	}
+}
+
+void	ft_sprites3(t_params *params, int *vmovescreen)
+{
+	int d;
+	int y;
+
+	if ((params->spritet.transformy > 0) && (params->spritet.stripe > 0)
+	&& (params->spritet.stripe < params->x) && (params->spritet.transformy
+	< params->ZBuffer[params->spritet.stripe]))
+	{
+		y = params->spritet.drawstarty;
+		while (y < params->spritet.drawendy)
+		{
+			d = (y - *vmovescreen) * 256 - params->y * 128 +
+			params->spritet.spriteheight * 128;
+			params->text.texY = ((d * params->texture[4].height) /
+			params->spritet.spriteheight) / 256;
+			params->text.color = params->texture[4].adr[params->text.texY
+			* params->texture[4].size_line / 4 + params->text.texX];
+			if ((params->text.color & 0x00FFFFFF) != 0)
+				params->window.mlx_img_data[y * params->window.size_line
+				/ 4 + params->spritet.stripe] = params->text.color;
+			y++;
+		}
+	}
 }

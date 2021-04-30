@@ -83,46 +83,7 @@ void		ft_init_struct3(t_params *params)
 	params->tabs.tab9 = 0;
 }
 
-void		ft_destroy_struct(t_params *params)
-{
-	if (params->r)
-		free(params->r);
-	if (params->f)
-		free(params->f);
-	if (params->c)
-		free(params->c);
-	if (params->s)
-		free(params->s);
-	if (params->no)
-		free(params->no);
-	if (params->so)
-		free(params->so);
-	if (params->we)
-		free(params->we);
-	if (params->ea)
-		free(params->ea);
-	if (params->mapfile)
-		free(params->mapfile);
-	if (params->ray.drawendtab)
-		free(params->ray.drawendtab);
-	if (params->ray.drawstarttab)
-		free(params->ray.drawstarttab);
-	if (params->ZBuffer)
-		free(params->ZBuffer);
-	if (params->ray.sidetab)
-		free(params->ray.sidetab);
-	if (params->spriteOrder)
-		free(params->spriteOrder);
-	if (params->spriteDistance)
-		free(params->spriteDistance);
-	if (params->sprite)
-		free(params->sprite);
-	if (params->map)
-		ft_free_tab(params->map);
-	ft_destroy_struct2(params);
-}
-
-void		ft_destroy_struct2(t_params *params)
+void		ft_destroy_struct3(t_params *params)
 {
 	if (params->linkno)
 		free(params->linkno);

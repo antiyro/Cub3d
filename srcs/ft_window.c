@@ -30,16 +30,16 @@ int			ft_init_var(t_params *params)
 		params->ray.colortab[v] = malloc(sizeof(int) * params->x);
 		v++;
 	}
-	return (1);
-}
-
-int			ft_init_window(t_params *params)
-{
 	if (!params->save)
 		ft_putstr_fd("Opening window", 0);
 	else
 		ft_putstr_fd("Genarating .bmp", 0);
 	ft_loading();
+	return (1);
+}
+
+int			ft_init_window(t_params *params)
+{
 	ft_init_var(params);
 	if (!ft_load_text(params) || !ft_load_text2(params))
 	{
@@ -61,8 +61,8 @@ int			ft_init_window(t_params *params)
 	}
 	ft_rays(params);
 	ft_print_map(params);
-	mlx_hook(params->window.mlx_win, 2, 1l<<0, ft_controls, params);
-	mlx_hook(params->window.mlx_win, 33, 1L<<17, ft_destroy_window, params);
+	mlx_hook(params->window.mlx_win, 2, 1l << 0, ft_controls, params);
+	mlx_hook(params->window.mlx_win, 33, 1L << 17, ft_destroy_window, params);
 	ft_putstr_fd("Window opened with success !", 0);
 	return (1);
 }
@@ -73,9 +73,8 @@ int			ft_controls(int key, t_params *params)
 	{
 		if (params->map[(int)(params->ray.posx)][(int)((params->ray.posy) + params->ray.dirx * SPEED)] == '0')
 			params->ray.posy += params->ray.dirx * SPEED;
-		if (params->map[(int)((params->ray.posx)  + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0' )
+		if (params->map[(int)((params->ray.posx) + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
 			params->ray.posx -= params->ray.diry * SPEED;
-		
 	}
 	else if (key == RIGHT)
 	{

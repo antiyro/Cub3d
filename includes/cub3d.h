@@ -237,6 +237,7 @@ void				ft_init_struct2(t_params *params);
 void				ft_init_struct3(t_params *params);
 void				ft_destroy_struct(t_params *params);
 void				ft_destroy_struct2(t_params *params);
+void				ft_destroy_struct3(t_params *params);
 void				ft_fill_params(char *str, t_params *params, int *count);
 int					ft_rgb(int nb);
 int					ft_wind(char *str, t_params *params);
@@ -312,6 +313,7 @@ void				ft_sprites3(t_params *params, int *vmovescreen);
 void				ft_spritehw(t_params *params, int *vmovescreen);
 int         		ft_init_var(t_params *params);
 void				ft_sort_sprites(t_params *params);
+void				ft_sort_sprites2(t_params *params, int *i, int *j);
 
 //rays
 void    			ft_rays_throw(t_params *params, int *i);

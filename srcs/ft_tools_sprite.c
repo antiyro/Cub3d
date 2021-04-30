@@ -43,7 +43,6 @@ void		ft_sort_sprites(t_params *params)
 {
 	int		i;
 	int		j;
-	int		tmp;
 
 	i = 0;
 	while (i < params->numSprite)
@@ -52,29 +51,7 @@ void		ft_sort_sprites(t_params *params)
 		params->sprite[i].second = params->spriteOrder[i];
 		i++;
 	}
-	i = 0;
-	while (i < params->numSprite - 1)
-	{
-		j = 0;
-		while (j < params->numSprite - 1)
-		{
-			if (params->sprite[j].first > params->sprite[j + 1].first)
-			{
-				tmp = params->sprite[j].second;
-				params->sprite[j].second = params->sprite[j + 1].second;
-				params->sprite[j + 1].second = tmp;
-			}
-			if (params->sprite[j].first > params->sprite[j + 1].first)
-			{
-				tmp = params->sprite[j].first;
-				params->sprite[j].first = params->sprite[j + 1].first;
-				params->sprite[j + 1].first = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
+	ft_sort_sprites2(params, &i, &j);
 	while (i < params->numSprite)
 	{
 		params->spriteDistance[i] =
@@ -83,4 +60,77 @@ void		ft_sort_sprites(t_params *params)
 			params->sprite[params->numSprite - i - 1].second;
 		i++;
 	}
+}
+
+void		ft_sort_sprites2(t_params *params, int *i, int *j)
+{
+	int tmp;
+
+	*i = 0;
+	while (*i < params->numSprite - 1)
+	{
+		*j = 0;
+		while (*j < params->numSprite - 1)
+		{
+			if (params->sprite[*j].first > params->sprite[*j + 1].first)
+			{
+				tmp = params->sprite[*j].second;
+				params->sprite[*j].second = params->sprite[*j + 1].second;
+				params->sprite[*j + 1].second = tmp;
+			}
+			if (params->sprite[*j].first > params->sprite[*j + 1].first)
+			{
+				tmp = params->sprite[*j].first;
+				params->sprite[*j].first = params->sprite[*j + 1].first;
+				params->sprite[*j + 1].first = tmp;
+			}
+			*j += 1;
+		}
+		*i += 1;
+	}
+	*i = 0;
+}
+
+void		ft_destroy_struct(t_params *params)
+{
+	if (params->r)
+		free(params->r);
+	if (params->f)
+		free(params->f);
+	if (params->c)
+		free(params->c);
+	if (params->s)
+		free(params->s);
+	if (params->no)
+		free(params->no);
+	if (params->so)
+		free(params->so);
+	if (params->we)
+		free(params->we);
+	if (params->ea)
+		free(params->ea);
+	if (params->mapfile)
+		free(params->mapfile);
+	if (params->ray.drawendtab)
+		free(params->ray.drawendtab);
+	ft_destroy_struct2(params);
+	ft_destroy_struct3(params);
+}
+
+void		ft_destroy_struct2(t_params *params)
+{
+	if (params->ray.drawstarttab)
+		free(params->ray.drawstarttab);
+	if (params->ZBuffer)
+		free(params->ZBuffer);
+	if (params->ray.sidetab)
+		free(params->ray.sidetab);
+	if (params->spriteOrder)
+		free(params->spriteOrder);
+	if (params->spriteDistance)
+		free(params->spriteDistance);
+	if (params->sprite)
+		free(params->sprite);
+	if (params->map)
+		ft_free_tab(params->map);
 }

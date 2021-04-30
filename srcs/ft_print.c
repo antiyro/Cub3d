@@ -54,16 +54,65 @@ int			ft_print_map(t_params *params)
 		i++;
 	}
 	ft_sprites(params);
-	mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
+	if (!params->save)
+		mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
+	else
+		ft_save_print(params);
 	mlx_destroy_image(params->window.mlx, params->window.mlx_img);
 	return (1);
 }
 
-void		ft_print_save(t_params *params)
+void		ft_save_header(t_params *params, int fd)
+{
+	int tmp;
+
+	write(fd, "BM", 2);
+	tmp = 14 + 40 + 4 * params->x * params->y;
+	write(fd, &tmp, 4);
+	tmp = 0;
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
+	tmp = 54;
+	write(fd, &tmp, 4);
+	tmp = 40;
+	write(fd, &tmp, 4);
+	write(fd, &params->x, 4);
+	write(fd, &params->y, 4);
+	tmp = 1;
+	write(fd, &tmp, 2);
+	params->bitspp = 32;
+	write(fd, &params->bitspp, 2);
+	tmp = 0;
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+	write(fd, &tmp, 4);
+}
+
+void		ft_save_print(t_params *params)
 {
 	int fd;
+	int i;
+	int j;
 
-	fd = open("save.bpm", O_WRONLY);
-	ft_rays(params);
-	ft_print_map(params);
+	i = 0;
+	params->window.y = params->y;
+	fd = open("save.bpm", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	ft_save_header(params, fd);
+	while (i < params->y)
+	{
+		j = 0;
+		params->window.x = 0;
+		while (j < params->x)
+		{
+			write(fd, &params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x], 4);
+			params->window.x++;
+			j++;
+		}
+		params->window.y--;
+		i++;
+	}
+	//ft_print_map(params);
 }

@@ -197,6 +197,7 @@ typedef	struct		s_params
 	t_sprite	spritetools;			
 	t_sprite	*sprite;
 	char		*mapfile;
+	int			bitspp;
 }					t_params;
 
 // DEFINES
@@ -306,13 +307,15 @@ int					ft_rays(t_params *params);
 int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);
 void				ft_sort_sprites(t_params *params);
-void        		ft_print_save(t_params *params);
 
 //rays
 void    			ft_rays_throw(t_params *params, int *i);
 void    			ft_rays_hit(t_params *params);
 void    			ft_rays_text(t_params *params);
 void    			ft_rays_draw(t_params *params, int *i);
+
+void		ft_save_header(t_params *params, int fd);
+void		ft_save_print(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

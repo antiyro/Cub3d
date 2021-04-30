@@ -67,7 +67,7 @@ int     ft_sprites(t_params *params)
 					d = (y - vMoveScreen) * 256 - params->y * 128 + params->spritetools.spriteheight * 128;
 					params->text.texY = ((d * params->texture[4].height) / params->spritetools.spriteheight) / 256;
 					params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
-					if ((params->text.color & 0x00FFFFFF) != 0 || params->text.color != 0)
+					if ((params->text.color & 0x00FFFFFF) != 0)
 						params->window.mlx_img_data[y * params->window.size_line / 4 + params->spritetools.stripe] = params->text.color;
 					y++;
 				}

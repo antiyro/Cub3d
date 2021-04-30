@@ -16,9 +16,7 @@ int		main(int argc, char **argv)
 {
 	t_params params;
 
-	(void)argc;
-	(void)argv;
-	if (argc < 1 && argc > 3)
+	if (argc > 3)
 	{
 		printf("Error\nWrong number of parameters\nPlease give a map and you");
 		printf(" may also want to add the \"--save\" parameter");
@@ -77,5 +75,4 @@ void	ft_clean(t_params *params)
 	}
 	ft_destroy_struct(params);
 	ft_destroy_tabs(params);
-	mlx_destroy_display(params->window.mlx);
 }

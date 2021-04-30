@@ -51,7 +51,8 @@ int			ft_init_window(t_params *params)
 	ft_rgbtohex(params);
 	if (params->save)
 	{
-		ft_print_save(params);
+		ft_rays(params);
+		ft_print_map(params);
 		return (1);
 	}
 	ft_rays(params);

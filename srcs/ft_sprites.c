@@ -12,11 +12,13 @@
 
 #include "../includes/cub3d.h"
 
-int     ft_sprites(t_params *params)
+int			ft_sprites(t_params *params)
 {
-	int i;
-	int y;
-	int d;
+	int		i;
+	int		y;
+	int		d;
+	int		vmovescreen;
+	int		vmove;
 
 	i = 0;
 	while (i < params->numSprite)
@@ -35,27 +37,9 @@ int     ft_sprites(t_params *params)
 		params->spritetools.transformx = params->spritetools.invdet * (params->ray.diry * params->spritetools.spritex - params->ray.dirx * params->spritetools.spritey);
 		params->spritetools.transformy = params->spritetools.invdet * (-params->ray.plany * params->spritetools.spritex + params->ray.planx * params->spritetools.spritey);
 		params->spritetools.spritescreenx = (int)((params->x / 2) * (1 + params->spritetools.transformx / params->spritetools.transformy));
-
-		#define vMove params->texture[4].height
-		int vMoveScreen = (int)(vMove / params->spritetools.transformy);
-
-		//height
-		params->spritetools.spriteheight = abs((int)(params->y / (params->spritetools.transformy))) / vDiv;
-		params->spritetools.drawstarty = -params->spritetools.spriteheight / 2 + params->y / 2 + vMoveScreen;
-		if (params->spritetools.drawstarty < 0)
-			params->spritetools.drawstarty = 0;
-		params->spritetools.drawendy = params->spritetools.spriteheight / 2 + params->y / 2 + vMoveScreen;
-		if (params->spritetools.drawendy >= params->y)
-			params->spritetools.drawendy = params->y - 1;
-		//width
-		params->spritetools.spritewidth = abs((int)(params->y / (params->spritetools.transformy))) / uDiv;
-		params->spritetools.drawstartx = -params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
-		if (params->spritetools.drawstartx < 0)
-			params->spritetools.drawstartx = 0;
-		params->spritetools.drawendx = params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
-		if (params->spritetools.drawendx >= params->x)
-			params->spritetools.drawendx = params->x - 1;
-		params->spritetools.stripe = params->spritetools.drawstartx;
+		vmove = params->texture[4].height;
+		vmovescreen = (int)(vmove / params->spritetools.transformy);
+		ft_spritehw(params, &vmovescreen);
 		while (params->spritetools.stripe < params->spritetools.drawendx)
 		{
 			params->text.texX = (int)(256 * (params->spritetools.stripe - (-params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx)) * params->texture[4].width / params->spritetools.spritewidth) / 256;
@@ -64,7 +48,7 @@ int     ft_sprites(t_params *params)
 				y = params->spritetools.drawstarty;
 				while (y < params->spritetools.drawendy)
 				{
-					d = (y - vMoveScreen) * 256 - params->y * 128 + params->spritetools.spriteheight * 128;
+					d = (y - vmovescreen) * 256 - params->y * 128 + params->spritetools.spriteheight * 128;
 					params->text.texY = ((d * params->texture[4].height) / params->spritetools.spriteheight) / 256;
 					params->text.color = params->texture[4].adr[params->text.texY * params->texture[4].size_line / 4 + params->text.texX];
 					if ((params->text.color & 0x00FFFFFF) != 0)
@@ -77,4 +61,30 @@ int     ft_sprites(t_params *params)
 		i++;
 	}
 	return (1);
+}
+
+void		ft_spritehw(t_params *params, int *vmovescreen)
+{
+	
+	params->spritetools.spriteheight =
+		abs((int)(params->y / (params->spritetools.transformy))) / vDiv;
+	params->spritetools.drawstarty =
+		-params->spritetools.spriteheight / 2 + params->y / 2 + *vmovescreen;
+	if (params->spritetools.drawstarty < 0)
+		params->spritetools.drawstarty = 0;
+	params->spritetools.drawendy =
+		params->spritetools.spriteheight / 2 + params->y / 2 + *vmovescreen;
+	if (params->spritetools.drawendy >= params->y)
+		params->spritetools.drawendy = params->y - 1;
+	params->spritetools.spritewidth =
+		abs((int)(params->y / (params->spritetools.transformy))) / uDiv;
+	params->spritetools.drawstartx =
+		-params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
+	if (params->spritetools.drawstartx < 0)
+		params->spritetools.drawstartx = 0;
+	params->spritetools.drawendx =
+		params->spritetools.spritewidth / 2 + params->spritetools.spritescreenx;
+	if (params->spritetools.drawendx >= params->x)
+		params->spritetools.drawendx = params->x - 1;
+	params->spritetools.stripe = params->spritetools.drawstartx;
 }

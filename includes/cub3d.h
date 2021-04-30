@@ -306,17 +306,21 @@ void				ft_print_map(t_params *params);
 void				ft_print_map2(t_params *params, int *j, int *i, int *k);
 int					ft_rays(t_params *params);
 int     			ft_sprites(t_params *params);
+void				ft_spritehw(t_params *params, int *vmovescreen);
 int         		ft_init_var(t_params *params);
 void				ft_sort_sprites(t_params *params);
 
 //rays
 void    			ft_rays_throw(t_params *params, int *i);
+void				ft_rays_throw2(t_params *params);
 void    			ft_rays_hit(t_params *params);
+void				ft_rays_hit2(t_params *params);
 void    			ft_rays_text(t_params *params);
+void				ft_rays_text2(t_params *params);
 void    			ft_rays_draw(t_params *params, int *i);
 
-void		ft_save_header(t_params *params, int fd);
-void		ft_save_print(t_params *params);
+void				ft_save_header(t_params *params, int fd);
+void				ft_save_print(t_params *params);
 
 //errors
 void				ft_error_messages(int error);

@@ -20,19 +20,16 @@ int			ft_sprites(t_params *params)
 	while (i < params->numSprite)
 	{
 		params->spriteOrder[i] = i;
-		params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) * (params->ray.posx - params->sprite[i].x) + (params->ray.posy - params->sprite[i].y) * (params->ray.posy - params->sprite[i].y));
+		params->spriteDistance[i] = ((params->ray.posx - params->sprite[i].x) *
+		(params->ray.posx - params->sprite[i].x) + (params->ray.posy -
+params->sprite[i].y) * (params->ray.posy - params->sprite[i].y));
 		i++;
 	}
 	ft_sort_sprites(params);
 	i = 0;
 	while (i < params->numSprite)
 	{
-		params->spritet.spritex = params->sprite[params->spriteOrder[i]].x - params->ray.posx;
-		params->spritet.spritey = params->sprite[params->spriteOrder[i]].y - params->ray.posy;
-		params->spritet.invdet = 1.0 / (params->ray.planx * params->ray.diry - params->ray.dirx * params->ray.plany);
-		params->spritet.transformx = params->spritet.invdet * (params->ray.diry * params->spritet.spritex - params->ray.dirx * params->spritet.spritey);
-		params->spritet.transformy = params->spritet.invdet * (-params->ray.plany * params->spritet.spritex + params->ray.planx * params->spritet.spritey);
-		params->spritet.spritescreenx = (int)((params->x / 2) * (1 + params->spritet.transformx / params->spritet.transformy));
+		ft_sprites1(params, &i);
 		ft_sprites2(params);
 		i++;
 	}
@@ -64,26 +61,45 @@ void		ft_spritehw(t_params *params, int *vmovescreen)
 	params->spritet.stripe = params->spritet.drawstartx;
 }
 
-void	ft_sprites2(t_params *params)
+void		ft_sprites1(t_params *params, int *i)
 {
-	int vmove;
-	int vmovescreen;
+	params->spritet.spritex = params->sprite[params->spriteOrder[*i]].x -
+	params->ray.posx;
+	params->spritet.spritey = params->sprite[params->spriteOrder[*i]].y -
+	params->ray.posy;
+	params->spritet.invdet = 1.0 / (params->ray.planx * params->ray.diry -
+	params->ray.dirx * params->ray.plany);
+	params->spritet.transformx = params->spritet.invdet * (params->ray.diry
+	* params->spritet.spritex - params->ray.dirx * params->spritet.spritey);
+	params->spritet.transformy = params->spritet.invdet *
+	(-params->ray.plany * params->spritet.spritex + params->ray.planx
+	* params->spritet.spritey);
+	params->spritet.spritescreenx = (int)((params->x / 2) *
+	(1 + params->spritet.transformx / params->spritet.transformy));
+}
+
+void		ft_sprites2(t_params *params)
+{
+	int		vmove;
+	int		vmovescreen;
 
 	vmove = params->texture[4].height;
 	vmovescreen = (int)(vmove / params->spritet.transformy);
 	ft_spritehw(params, &vmovescreen);
 	while (params->spritet.stripe < params->spritet.drawendx)
 	{
-		params->text.texX = (int)(256 * (params->spritet.stripe - (-params->spritet.spritewidth / 2 + params->spritet.spritescreenx)) * params->texture[4].width / params->spritet.spritewidth) / 256;
+		params->text.texX = (int)(256 * (params->spritet.stripe -
+		(-params->spritet.spritewidth / 2 + params->spritet.spritescreenx))
+		* params->texture[4].width / params->spritet.spritewidth) / 256;
 		ft_sprites3(params, &vmovescreen);
 		params->spritet.stripe++;
 	}
 }
 
-void	ft_sprites3(t_params *params, int *vmovescreen)
+void		ft_sprites3(t_params *params, int *vmovescreen)
 {
-	int d;
-	int y;
+	int		d;
+	int		y;
 
 	if ((params->spritet.transformy > 0) && (params->spritet.stripe > 0)
 	&& (params->spritet.stripe < params->x) && (params->spritet.transformy

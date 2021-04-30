@@ -12,59 +12,66 @@
 
 #include "../includes/cub3d.h"
 
-int			ft_print_map(t_params *params)
+void		ft_print_map(t_params *params)
 {
-	int color;
+	int		j;
+	int		i;
+	int		k;
+
 	params->window.x = 0;
 	params->window.y = 0;
-	params->window.mlx_img = mlx_new_image(params->window.mlx, params->x, params->y);
-	params->window.mlx_img_data = (int *)mlx_get_data_addr(params->window.mlx_img, &params->window.bpp, &params->window.size_line, &params->window.endian);
-	int j;
-	int i;
-	int k;
-
+	params->window.mlx_img = mlx_new_image(params->window.mlx,
+		params->x, params->y);
+	params->window.mlx_img_data = (int*)mlx_get_data_addr(params->window.mlx_img
+	, &params->window.bpp, &params->window.size_line, &params->window.endian);
 	i = 0;
 	while (i < params->x)
 	{
 		params->window.y = 0;
-		j = 0;
-		while (j < params->ray.drawstarttab[i])
-		{
-			params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = params->hexac;
-			params->window.y++;
-			j++;
-		}
-		k = 0;
-		while (j < params->ray.drawendtab[i] && j < params->y)
-		{
-			color = params->ray.colortab[k][i];
-			params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = color;
-			params->window.y++;
-			k++;
-			j++;
-		}
-		while (j < params->y)
-		{
-			params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x] = params->hexaf;
-			params->window.y++;
-			j++;
-		}
-		j = 0;
+		ft_print_map2(params, &j, &i, &k);
 		params->window.x++;
 		i++;
 	}
 	ft_sprites(params);
 	if (!params->save)
-		mlx_put_image_to_window(params->window.mlx, params->window.mlx_win, params->window.mlx_img, 0, 0);
+		mlx_put_image_to_window(params->window.mlx,
+			params->window.mlx_win, params->window.mlx_img, 0, 0);
 	else
 		ft_save_print(params);
 	mlx_destroy_image(params->window.mlx, params->window.mlx_img);
-	return (1);
+}
+
+void		ft_print_map2(t_params *params, int *j, int *i, int *k)
+{
+	*j = 0;
+	while (*j < params->ray.drawstarttab[*i])
+	{
+		params->window.mlx_img_data[params->window.y *
+			params->window.size_line / 4 + params->window.x] = params->hexac;
+		params->window.y++;
+		*j += 1;
+	}
+	*k = 0;
+	while (*j < params->ray.drawendtab[*i] && *j < params->y)
+	{
+		params->window.mlx_img_data[params->window.y * params->window.size_line
+			/ 4 + params->window.x] = params->ray.colortab[*k][*i];
+		params->window.y++;
+		*k += 1;
+		*j += 1;
+	}
+	while (*j < params->y)
+	{
+		params->window.mlx_img_data[params->window.y * params->window.size_line
+			/ 4 + params->window.x] = params->hexaf;
+		params->window.y++;
+		*j += 1;
+	}
 }
 
 void		ft_save_header(t_params *params, int fd)
 {
-	int tmp;
+	int		tmp;
 
 	write(fd, "BM", 2);
 	tmp = 14 + 40 + 4 * params->x * params->y;
@@ -93,9 +100,9 @@ void		ft_save_header(t_params *params, int fd)
 
 void		ft_save_print(t_params *params)
 {
-	int fd;
-	int i;
-	int j;
+	int		fd;
+	int		i;
+	int		j;
 
 	i = 0;
 	params->window.y = params->y;
@@ -107,12 +114,14 @@ void		ft_save_print(t_params *params)
 		params->window.x = 0;
 		while (j < params->x)
 		{
-			write(fd, &params->window.mlx_img_data[params->window.y * params->window.size_line / 4 + params->window.x], 4);
+			write(fd, &params->window.mlx_img_data[params->window.y
+				* params->window.size_line / 4 + params->window.x], 4);
 			params->window.x++;
 			j++;
 		}
 		params->window.y--;
 		i++;
 	}
+	ft_putstr_fd("bmp file generated with success !", 0);
 	exit(1);
 }

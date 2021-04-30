@@ -302,7 +302,8 @@ int					ft_verify_garbage(t_params *params);
 //window
 int    				ft_init_window(t_params *params);
 void				ft_print_pixel(t_params *params, int color);
-int					ft_print_map(t_params *params);
+void				ft_print_map(t_params *params);
+void				ft_print_map2(t_params *params, int *j, int *i, int *k);
 int					ft_rays(t_params *params);
 int     			ft_sprites(t_params *params);
 int         		ft_init_var(t_params *params);

@@ -28,8 +28,8 @@ int			ft_sprite_pos(t_params *params)
 		{
 			if (params->map[i][j] == '2')
 			{
-				params->sprite[k].x = i;
-				params->sprite[k].y = j;
+				params->sprite[k].x = i + 0.5;
+				params->sprite[k].y = j + 0.5;
 				k++;
 			}
 			j++;

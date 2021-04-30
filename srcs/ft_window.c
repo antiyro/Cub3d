@@ -35,7 +35,10 @@ int			ft_init_var(t_params *params)
 
 int			ft_init_window(t_params *params)
 {
-	ft_putstr_fd("Opening window", 0);
+	if (!params->save)
+		ft_putstr_fd("Opening window", 0);
+	else
+		ft_putstr_fd("Genarating .bmp", 0);
 	ft_loading();
 	ft_init_var(params);
 	if (!ft_load_text(params) || !ft_load_text2(params))
@@ -43,8 +46,9 @@ int			ft_init_window(t_params *params)
 		ft_error_texture(0);
 		return (0);
 	}
-	params->window.mlx_win =
-		mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
+	if (!params->save)
+		params->window.mlx_win =
+			mlx_new_window(params->window.mlx, params->x, params->y, "cub3d");
 	params->ray.posy = params->spawn.x;
 	params->ray.posx = params->spawn.y;
 	ft_set_dirplan(params);

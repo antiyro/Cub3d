@@ -114,5 +114,5 @@ void		ft_save_print(t_params *params)
 		params->window.y--;
 		i++;
 	}
-	//ft_print_map(params);
+	exit(1);
 }

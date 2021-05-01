@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_window.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/28 09:37:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/01 16:45:12 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,30 @@ int			ft_controls(int key, t_params *params)
 {
 	if (key == LEFT)
 	{
-		if (params->map[(int)(params->ray.posx)][(int)((params->ray.posy) + params->ray.dirx * SPEED)] == '0')
+		if (params->map[(int)(params->ray.posx)][(int)((params->ray.posy) + params->ray.dirx * (SPEED + 0.2))] == '0')
 			params->ray.posy += params->ray.dirx * SPEED;
-		if (params->map[(int)((params->ray.posx) + params->ray.diry * SPEED)][(int)(params->ray.posy)] == '0')
+		if (params->map[(int)((params->ray.posx) + params->ray.diry * (SPEED + 0.2))][(int)(params->ray.posy)] == '0')
 			params->ray.posx -= params->ray.diry * SPEED;
 	}
 	else if (key == RIGHT)
 	{
-		if (params->map[(int)(params->ray.posx)][(int)((params->ray.posy) - params->ray.dirx * SPEED)] == '0')
+		if (params->map[(int)(params->ray.posx)][(int)((params->ray.posy) - params->ray.dirx * (SPEED + 0.2))] == '0')
 			params->ray.posy -= params->ray.dirx * SPEED;
-		if (params->map[(int)((params->ray.posx) - params->ray.diry * SPEED)][(int)(params->ray.posy - 0.3)] == '0')
+		if (params->map[(int)((params->ray.posx) - params->ray.diry * (SPEED + 0.2))][(int)(params->ray.posy - 0.3)] == '0')
 			params->ray.posx += params->ray.diry * SPEED;
 	}
 	else if (key == BACK)
 	{
-		if (params->map[(int)(params->ray.posx - params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0')
+		if (params->map[(int)(params->ray.posx - params->ray.dirx * (SPEED + 0.2))][(int)(params->ray.posy)] == '0')
 			params->ray.posx -= params->ray.dirx * SPEED;
-		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.diry * SPEED)] == '0')
+		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy - params->ray.diry * (SPEED + 0.2))] == '0')
 			params->ray.posy -= params->ray.diry * SPEED;
 	}
 	else if (key == FORWARD)
 	{
-		if (params->map[(int)(params->ray.posx + params->ray.dirx * SPEED)][(int)(params->ray.posy)] == '0')
+		if (params->map[(int)(params->ray.posx + params->ray.dirx * (SPEED + 0.2))][(int)(params->ray.posy)] == '0')
 			params->ray.posx += params->ray.dirx * SPEED;
-		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * SPEED)] == '0')
+		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * (SPEED + 0.2))] == '0')
 			params->ray.posy += params->ray.diry * SPEED;
 	}
 	else if (key == ROT_RIGHT)

@@ -8,7 +8,7 @@ SRCS =		srcs/cub3d.c srcs/ft_error.c srcs/ft_error2.c srcs/ft_parsing.c \
 	 		srcs/ft_tools.c srcs/ft_tools_window.c srcs/ft_verify_map.c \
 			srcs/ft_verify_params.c srcs/ft_verify_params2.c srcs/get_next_line.c \
 			srcs/ft_window.c srcs/ft_tools_set.c srcs/ft_rays.c srcs/ft_rays2.c\
-			srcs/ft_tools_sprite.c srcs/ft_tools_map.c srcs/ft_tools_params.c \
+			srcs/ft_tools_sprite.c srcs/ft_tools_map.c srcs/ft_tools_params.c srcs/ft_verify_flood.c\
 			srcs/ft_tools_struct.c srcs/ft_sprites.c srcs/ft_print.c srcs/ft_parsing_map.c\
 
 PATH_SRCS = ./

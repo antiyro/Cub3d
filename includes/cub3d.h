@@ -278,6 +278,7 @@ int					ft_arg_init(t_params *params, int argc, char **argv);
 //parsing
 int					ft_parsing_params(t_params *params);
 int					ft_parsing_params2(t_params *params, int *count, int fd, int *i);
+int			ft_parsing_params3(t_params *params, int *count, int fd, int *i, char *str);
 int					ft_parsing_map(t_params *params, int fd, int *i);
 int		ft_parsing_map2(int fd, char *str);
 int			ft_parsing_map3(char *str, int *i, int *error);

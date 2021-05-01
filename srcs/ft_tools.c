@@ -57,12 +57,6 @@ void		ft_free_tabi(int **tab)
 	free(tab);
 }
 
-void		ft_rgbtohex(t_params *params)
-{
-	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
-	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
-}
-
 int			ft_verify_arg(t_params *params)
 {
 	if (!params->mapfile)

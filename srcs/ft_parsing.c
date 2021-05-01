@@ -47,27 +47,37 @@ int			ft_fill_map(t_params *params)
 	char	*str;
 
 	i = 0;
+	str = 0;
 	fd = open(params->mapfile, O_RDONLY);
 	if (fd < 0)
 	{
 		ft_error_system(1);
 		return (0);
 	}
+	if (!ft_fill_map2(params, fd, &i))
+		return (0);
+	return (1);
+}
+
+int			ft_fill_map2(t_params *params, int fd, int *i)
+{
+	char	*str;
+
 	while (get_next_line(fd, &str) > 0)
 	{
 		if (ft_checkismap(str))
 		{
-			params->map[i] = ft_strdup(str);
-			i++;
+			params->map[*i] = ft_strdup(str);
+			*i += 1;
 		}
 		free(str);
 	}
-	if (ft_checkismap(str) && i > 0)
+	if (ft_checkismap(str) && *i > 0)
 	{
-		params->map[i] = ft_strdup(str);
-		i++;
+		params->map[*i] = ft_strdup(str);
+		*i += 1;
 	}
-	if (i != ft_tablen(params->map))
+	if (*i != ft_tablen(params->map))
 	{
 		ft_error_map(4);
 		free(str);
@@ -77,7 +87,7 @@ int			ft_fill_map(t_params *params)
 	return (1);
 }
 
-int		ft_parsing_params(t_params *params)
+int			ft_parsing_params(t_params *params)
 {
 	char	*str;
 	int		count;
@@ -116,7 +126,7 @@ int		ft_parsing_params(t_params *params)
 	return (1);
 }
 
-int		ft_parsing_params2(t_params *params, int *count, int fd, int *i)
+int			ft_parsing_params2(t_params *params, int *count, int fd, int *i)
 {
 	if (*count > 424240)
 	{
@@ -150,6 +160,24 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 	int		error;
 
 	error = 0;
+	str = 0;
+	if (!ft_parsing_map2(fd, str))
+		return (0);
+	while (get_next_line(fd, &str) > 0)
+	{
+		if (!ft_parsing_map3(str, i, &error))
+			return (0);
+	}
+	if (ft_checkismap(str))
+		*i += 1;
+	if (!ft_parsing_map4(params, i, str))
+		return (0);
+	free(str);
+	return (1);
+}
+
+int			ft_parsing_map2(int fd, char *str)
+{
 	ft_putstr_fd("Parsing map matrix", 0);
 	ft_loading();
 	while (get_next_line(fd, &str) > 0)
@@ -172,36 +200,40 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		}
 		free(str);
 	}
-	while (get_next_line(fd, &str) > 0)
-	{
-		if (ft_checkismap(str))
-		{
-			if (error)
-			{
-				ft_error_map(1);
-				free(str);
-				return (0);
-			}
-			*i += 1;
-		}
-		else if ((!ft_checkismap(str)))
-		{
-			if (ft_checkisspace(str))
-			{
-				*i += 0;
-				error = 1;
-			}
-			else if (!ft_checkisspace(str))
-			{
-				ft_error_map(1);
-				free(str);
-				return (0);
-			}
-		}
-		free(str);
-	}
+	return (1);
+}
+
+int			ft_parsing_map3(char *str, int *i, int *error)
+{
 	if (ft_checkismap(str))
+	{
+		if (*error)
+		{
+			ft_error_map(1);
+			free(str);
+			return (0);
+		}
 		*i += 1;
+	}
+	else if ((!ft_checkismap(str)))
+	{
+		if (ft_checkisspace(str))
+			*i += 0;
+		if (ft_checkisspace(str))
+			*error = 1;
+		else if (!ft_checkisspace(str))
+		{
+			ft_error_map(1);
+			free(str);
+			return (0);
+		}
+	}
+	free(str);
+	return (1);
+}
+
+int		ft_parsing_map4(t_params *params, int *i, char *str)
+{
 	if (*i > 0)
 	{
 		params->map = malloc(sizeof(char *) * (*i + 2));
@@ -224,6 +256,5 @@ int			ft_parsing_map(t_params *params, int fd, int *i)
 		ft_destroy_tabs(params);
 		return (0);
 	}
-	free(str);
 	return (1);
 }

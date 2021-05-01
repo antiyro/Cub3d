@@ -53,3 +53,9 @@ int			ft_count_comas(char *str)
 		return (0);
 	return (1);
 }
+
+void		ft_rgbtohex(t_params *params)
+{
+	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
+	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
+}

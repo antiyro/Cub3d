@@ -6,7 +6,7 @@
 /*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 09:58:40 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/05/01 16:45:12 by antiyro          ###   ########.fr       */
+/*   Updated: 2021/05/04 09:22:30 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,10 @@ int			ft_controls(int key, t_params *params)
 	}
 	else if (key == FORWARD)
 	{
-		if (params->map[(int)(params->ray.posx + params->ray.dirx * (SPEED + 0.2))][(int)(params->ray.posy)] == '0')
+		ft_putchar_fd(params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * (SPEED + 0.2))], 0);
+		if (params->map[(int)((params->ray.posx + 0.1) + params->ray.dirx * (SPEED + 0.2))][(int)(params->ray.posy)] == '0')
 			params->ray.posx += params->ray.dirx * SPEED;
-		if (params->map[(int)(params->ray.posx)][(int)(params->ray.posy + params->ray.diry * (SPEED + 0.2))] == '0')
+		if (params->map[(int)(params->ray.posx + 0.1)][(int)(params->ray.posy + params->ray.diry * (SPEED + 0.2))] == '0')
 			params->ray.posy += params->ray.diry * SPEED;
 	}
 	else if (key == ROT_RIGHT)

@@ -6,7 +6,7 @@
 /*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:54:38 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/05/01 11:07:52 by antiyro          ###   ########.fr       */
+/*   Updated: 2021/05/04 19:01:29 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int			ft_verify_map(t_params *params)
 {
 	if (!ft_verify_walls(params))
 		return (0);
+	params->tabs.mapcpy = ft_tabcpy(params->map);
 	if (!ft_verify_flood(params))
 	{
 		ft_error_map(2);

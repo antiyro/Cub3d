@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 10:42:41 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 15:32:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/04 18:59:23 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@
 // STRUCTURES
 
 struct	s_sprite;
+
+typedef struct s_flood
+{
+	int i;
+	int j;
+	int x;
+	int y;
+	int error;
+}				t_flood;
 
 typedef struct s_window
 {
@@ -196,6 +205,7 @@ typedef	struct		s_params
 	double		*ZBuffer;
 	t_sprite	spritet;			
 	t_sprite	*sprite;
+	t_flood		flood;
 	char		*mapfile;
 	int			bitspp;
 }					t_params;
@@ -274,6 +284,7 @@ void				ft_tabcpy2(t_params *params);
 void				ft_print_tab(int **tab);
 void				ft_clean(t_params *params);
 int					ft_arg_init(t_params *params, int argc, char **argv);
+void				ft_reswall(t_params *params);
 
 //parsing
 int					ft_parsing_params(t_params *params);
@@ -301,6 +312,10 @@ int					ft_verify_all(t_params *params, int *count);
 int					ft_verify_map(t_params *params);
 int					ft_verify_walls(t_params *params);
 int					ft_verify_flood(t_params *params);
+int					ft_verify_flood2(t_params *params);
+int					ft_verify_flood3(t_params *params);
+int					ft_verify_flood4(t_params *params);
+int					ft_verify_flood5(t_params *params);
 int					ft_verify_spaces(t_params *params);
 int					ft_verify_spawn(t_params *params);
 int					ft_verify_garbage(t_params *params);

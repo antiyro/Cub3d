@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tools_params.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 14:05:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/04 19:04:02 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,12 @@ void		ft_rgbtohex(t_params *params)
 {
 	params->hexac = 256 * 256 * params->c_r + 256 * params->c_g + params->c_b;
 	params->hexaf = 256 * 256 * params->f_r + 256 * params->f_g + params->f_b;
+}
+
+void		ft_reswall(t_params *params)
+{
+	params->wallup = 0;
+	params->wallright = 0;
+	params->wallleft = 0;
+	params->walldown = 0;
 }

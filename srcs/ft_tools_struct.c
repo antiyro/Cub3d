@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tools_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 13:31:34 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 15:31:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/04 18:41:34 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void		ft_init_struct3(t_params *params)
 	params->tabs.tab7 = 0;
 	params->tabs.tab8 = 0;
 	params->tabs.tab9 = 0;
+	params->flood.x = 0;
+	params->flood.y = 0;
+	params->flood.i = 1;
+	params->flood.j = 0;
+	params->flood.error = 0;
 }
 
 void		ft_destroy_struct3(t_params *params)

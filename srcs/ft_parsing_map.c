@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*   ft_parsing_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: antiyro <antiyro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 11:35:08 by nbouhada          #+#    #+#             */
-/*   Updated: 2021/04/27 15:56:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/05/04 19:22:51 by antiyro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,6 @@ int			ft_parsing_map4(t_params *params, int *i, char *str)
 	else
 	{
 		free(str);
-		ft_destroy_struct(params);
-		ft_destroy_tabs(params);
 		return (0);
 	}
 	return (1);
